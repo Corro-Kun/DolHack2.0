@@ -1,0 +1,49 @@
+.SessionBoxMain{
+    display: flex;
+    height: 350px;
+    width: 300px;
+    padding: 20px 20px 20px 20px;
+    background-color: var(--BG2_color);
+    border: 2px solid #111111;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #111111;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    word-wrap: break-word;
+    transform: scale(1);
+    overflow: hidden;
+    transition: .5s ease;
+}
+.SessionBoxMain:hover{
+    background-color: var(--BG_Color);
+    border: 2px solid var(--Main_Color);
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--Main_Color);
+}
+.SessionBoxMain button{
+    margin: 0 30px 0 30px;
+    padding: 10px 20px 10px 20px;
+    font-size: 1.2em;
+    color: aliceblue;
+    cursor: pointer;
+    background-color: var(--Main_Color);
+    border: none;
+    border-radius: 10px;
+    transition: .5s ease;
+}
+.SessionBoxMain button:hover{
+    background-color: #111111;
+    border: 1px solid var(--Main_Color);
+}
+.SessionBoxMain h1{
+    font-size: 4em;
+    color: var(--Main_Color);
+}
+.SessionBoxMain h2{
+    color: var(--Text_Color);
+    transition: .5s;
+}
+.SessionBoxMain:hover h2{
+    text-shadow: 0 0 4px #fff;
+}
