@@ -1,0 +1,72 @@
+.BoxRegister-Render{
+    display: flex;
+    height: 80%;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.BoxRegister-Div{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.InputFile-Register{
+    display: none;
+}
+.BoxRegister-Div button{
+    padding: 10px 12px 10px 12px;
+    background-color: var(--Main_Color);
+    color: var(--Text_Color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.BoxRegister-Div button:hover{
+    box-shadow: 0 0 10px var(--Main_Color);
+}
+.BoxRegister-Div textarea{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px 8px;
+    height: 100px;
+    width: 450px;
+    border-radius: 5px;
+    color: var(--Text_Color);
+    background-color: var(--BG2_color);
+    border: none;
+    border: 1px solid #a0a0a0;
+    outline: none;
+    resize: none;
+}
+.BoxRegister-IMG{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    height: 400px;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 50px 15px 50px 15px;
+    border-bottom: 3px solid var(--Main_Color);
+    border-right: 3px solid var(--Main_Color);
+    box-shadow: 0 0 10px var(--Main_Color);
+    animation: ImgRegister 5s linear infinite;
+}
+.BoxRegister-IMG img{
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes ImgRegister {
+    0%{
+        border-radius: 50px 15px 50px 15px;
+    }
+    50%{
+        border-radius: 50px 50px 50px 50px;
+    } 
+    100%{
+        border-radius: 50px 15px 50px 15px;
+    }
+}

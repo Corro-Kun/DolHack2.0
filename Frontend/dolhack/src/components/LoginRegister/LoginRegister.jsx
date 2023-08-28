@@ -1,13 +1,39 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./LoginRegister.css";
 
 function LoginRegister(){
+    useEffect(()=>{
+        const RegisterBTN = document.querySelector('.Register-link')
+        const LoginLayaut = document.querySelector('.Login-Home')
+        const HomeLR = document.querySelector('.Login-Register-DolHack')
+        const LoginBTN = document.querySelector('.Login-link')
+
+        RegisterBTN.addEventListener('click', ()=> {
+            LoginLayaut.classList.add('login')
+            HomeLR.classList.add('active')
+        })
+        LoginBTN.addEventListener('click', ()=> {
+            LoginLayaut.classList.remove('login')
+            HomeLR.classList.remove('active') 
+        })
+        return () => {
+            RegisterBTN.addEventListener('click', ()=> {
+                LoginLayaut.classList.add('login')
+                HomeLR.classList.add('active')
+            })
+            LoginBTN.addEventListener('click', ()=> {
+                LoginLayaut.classList.remove('login')
+                HomeLR.classList.remove('active') 
+            })
+        }
+    },[])
+
     return(
         <div className="BodyLogin" >
             <div className="Login-Register-DolHack">
                 <div className="Login-Home">
                     <h2>Iniciar sesión</h2>
-                    <form>
+                    <form onSubmit={(e) => e.preventDefault()} >
                         <div className="Input-box">
                             <input type="text" required />
                             <label>Correo</label>
@@ -29,7 +55,7 @@ function LoginRegister(){
 
                 <div className="Login-Home register">
                     <h2>Registrar</h2>
-                    <form>
+                    <form onSubmit={(e) => e.preventDefault()}>
                         <div className="Input-box">
                             <input type="text" required/>
                             <label>Nombre de usuario</label>
