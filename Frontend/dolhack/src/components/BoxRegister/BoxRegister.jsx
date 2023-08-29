@@ -14,6 +14,16 @@ function BoxRegister(){
                 <input className="InputFile-Register" type="file" ref={imgFile} onChange={(e) => setImg(URL.createObjectURL(e.target.files[0])) } />
                 <button className="BTNfile-Register" onClick={() => imgFile.current.click()} style={{backgroundColor: "#fff", color: "#000"}} >Subir foto</button>
                 <textarea name="" id="" placeholder="Biografía"></textarea>
+                <div className="BoxRengister-RolDiv" >
+                    <div>
+                        <label>Estudiante</label>
+                        <input type="radio" name="rol" id="" />
+                    </div>
+                    <div>
+                        <input type="radio" name="rol" id="" />
+                        <label>Profesor</label>
+                    </div>
+                </div>
                 <button>Modificar</button>
             </div>
         </div>

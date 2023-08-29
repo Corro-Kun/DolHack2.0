@@ -1,6 +1,6 @@
 .BoxRegister-Render{
     display: flex;
-    height: 80%;
+    height: 85%;
     padding: 10px;
     align-items: center;
     justify-content: center;
@@ -69,4 +69,21 @@
     100%{
         border-radius: 50px 15px 50px 15px;
     }
+}
+
+.BoxRengister-RolDiv{
+    margin: 20px;
+    display: flex;
+    width: 450px;
+    justify-content: space-between;
+}
+.BoxRengister-RolDiv div{
+    display: flex;
+    align-items: center;
+}
+
+.BoxRengister-RolDiv input{
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
 }

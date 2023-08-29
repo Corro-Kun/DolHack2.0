@@ -11,8 +11,8 @@ function BarMain(){
             </div>
             <nav>
                 <ul><Link to="/" >Inicio</Link></ul>
-                <ul><Link>Información</Link></ul>
-                <ul><Link>Servicio</Link></ul>
+                <ul><Link to="/information" >Información</Link></ul>
+                <ul><Link to="/services" >Servicios</Link></ul>
             </nav>
             <div>
                 <button onClick={() => navigate("/login")} >Sign Up</button>
