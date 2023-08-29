@@ -5,6 +5,10 @@ import Login from "../page/Login";
 import Register from "../page/Register";
 import Information from "../page/Information";
 import Service from "../page/Service";
+import Home from "../page/Home";
+import Classes from "../page/Classes";
+import Teachers from "../page/Teachers";
+import Studens from "../page/Studens";
 
 function Router(){
     return(
@@ -18,7 +22,10 @@ function Router(){
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 { /* RUTAS DEL HOME */ }
-                <Route path="/home" element={<h2>Home</h2>} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/classes" element={<Classes />} />
+                <Route path="/teachers" element={<Teachers />} />
+                <Route path="/studens" element={<Studens />} />
             </Routes>
         </BrowserRouter>
     );

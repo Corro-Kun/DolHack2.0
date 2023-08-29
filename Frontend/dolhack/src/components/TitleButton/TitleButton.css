@@ -1,0 +1,30 @@
+.TitleButton1{
+    margin-top: 10px;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.TitleButton1 h1{
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--Main_Color);
+    text-shadow: 0 0 5px var(--Main_Color);
+}
+.TitleButton1 button{
+    margin-top: 20px;
+    font-size: 1.2em;
+    padding: 10px 12px 10px 12px;
+    border-radius: 5px;
+    color: #000;
+    border: 2px solid #000;
+    background-color: var(--Main_Color);
+    cursor: pointer;
+    transition: .5s;
+}
+.TitleButton1 button:hover{
+    background-color: #000;
+    color: var(--Text_Color);
+    border: 2px solid var(--Main_Color);
+}
