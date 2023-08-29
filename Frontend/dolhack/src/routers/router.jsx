@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import FristHome from "../page/FristHome";
-import Login from "../page/Login";
-import Register from "../page/Register";
-import Information from "../page/Information";
-import Service from "../page/Service";
-import Home from "../page/Home";
-import Classes from "../page/Classes";
-import Teachers from "../page/Teachers";
-import Studens from "../page/Studens";
+import FristHome from "../page/main/FristHome";
+import Login from "../page/main/Login";
+import Register from "../page/main/Register";
+import Information from "../page/main/Information";
+import Service from "../page/main/Service";
+import Home from "../page/home/Home";
+import Classes from "../page/home/Classes";
+import Teachers from "../page/home/Teachers";
+import Studens from "../page/home/Studens";
 
 function Router(){
     return(

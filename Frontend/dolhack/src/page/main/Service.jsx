@@ -1,8 +1,8 @@
 import React from "react";
-import Body from "../components/Body/Body";
-import BarMain from "../components/BarMain/BarMain";
-import Session from "../components/Session/Session";
-import SessionBoxMain from "../components/SessionBox/SessionBoxMain";
+import Body from "../../components/Body/Body";
+import BarMain from "../../components/BarMain/BarMain";
+import Session from "../../components/Session/Session";
+import SessionBoxMain from "../../components/SessionBox/SessionBoxMain";
 
 function Service(){
     return(

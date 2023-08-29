@@ -1,8 +1,8 @@
 import React from "react";
-import Body from "../components/Body/Body";
-import BarMain from "../components/BarMain/BarMain";
-import TitleNumber from "../components/TitleNumber/TitleNumber";
-import TitleButton from "../components/TitleButton/TitleButton";
+import Body from "../../components/Body/Body";
+import BarMain from "../../components/BarMain/BarMain";
+import TitleNumber from "../../components/TitleNumber/TitleNumber";
+import TitleButton from "../../components/TitleButton/TitleButton";
 
 function Information(){
     return(
