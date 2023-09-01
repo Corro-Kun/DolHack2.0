@@ -3,17 +3,17 @@ package com.backend.dolhack.models.user;
 public class newUserModel {
     private String nombre;
     private String correo;
-    private String contrasena;
+    private String contraseña;
     private int rol;
 
     public newUserModel(){
 
     }
 
-    public newUserModel(String nombre, String correo, String contrasena, int rol) {
+    public newUserModel(String nombre, String correo, String contraseña, int rol) {
         this.nombre = nombre;
         this.correo = correo;
-        this.contrasena = contrasena;
+        this.contraseña = contraseña;
         this.rol = rol;
     }
 
@@ -25,8 +25,8 @@ public class newUserModel {
         return correo;
     }
 
-    public String getContrasena(){
-        return contrasena;
+    public String getContraseña(){
+        return contraseña;
     }
 
     public void setNombre(String nombre){
@@ -37,8 +37,8 @@ public class newUserModel {
         this.correo = correo;
     }
 
-    public void setContrasena(String contrasena){
-        this.contrasena = contrasena;
+    public void setContraseña(String contraseña){
+        this.contraseña = contraseña;
     }
 
     public int getRol(){

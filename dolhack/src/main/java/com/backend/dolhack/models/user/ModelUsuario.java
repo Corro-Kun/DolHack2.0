@@ -2,10 +2,10 @@ package com.backend.dolhack.models.user;
 
 public class ModelUsuario {
     // datos de la tabla usuario
-    private int idusuario;
+    private String idusuario;
     private String nombre;
     private String apellido;
-    private String contrasena;
+    private String contraseña;
     private String biografia;
     private String foto;
     private String banner;
@@ -16,11 +16,11 @@ public class ModelUsuario {
     }
 
     // constructor con parametros
-    public ModelUsuario(int idusuario, String nombre, String apellido, String contrasena, String biografia, String foto, String banner, int rol_idrol) {
+    public ModelUsuario(String idusuario, String nombre, String apellido, String contraseña, String biografia, String foto, String banner, int rol_idrol) {
         this.idusuario = idusuario;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.contrasena = contrasena;
+        this.contraseña = contraseña;
         this.biografia = biografia;
         this.foto = foto;
         this.banner = banner;
@@ -28,12 +28,12 @@ public class ModelUsuario {
     }
 
     // metodo Getter de idusuario
-    public int getIdusuario() {
+    public String getIdusuario() {
         return this.idusuario;
     }
 
     // metodo Setter de idusuario
-    public void setIdusuario(int idusuario) {
+    public void setIdusuario(String idusuario) {
         this.idusuario = idusuario;
     }
 
@@ -58,13 +58,13 @@ public class ModelUsuario {
     }
 
     // metodo Getter de contrasena
-    public String getContrasena() {
-        return this.contrasena;
+    public String getContraseña() {
+        return this.contraseña;
     }
 
     // metodo Setter de contrasena
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     // metodo Getter de biografia

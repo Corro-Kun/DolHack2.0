@@ -2,7 +2,7 @@ package com.backend.dolhack.models.user;
 
 public class ModelCorreo {
     // datos de la tabla correo
-    private int idcorreo;
+    private String idcorreo;
     private String correo;
     private String usuario_idusuario; 
 
@@ -11,19 +11,19 @@ public class ModelCorreo {
     }
 
     // constructor con parametros
-    public ModelCorreo(int idcorreo, String correo, String usuario_idusuario) {
+    public ModelCorreo(String idcorreo, String correo, String usuario_idusuario) {
         this.idcorreo = idcorreo;
         this.correo = correo;
         this.usuario_idusuario = usuario_idusuario;
     }
 
     // metodo Getter de idcorreo
-    public int getIdcorreo() {
+    public String getIdcorreo() {
         return this.idcorreo;
     }
 
     // metodo Setter de idcorreo
-    public void setIdcorreo(int idcorreo) {
+    public void setIdcorreo(String idcorreo) {
         this.idcorreo = idcorreo;
     }
 
