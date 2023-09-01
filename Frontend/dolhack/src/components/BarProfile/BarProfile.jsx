@@ -3,8 +3,10 @@ import "./BarProfile.css";
 import {FiSettings} from "react-icons/fi";
 import {MdOutlineEditNotifications} from "react-icons/md";
 import {TbMessages} from "react-icons/tb";
+import {useProfile} from "../../context/profile";
 
 function BarProfile() {
+  const {DataProfile} = useProfile();
   return (
     <div className="Profile-Home">
       <div className="Settings-Home">
@@ -29,14 +31,14 @@ function BarProfile() {
         <div className="Photo-Home-Shape2"></div>
         <div className="Photo-Home-Render">
           <img
-            src={"https://www.soycanon.com/filemanager/userfiles/2018/03marzo/linkedin/shutterstock_249063865.jpg"}
+            src={DataProfile.foto}
             loading="lazy"
           />
         </div>
       </div>
       <div className="Profile-Data-Div">
-        <h2>Seraphina</h2>
-        <p>seraphina@gmail.com</p>
+        <h2>{DataProfile.nombre} {DataProfile.apellido}</h2>
+        <p>{DataProfile.correo}</p>
       </div>
       <div className="Home-Profile-Profesor">
         <p>Tus Profesores</p>

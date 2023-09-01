@@ -1,5 +1,9 @@
 package com.backend.dolhack.controllers;
 
+import com.backend.dolhack.models.message;
+import com.backend.dolhack.models.user.loginUserModel;
+import com.backend.dolhack.models.user.newUserModel;
+import com.backend.dolhack.repositories.UsuarioRepositorio;
 import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +11,7 @@ import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.backend.dolhack.models.message;
-import com.backend.dolhack.models.user.loginUserModel;
-import com.backend.dolhack.models.user.newUserModel;
-import com.backend.dolhack.repositories.UsuarioRepositorio;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,6 +30,7 @@ public class auth {
         this.repositorio = repositorio;
     } 
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/register")
     public ResponseEntity<message> register(@RequestBody newUserModel user) throws Exception{
         try {
@@ -50,6 +51,7 @@ public class auth {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/login")
     public ResponseEntity<message> login(@RequestBody loginUserModel user )throws Exception{
         try{
@@ -73,6 +75,7 @@ public class auth {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/complet")
     public ResponseEntity<message> complet(@RequestPart("file") MultipartFile file, @RequestPart("biografia") String biografia, @CookieValue(name="token",required=true) String token){
         try {
@@ -83,7 +86,8 @@ public class auth {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));            
         }
     }
-    
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/profile")
     public ResponseEntity profile(@CookieValue(name="token",required=true) String token ){
         try {

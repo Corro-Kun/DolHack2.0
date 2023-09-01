@@ -4,6 +4,7 @@ import Body from "../../components/Body/Body";
 import BarHome from "../../components/BarHome/BarHome";
 import ContenetHome from "../../components/ContenetHome/ContenetHome";
 import BarProfile from "../../components/BarProfile/BarProfile";
+import { ProfileProvider } from "../../context/profile";
 
 function Home() {
     return(
@@ -13,7 +14,9 @@ function Home() {
                 <ContenetHome>
                     
                 </ContenetHome>
-                <BarProfile />
+                <ProfileProvider>
+                    <BarProfile />
+                </ProfileProvider>
             </BodyHome>
         </Body>
     );

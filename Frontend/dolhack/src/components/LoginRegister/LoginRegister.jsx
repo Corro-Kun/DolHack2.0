@@ -1,7 +1,9 @@
 import React,{useEffect} from "react";
+import { useAuth } from "../../context/auth";
 import "./LoginRegister.css";
 
 function LoginRegister(){
+    const {changerUserLogin, login} = useAuth();
     useEffect(()=>{
         const RegisterBTN = document.querySelector('.Register-link')
         const LoginLayaut = document.querySelector('.Login-Home')
@@ -33,13 +35,21 @@ function LoginRegister(){
             <div className="Login-Register-DolHack">
                 <div className="Login-Home">
                     <h2>Iniciar sesión</h2>
-                    <form onSubmit={(e) => e.preventDefault()} >
+                    <form onSubmit={(e) => login(e)} >
                         <div className="Input-box">
-                            <input type="text" required />
+                            <input 
+                            type="text" 
+                            required
+                            name="correo" 
+                            onChange={(e)=> changerUserLogin(e)} />
                             <label>Correo</label>
                         </div>
                         <div className="Input-box">
-                            <input type="password" required />
+                            <input 
+                            type="password" 
+                            required
+                            name="contraseña"
+                            onChange={(e)=> changerUserLogin(e)} />
                             <label>Contraseña</label>
                         </div>
                         <div className="Forget-Password">
