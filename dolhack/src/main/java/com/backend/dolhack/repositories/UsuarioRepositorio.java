@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.Hash;
@@ -13,14 +14,17 @@ import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.models.user.loginUserModel;
 import com.backend.dolhack.models.user.newUserModel;
 import com.backend.dolhack.models.user.profileUserModel;
+import com.backend.dolhack.service.cloudinaryService;
 
 @Repository
 public class UsuarioRepositorio {
     private final JdbcTemplate sql;
+    private final cloudinaryService cloudinary;
 
     @Autowired
-    public UsuarioRepositorio(JdbcTemplate sql){
+    public UsuarioRepositorio(JdbcTemplate sql, cloudinaryService cloudinary){
         this.sql = sql;
+        this.cloudinary = cloudinary;
     }
     
     public String newUser(newUserModel user) throws Exception{
@@ -52,6 +56,18 @@ public class UsuarioRepositorio {
         String id = new Crypto().Encrypt(usuario.getIdusuario());
 
         return id;
+    }
+
+    public boolean updateProfile(String idEncryp, String biografia, MultipartFile file)throws Exception {
+        String id = new Crypto().Decrypt(idEncryp);
+
+        String foto = cloudinary.uploadImage(file);
+
+        String querry = "UPDATE usuario SET biografia = ? , foto = ? WHERE idusuario = ?";
+
+        sql.update(querry,biografia, foto,id);
+        
+        return true;
     }
 
     public profileUserModel findProfile(String idEncryp)throws Exception {

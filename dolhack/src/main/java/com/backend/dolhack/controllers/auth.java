@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.models.user.loginUserModel;
@@ -68,6 +70,17 @@ public class auth {
             return ResponseEntity.ok().header("set-cookie", cookie.toString()).body(new message("Bienvenido "+user.getCorreo()));
         }catch(Exception e){
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/complet")
+    public ResponseEntity<message> complet(@RequestPart("file") MultipartFile file, @RequestPart("biografia") String biografia, @CookieValue(name="token",required=true) String token){
+        try {
+            repositorio.updateProfile(token, biografia, file);
+
+            return ResponseEntity.ok().body(new message("perfil actualizado"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));            
         }
     }
     
