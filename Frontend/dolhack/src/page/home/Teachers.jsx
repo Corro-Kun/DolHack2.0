@@ -6,26 +6,18 @@ import ContenetHome from "../../components/ContenetHome/ContenetHome";
 import BarProfile from "../../components/BarProfile/BarProfile";
 import { ProfileProvider } from "../../context/profile";
 import ContenetUser from "../../components/ContenetUser/ContenetUser";
-import CardUser from "../../components/CardUser/CardUser";
+import { HomeProvider } from "../../context/home";
 
 function Teachers(){
     return(
         <Body>
             <BodyHome>
                 <BarHome teacher={true}/>
-                <ContenetHome>
-                    <ContenetUser>
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                        <CardUser />
-                    </ContenetUser>
-                </ContenetHome>
+                <HomeProvider>
+                    <ContenetHome>
+                        <ContenetUser teacher={true} />
+                    </ContenetHome>
+                </HomeProvider>
                 <ProfileProvider>
                     <BarProfile />
                 </ProfileProvider>

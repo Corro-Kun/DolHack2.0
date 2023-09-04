@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ContenetUser.css"
+import { useHome } from "../../context/home";
 
-function ContenetUser({children}) {
+function ContenetUser({teacher}) {
+    const {selectionUser} = useHome();
+
     return(
         <div className="ContenetUser-Div" >
-            {children}
+            {selectionUser(teacher)}
         </div>
     );
 }
