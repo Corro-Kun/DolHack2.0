@@ -3,7 +3,7 @@ import { useAuth } from "../../context/auth";
 import "./LoginRegister.css";
 
 function LoginRegister(){
-    const {changerUserLogin, login} = useAuth();
+    const {changerUserLogin, login, changerUserRegister, register} = useAuth();
     useEffect(()=>{
         const RegisterBTN = document.querySelector('.Register-link')
         const LoginLayaut = document.querySelector('.Login-Home')
@@ -65,21 +65,56 @@ function LoginRegister(){
 
                 <div className="Login-Home register">
                     <h2>Registrar</h2>
-                    <form onSubmit={(e) => e.preventDefault()}>
+                    <form onSubmit={(e) => register(e)}>
                         <div className="Input-box">
-                            <input type="text" required/>
+                            <input 
+                            type="text" 
+                            required
+                            name="nombre"
+                            onChange={(e)=> changerUserRegister(e)}
+                            />
                             <label>Nombre de usuario</label>
                         </div>
                         <div className="Input-box">
-                            <input type="text" required/>
+                            <input 
+                            type="text" 
+                            required
+                            name="correo"
+                            onChange={(e)=> changerUserRegister(e)}
+                            />
                             <label>Correo</label>
                         </div>
                         <div className="Input-box">
-                            <input type="password" required/>
+                            <input 
+                            type="password" 
+                            required
+                            name="contraseña"
+                            onChange={(e)=> changerUserRegister(e)}
+                            />
                             <label>Contraseña</label>
                         </div>
+                        <div className="Input-Rol-Div" >
+                            <div>
+                                <input 
+                                type="radio" 
+                                name="rol" 
+                                value={1} 
+                                onChange={(e)=> changerUserRegister(e)}
+                                required />
+                                <label>Profesor</label>
+                            </div>
+                            <div>
+                                <label>Estudiante</label>
+                                <input 
+                                type="radio" 
+                                name="rol" 
+                                value={2} 
+                                onChange={(e)=> changerUserRegister(e)}
+                                required/>
+                            </div>
+                        </div>
                         <div className="Forget-Password">
-                            <label><input type="checkbox"/> ¿Aceptas los términos y condiciones?</label>
+                            <label><input type="checkbox" required /> ¿Aceptas los términos y condiciones?</label>
                         </div>
                         <button type="submit" className="BTN-Login" >Registrar</button>
                         <div className="Login-Register">

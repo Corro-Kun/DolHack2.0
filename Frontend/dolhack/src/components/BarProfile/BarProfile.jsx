@@ -41,7 +41,7 @@ function BarProfile() {
         <p>{DataProfile.correo}</p>
       </div>
       <div className="Home-Profile-Profesor">
-        <p>Tus Profesores</p>
+        <p>{DataProfile.rol === "profesor"? "Tus Estudiantes" : "Tus Profesor"}</p>
         <a href="#">Ver Todo</a>
       </div>
       <div className="Home-Profile-teachers">

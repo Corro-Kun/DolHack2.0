@@ -1,5 +1,5 @@
 import React,{createContext, useContext, useState} from "react";
-import {login as postLogin} from "../api/auth";
+import {login as postLogin, register as postRegister, complet as postComplet} from "../api/auth";
 import {useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext();
@@ -16,6 +16,15 @@ export function AuthProvider({children}) {
         contraseña: ""
     });
 
+    const [UserRegister, setUserRegister] = useState({
+        nombre: "",
+        correo: "",
+        contraseña: "",
+        rol: 0
+    });
+
+    const [UserComplet, setUserComplet] = useState({});
+
     function changerUserLogin({target:{name,value}}) {
         setUserLogin({...UserLogin,[name]:value});
     }
@@ -26,8 +35,38 @@ export function AuthProvider({children}) {
         Navegate("/home");
     }
 
+    function changerUserRegister({target:{name,value}}) {
+        setUserRegister({...UserRegister,[name]:value});
+    }
+
+    async function register(e) {
+        e.preventDefault();
+        const {data} = await postRegister(UserRegister);
+        Navegate("/register");
+    }    
+
+    function changerComplet({target:{name,value, files}}){
+        if(name === "image"){
+            const [file] = files;
+            setUserComplet({...UserComplet, [name]:file}); 
+        }
+        else{
+            setUserComplet({...UserComplet, [name]:value});
+        }
+    }
+
+    async function complet(){
+        const {biografia, image} = UserComplet;
+        const form = new FormData();
+        form.append("biografia", biografia);
+        form.append("file", image);
+
+        const {data} = await postComplet(form);
+        Navegate("/home");
+    }
+
     return(
-        <AuthContext.Provider value={{changerUserLogin, login}} >
+        <AuthContext.Provider value={{changerUserLogin, login, changerUserRegister, register, changerComplet, changerComplet, complet}} >
             {children}
         </AuthContext.Provider>
     );

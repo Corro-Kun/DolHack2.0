@@ -26,7 +26,7 @@
     box-shadow: 0 0 30px var(--Main_Color); 
 }
 .Login-Register-DolHack.active{
-    height: 520px;
+    height: 540px;
 }
 
 .Login-Home{
@@ -136,4 +136,14 @@
 }
 .Login-Register p a:hover {
     text-decoration: underline;
+}
+.Input-Rol-Div{
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+.Input-Rol-Div input{
+    margin: 0 10px;
+    cursor: pointer;
 }

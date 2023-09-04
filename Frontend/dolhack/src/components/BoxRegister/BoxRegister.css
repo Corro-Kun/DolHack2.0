@@ -53,10 +53,11 @@
     border-right: 3px solid var(--Main_Color);
     box-shadow: 0 0 10px var(--Main_Color);
     animation: ImgRegister 5s linear infinite;
+    justify-content: center;
+    align-items: center;
 }
 .BoxRegister-IMG img{
-    height: 100%;
-    width: 100%;
+    height: 400px;
 }
 
 @keyframes ImgRegister {
@@ -71,19 +72,3 @@
     }
 }
 
-.BoxRengister-RolDiv{
-    margin: 20px;
-    display: flex;
-    width: 450px;
-    justify-content: space-between;
-}
-.BoxRengister-RolDiv div{
-    display: flex;
-    align-items: center;
-}
-
-.BoxRengister-RolDiv input{
-    margin-right: 10px;
-    margin-left: 10px;
-    cursor: pointer;
-}
