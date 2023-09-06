@@ -1,11 +1,11 @@
 package com.backend.dolhack.controllers;
 
+import com.backend.dolhack.middlewares.VerificCookie;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.models.user.loginUserModel;
 import com.backend.dolhack.models.user.newUserModel;
 import com.backend.dolhack.repositories.UsuarioRepositorio;
 import java.time.Duration;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
@@ -79,6 +79,9 @@ public class auth {
     @PostMapping("/complet")
     public ResponseEntity<message> complet(@RequestPart("file") MultipartFile file, @RequestPart("biografia") String biografia, @CookieValue(name="token",required=true) String token){
         try {
+            if (new VerificCookie(repositorio).verificCookie(token) == false) {
+                return ResponseEntity.status(401).body(new message("no autorizado"));
+            }
             repositorio.updateProfile(token, biografia, file);
 
             return ResponseEntity.ok().body(new message("perfil actualizado"));
@@ -91,7 +94,23 @@ public class auth {
     @GetMapping("/profile")
     public ResponseEntity profile(@CookieValue(name="token",required=true) String token ){
         try {
+            if (new VerificCookie(repositorio).verificCookie(token) == false) {
+                return ResponseEntity.status(401).body(new message("no autorizado"));
+            }
             return ResponseEntity.ok().body(repositorio.findProfile(token));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    @CrossOrigin(origins="http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/valid")
+    public ResponseEntity valid(@CookieValue(name="token",required = true) String token ){
+        try {
+            if (new VerificCookie(repositorio).verificCookie(token) == false) {
+                return ResponseEntity.status(401).body(new message("0"));
+            }
+            return ResponseEntity.ok().body(new message("1"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }

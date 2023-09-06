@@ -22,7 +22,7 @@ public class home {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/teacher")
-    public ResponseEntity profesor(){
+    public ResponseEntity profesor() throws Exception {
         try {
             return ResponseEntity.ok().body(repositorio.getUserList("profesor"));
         } catch (Exception e) {
