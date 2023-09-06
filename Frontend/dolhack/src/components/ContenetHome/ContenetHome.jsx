@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./ContenetHome.css";
 
 function ContenetHome({children}) {
@@ -7,7 +7,9 @@ function ContenetHome({children}) {
             <div className="Search-Home">
                 <input type="text" placeholder="Explore" />
             </div>
-            {children}
+            <Suspense fallback={<h2>Cargando...</h2>} >
+                {children}
+            </Suspense>
         </div>
     );
 }

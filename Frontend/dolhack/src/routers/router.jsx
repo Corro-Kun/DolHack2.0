@@ -9,6 +9,8 @@ import Home from "../page/home/Home";
 import Classes from "../page/home/Classes";
 import Teachers from "../page/home/Teachers";
 import Studens from "../page/home/Studens";
+import ProtectRouter from "../security/ProtectRouter";
+import Update from "../page/home/Update";
 
 function Router(){
     return(
@@ -22,10 +24,13 @@ function Router(){
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 { /* RUTAS DEL HOME */ }
-                <Route path="/home" element={<Home />} />
-                <Route path="/classes" element={<Classes />} />
-                <Route path="/teachers" element={<Teachers />} />
-                <Route path="/studens" element={<Studens />} />
+                <Route element={<ProtectRouter />} >
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/classes" element={<Classes />} />
+                    <Route path="/teachers" element={<Teachers />} />
+                    <Route path="/studens" element={<Studens />} />
+                    <Route path="/update" element={<Update />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

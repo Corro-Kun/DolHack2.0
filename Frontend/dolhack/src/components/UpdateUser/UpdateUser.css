@@ -1,0 +1,154 @@
+.UpdateUser-Render{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.UpdateUser-Main-Div{
+    height: 75%;
+    width: 50%;
+    background-color: var(--BG2_color);
+    border: 2px solid #222222;
+    border-radius: 0 40px 0 0;
+    box-shadow: 0 0 30px #0c0c0c;
+    text-align: center;
+    overflow: hidden;
+    transition: .5s;
+}
+.UpdateUser-Text-div{
+    display: flex;
+    padding: 10px 20px;
+    overflow: hidden;
+    justify-content: space-between;
+}
+.UpdateUser-Text-div samp{
+    cursor: pointer;
+    font-size: 1.2em;
+}
+.UpdateUser-Text-div samp:hover{
+    color: var(--Main_Color);
+}
+.UpdateUser-Folder-div{
+    display: flex;
+    height: 50%;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+.UpdateUser-Input{
+    padding: 0 20px;
+    width: 50%;
+    overflow: hidden;
+    border-right: 1px solid #4e4e4e;
+}
+.UpdateUser-Input div:nth-child(1),
+.UpdateUser-Input div:nth-child(2),
+.UpdateUser-Input div:nth-child(3){
+    position: relative;
+    width: 100%;
+    height: 30px;
+    border-bottom: 2px solid var(--Text_Color);
+    margin: 20px 0;
+}
+.UpdateUser-Input label{
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: var(--Main_Color);
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+.UpdateUser-Input input:focus~label,
+.UpdateUser-Input input:valid~label{
+    color: var(--Text_Color);
+    top: -7px;
+    font-size: 0.9em;
+}
+.UpdateUser-Input input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: var(--Text_Color);
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+.UpdateUser-Input textarea{
+    height: 150px;
+    width: 100%;
+    padding: 10px;
+    color: var(--Text_Color);
+    background-color: var(--BG_Color);
+    outline: none;
+    border-radius: 10px;
+    resize: none;
+}
+
+.UpdateUser-Img{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.UpdateUser-Img div{
+    display: flex;
+    height: 320px;
+    width: 80%;
+    border-radius: 20px;
+    border: 2px solid var(--Text_Color);
+    background-color: var(--Main_Color);    
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    justify-content: center;
+    align-items: center;
+}
+.UpdateUser-Img div:hover{
+    box-shadow: 0 0 10px var(--Text_Color);
+}
+.UpdateUser-Img img{
+    height: 320px;
+}
+
+.UpdateUser-Banner-Div{
+    display: flex;
+    margin: 0 45px;
+    height: 35%;
+    width: 90%;
+    border-top: 1px solid #4e4e4e ;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+.UpdateUser-Banner-Div div{
+    display: flex;
+    background-color: aliceblue;
+    border: 1px solid var(--Text_Color);
+    border-radius: 15px;
+    height: 90%;
+    width: 70%;
+    overflow: hidden;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+.UpdateUser-Banner-Div img{
+    height: 410px;
+}
+.UpdateUser-Main-Div button{
+    padding: 10px 12px 10px 12px;
+    background-color: var(--Main_Color);
+    color: var(--Text_Color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.UpdateUser-Main-Div button:hover{
+    background-color: #0c0c0c;
+}

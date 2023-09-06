@@ -1,6 +1,7 @@
 import React,{useEffect} from "react";
 import { useAuth } from "../../context/auth";
 import "./LoginRegister.css";
+import { Toaster, toast } from "sonner";
 
 function LoginRegister(){
     const {changerUserLogin, login, changerUserRegister, register} = useAuth();
@@ -35,7 +36,11 @@ function LoginRegister(){
             <div className="Login-Register-DolHack">
                 <div className="Login-Home">
                     <h2>Iniciar sesión</h2>
-                    <form onSubmit={(e) => login(e)} >
+                    <form onSubmit={(e) => toast.promise(login(e),{
+                        loading: "Iniciando sesión...",
+                        success: "Bienvenido",
+                        error: (err) => err.response.data.message == "contraseña incorrecta"? "Contraseña incorrecta" : "Usuario no encontrado"
+                    })} >
                         <div className="Input-box">
                             <input 
                             type="text" 
@@ -65,7 +70,11 @@ function LoginRegister(){
 
                 <div className="Login-Home register">
                     <h2>Registrar</h2>
-                    <form onSubmit={(e) => register(e)}>
+                    <form onSubmit={(e) => toast.promise(register(e),{
+                        loading: "Registrando...",
+                        success: "Registrado con exito",
+                        error: "Error al registrar"
+                    })}>
                         <div className="Input-box">
                             <input 
                             type="text" 
@@ -114,7 +123,7 @@ function LoginRegister(){
                             </div>
                         </div>
                         <div className="Forget-Password">
-                            <label><input type="checkbox" required /> ¿Aceptas los términos y condiciones?</label>
+                            <label><input type="checkbox" required onClick={() =>toast("Gracias por Aceptar los terminos")} /> ¿Aceptas los términos y condiciones?</label>
                         </div>
                         <button type="submit" className="BTN-Login" >Registrar</button>
                         <div className="Login-Register">

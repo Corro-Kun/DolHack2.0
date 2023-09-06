@@ -1,12 +1,16 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./BarProfile.css";
 import {FiSettings} from "react-icons/fi";
 import {MdOutlineEditNotifications} from "react-icons/md";
 import {TbMessages} from "react-icons/tb";
 import {useProfile} from "../../context/profile";
+import {BsDoorOpen} from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function BarProfile() {
-  const {DataProfile} = useProfile();
+  const navegate = useNavigate();
+  const {DataProfile, Logout} = useProfile();
   return (
     <div className="Profile-Home">
       <div className="Settings-Home">
@@ -21,22 +25,29 @@ function BarProfile() {
           </samp>
         </ul>
         <ul>
-          <samp>
+          <samp onClick={()=> navegate("/update")} >
             <FiSettings />
           </samp>
         </ul>
+        <ul>
+          <samp onClick={()=> Logout()} >
+            <BsDoorOpen />
+          </samp>
+        </ul>
       </div>
-      <div className="Photo-Home">
-        <div className="Photo-Home-Shape1"></div>
-        <div className="Photo-Home-Shape2"></div>
-        <div className="Photo-Home-Render">
-          <img
-            src={DataProfile.foto}
-            loading="lazy"
-          />
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="Photo-Home">
+          <div className="Photo-Home-Shape1"></div>
+          <div className="Photo-Home-Shape2"></div>
+          <div className="Photo-Home-Render">
+            <img
+              src={DataProfile.foto}
+              loading="lazy"
+            />
+          </div>
         </div>
-      </div>
-      <div className="Profile-Data-Div">
+      </Suspense>
+     <div className="Profile-Data-Div">
         <h2>{DataProfile.nombre} {DataProfile.apellido}</h2>
         <p>{DataProfile.correo}</p>
       </div>
