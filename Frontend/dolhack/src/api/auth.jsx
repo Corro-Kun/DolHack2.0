@@ -8,6 +8,8 @@ export const complet = (data)=> axios.post("/auth/complet",data);
 
 export const profile = ()=> axios.get("/auth/profile");
 
+export const update = (data) => axios.post("/auth/update", data);
+
 export const valid = () => axios.get("/auth/valid");
 
 export const logout = () => axios.get("/auth/logout");

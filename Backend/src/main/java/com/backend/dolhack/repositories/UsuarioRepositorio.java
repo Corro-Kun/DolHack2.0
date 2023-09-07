@@ -8,6 +8,7 @@ import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.models.user.loginUserModel;
 import com.backend.dolhack.models.user.newUserModel;
 import com.backend.dolhack.models.user.profileUserModel;
+import com.backend.dolhack.models.user.updateUserModel;
 import com.backend.dolhack.service.cloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -60,7 +61,7 @@ public class UsuarioRepositorio {
     public boolean updateProfile(String idEncryp, String biografia, MultipartFile file)throws Exception {
         String id = new Crypto().Decrypt(idEncryp);
 
-        String foto = cloudinary.uploadImage(file);
+        String foto = cloudinary.uploadImage(file, "perfil");
 
         String querry = "UPDATE usuario SET biografia = ? , foto = ? WHERE idusuario = ?";
 
@@ -90,6 +91,40 @@ public class UsuarioRepositorio {
             return false;
         }
             
+        return true;
+    }
+    
+    public boolean UpdateCompletProfile(String idEncryp, MultipartFile foto, MultipartFile banner, updateUserModel user) throws Exception {
+        String id = new Crypto().Decrypt(idEncryp);
+        String fotoP = null ;
+        String fotoB = null ;
+    
+        if (foto != null && !foto.isEmpty()) { 
+            fotoP = cloudinary.uploadImage(foto, "perfil");
+        }
+
+        if (banner != null && !banner.isEmpty()) { 
+            fotoB = cloudinary.uploadImage(banner, "banner");
+        }
+
+        if(fotoP == null && fotoB == null) {
+            String querry = "UPDATE usuario SET nombre = ?, apellido = ?, biografia = ? WHERE idusuario = ?";
+
+            sql.update(querry, user.getNombre(), user.getApellido(), user.getBiografia(), id);         
+        }else if (fotoP == null && fotoB != null){
+            String querry = "UPDATE usuario SET nombre = ?, apellido = ?, biografia = ?, banner = ? WHERE idusuario = ?";
+
+            sql.update(querry, user.getNombre(), user.getApellido(), user.getBiografia(), fotoB, id);
+        }else if (fotoP != null && fotoB == null){
+            String querry = "UPDATE usuario SET nombre = ?, apellido = ?, biografia = ?, foto = ? WHERE idusuario = ?";
+
+            sql.update(querry, user.getNombre(), user.getApellido(), user.getBiografia(), fotoP, id);
+        }else{
+            String querry = "UPDATE usuario SET nombre = ?, apellido = ?, biografia = ?, foto = ?, banner = ? WHERE idusuario = ?";
+
+            sql.update(querry, user.getNombre(), user.getApellido(), user.getBiografia(), fotoP, fotoB, id);
+        }
+
         return true;
     }
 }

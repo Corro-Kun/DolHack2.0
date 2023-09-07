@@ -1,9 +1,9 @@
 import React from "react";
 import "./CardUser.css"
 
-function CardUser({name, lastna, description, data, img}) {
+function CardUser({name, lastna, description, data, img,banner}) {
     return(
-        <div className="Card-User-Main" style={{backgroundImage: "url('https://img.freepik.com/fotos-premium/metaverso-avatar-digital-metaverso-presencia-tecnologia-digital-mundo-cibernetico-realidad-virtual_72482-3626.jpg')"}} >
+        <div className="Card-User-Main" style={{backgroundImage: "url('"+banner+"')"}} >
             <div className="Card-User-Photo" >
                 <img src={img} loading="lazy"/>
             </div>

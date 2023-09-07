@@ -16,7 +16,7 @@ function Studens(){
                 <HomeProvider>
                     <ContenetHome>
                         <ContenetUser />
-                   </ContenetHome>
+                    </ContenetHome>
                 </HomeProvider>
                 <ProfileProvider>
                     <BarProfile />

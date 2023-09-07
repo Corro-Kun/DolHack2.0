@@ -36,6 +36,7 @@ export const HomeProvider = ({children}) => {
                 description={teacher.biografia}
                 img={teacher.foto}
                 data={teacher.rol}       
+                banner={teacher.banner}
                 />
             ))
         }
@@ -47,13 +48,25 @@ export const HomeProvider = ({children}) => {
                     description={student.biografia} 
                     img={student.foto}
                     data={student.rol}
+                    banner={student.banner}
                     />
                 ))
         }
     }
 
+    const filterUsers=({target:{value}})=>{
+        if(value === ""){
+            getStudenst();
+            getTeachers();
+        }else{
+            setStudenst(Studenst.filter((student) => student.nombre.toLowerCase().includes(value.toLowerCase())));
+            setTeachers(Teachers.filter((teacher) => teacher.nombre.toLowerCase().includes(value.toLowerCase())));
+        }
+    }
+
+
     return(
-        <HomeContext.Provider value={{selectionUser}}>
+        <HomeContext.Provider value={{selectionUser, filterUsers}}>
             {children}
         </HomeContext.Provider>
     )

@@ -4,6 +4,7 @@ import com.backend.dolhack.middlewares.VerificCookie;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.models.user.loginUserModel;
 import com.backend.dolhack.models.user.newUserModel;
+import com.backend.dolhack.models.user.updateUserModel;
 import com.backend.dolhack.repositories.UsuarioRepositorio;
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,4 +116,22 @@ public class auth {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @PostMapping("/update")
+    public ResponseEntity<message> update(@CookieValue(name="token",required=true) String token,@RequestPart("nombre") String nombre, @RequestPart("apellido") String apellido, @RequestPart("biografia") String biografia ,@RequestPart(name="foto", required=false) MultipartFile foto, @RequestPart(name="banner", required=false) MultipartFile banner) throws Exception {
+        try {
+            if (new VerificCookie(repositorio).verificCookie(token) == false) {
+                return ResponseEntity.status(401).body(new message("no autorizado"));
+            }
+            updateUserModel user = new updateUserModel(nombre, apellido, biografia, "");
+            if(repositorio.UpdateCompletProfile(token, foto, banner, user)){
+                return ResponseEntity.ok().body(new message("Usuario actualizado con exito"));
+            }
+            return ResponseEntity.badRequest().body(new message("Error al actualizar usuario"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+ 
 }

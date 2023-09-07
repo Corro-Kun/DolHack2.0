@@ -39,4 +39,5 @@ public class home {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
 }
