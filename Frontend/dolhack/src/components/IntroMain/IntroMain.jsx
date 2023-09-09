@@ -8,7 +8,7 @@ function IntroMain(){
                 <h1>DolHack</h1>
             </div>
             <div>
-                <img src="https://res.cloudinary.com/dy58wbxo1/image/upload/v1686364121/dolhack-temp/LogoBeta_vgdfp5.png" loading="lazy" />
+                <img src="https://cdn.discordapp.com/attachments/1005592732166795287/1116916737225535538/LogoBeta.png" loading="lazy" />
             </div>
         </div>
     );

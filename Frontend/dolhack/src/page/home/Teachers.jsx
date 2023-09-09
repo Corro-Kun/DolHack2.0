@@ -12,13 +12,13 @@ function Teachers(){
     return(
         <Body>
             <BodyHome>
-                <BarHome teacher={true}/>
+                <ProfileProvider>
+                    <BarHome teacher={true}/>
                 <HomeProvider>
                     <ContenetHome>
                         <ContenetUser teacher={true} />
                     </ContenetHome>
                 </HomeProvider>
-                <ProfileProvider>
                     <BarProfile />
                 </ProfileProvider>
             </BodyHome>

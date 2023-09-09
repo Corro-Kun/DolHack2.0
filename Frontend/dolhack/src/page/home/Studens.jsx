@@ -12,13 +12,13 @@ function Studens(){
     return(
         <Body>
             <BodyHome>
-                <BarHome studen={true}/>
+                <ProfileProvider>
+                    <BarHome studen={true}/>
                 <HomeProvider>
                     <ContenetHome>
                         <ContenetUser />
                     </ContenetHome>
                 </HomeProvider>
-                <ProfileProvider>
                     <BarProfile />
                 </ProfileProvider>
             </BodyHome>

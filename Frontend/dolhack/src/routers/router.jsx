@@ -11,6 +11,7 @@ import Teachers from "../page/home/Teachers";
 import Studens from "../page/home/Studens";
 import ProtectRouter from "../security/ProtectRouter";
 import Update from "../page/home/Update";
+import CreateClass from "../page/home/CreateClass";
 
 function Router(){
     return(
@@ -30,6 +31,7 @@ function Router(){
                     <Route path="/teachers" element={<Teachers />} />
                     <Route path="/studens" element={<Studens />} />
                     <Route path="/update" element={<Update />} />
+                    <Route path="/newclass" element={<CreateClass />} />
                 </Route>
             </Routes>
         </BrowserRouter>

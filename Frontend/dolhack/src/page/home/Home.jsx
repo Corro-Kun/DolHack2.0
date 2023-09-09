@@ -11,13 +11,13 @@ function Home() {
     return(
         <Body>
             <BodyHome>
+                <ProfileProvider>
                 <BarHome home={true}/>
                 <HomeProvider>
                     <ContenetHome>
                     
                     </ContenetHome>
                 </HomeProvider> 
-                <ProfileProvider>
                     <BarProfile />
                 </ProfileProvider>
             </BodyHome>
