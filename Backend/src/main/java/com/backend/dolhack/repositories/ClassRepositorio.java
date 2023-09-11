@@ -45,4 +45,10 @@ public class ClassRepositorio {
         String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario";
         return sql.query(query, BeanPropertyRowMapper.newInstance(classListModel.class));
     }
+
+    public classListModel infoClass(String id){
+        String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE idclase = ?";
+        return sql.queryForObject(query, new Object[]{id} , BeanPropertyRowMapper.newInstance(classListModel.class) );
+    }
+
 }

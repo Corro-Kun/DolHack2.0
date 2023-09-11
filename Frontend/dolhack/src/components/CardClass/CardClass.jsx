@@ -1,9 +1,11 @@
 import React from "react";
 import "./CardClass.css";
+import { useNavigate } from "react-router-dom";
 
-function CardClass({tipo, nivel, title, description, foto, imagen}){
+function CardClass({tipo, nivel, title, description, foto, imagen, id}){
+    const navigate = useNavigate();
     return(
-        <div className="CardClass-Home-Card" style={{backgroundImage: "url('"+imagen+"')"}}>
+        <div className="CardClass-Home-Card" style={{backgroundImage: "url('"+imagen+"')"}} onClick={()=> navigate("/infoclass/"+id)} >
                 <div className="CardClass-Home-PhotoCard">
                     <img src={foto} />
                 </div>

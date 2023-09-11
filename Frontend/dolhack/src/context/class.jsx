@@ -1,5 +1,5 @@
 import React,{createContext, useContext, useState, useEffect} from "react";
-import { postClass, getClass } from "../api/class";
+import { postClass, getClass , getInfoClass} from "../api/class";
 import { useNavigate } from "react-router-dom";
 import {toast} from "sonner";
 

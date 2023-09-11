@@ -1,0 +1,122 @@
+.WindowInfoClass-Render{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.WindowInforClass-Div{
+    width: 60%;
+    height: 70%;
+    background-color: var(--BG2_color);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px #131313 ;
+    border: 2px solid #494949;
+
+}
+.WindowInforClass-Bar{
+    padding: 10px;
+    width: 100%;
+}
+.WindowInforClass-Bar h2{
+    cursor: pointer;
+    transition: .5s;
+}
+.WindowInforClass-Bar h2:hover{
+    color: var(--Main_Color);
+}
+.WindowInfoClass-Flex{
+    display: flex;
+    height: 90%;
+    width: 100%;
+}
+.WindowInfoClass-Contenet1{
+    display: flex;
+    padding: 10px;
+    height: 95%;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 1px solid #a0a0a0;
+}
+.WindowInfoClass-Contenet1 div:nth-child(1){
+    width: 50%;
+    text-align: center;
+    word-break: break-all;
+}
+.WindowInfoClass-Contenet1 div:nth-child(2){
+    margin: 10px 0;
+    text-align: center;
+    width: 70%;
+    word-wrap: break-word;
+}
+.WindowInfoClass-Contenet1 div:nth-child(3){
+    height: 230px;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.WindowInfoClass-Contenet1 div:nth-child(4){
+    margin: 10px 0;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+.WindowInfoClass-Contenet1 div:nth-child(5){
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+.WindowInfoClass-Contenet1 img{
+    height: 230px;
+}
+.WindowInfoClass-Contenet1 div:nth-child(6){
+    padding: 10px 0;
+    display: flex;
+    width: 400px;
+    justify-content: center;
+}
+.WindowInfoClass-Contenet1 button{
+    padding: 8px 12px 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: var(--Text_Color);
+    background-color: var(--Main_Color);
+    transition: .5s;
+    cursor: pointer;
+}
+.WindowInfoClass-Contenet1 button:hover{
+    background-color: #000;
+}
+.WindowInfoClass-Contenet2{
+    padding: 10px;
+    width: 30%;
+}
+.WindowInfoClass-profile{
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.WindowInfoClass-profile div{
+    display: flex;
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    background-color: antiquewhite;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--Main_Color);
+}
+.WindowInfoClass-profile h2{
+    padding: 10px;
+}
+.WindowInfoClass-profile img{
+    height: 200px;
+}
