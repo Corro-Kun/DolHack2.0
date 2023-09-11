@@ -1,15 +1,16 @@
 import React,{useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./WindowInfoClass.css";
 import {ImUndo2} from "react-icons/im";
 import { getInfoClass } from "../../api/class";
 
 function Window(){
+    const navigate = useNavigate();
     const [data, setData] = useState({});
     const {id}  = useParams();
     useEffect(()=>{
         async function Get(){
-            const {data} = await getInfoClass({idclase: id});
+            const {data} = await getInfoClass(id);
             setData(data);
         }
         Get();
@@ -18,7 +19,7 @@ function Window(){
         <div className="WindowInfoClass-Render" >
             <div className="WindowInforClass-Div" >
                 <div className="WindowInforClass-Bar" >
-                    <h2><ImUndo2 /></h2>
+                    <h2 onClick={()=> navigate("/classes")} ><ImUndo2 /></h2>
                 </div>
                 <div className="WindowInfoClass-Flex" >
                     <div className="WindowInfoClass-Contenet1" >
@@ -45,11 +46,12 @@ function Window(){
                     </div>
                     <div className="WindowInfoClass-Contenet2">
                         <div className="WindowInfoClass-profile" >
+                            <h2>Profesor encargado</h2>
                             <div>
                                 <img src={data.foto} loading="lazy" />
                             </div>
-                            <h2>Nombre</h2>
-                            <p>Correo</p>
+                            <h2>{data.nombre} {data.apellido}</h2>
+                            <p>{data.correo}</p>
                         </div>
                     </div>
                 </div>

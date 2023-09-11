@@ -53,11 +53,13 @@
     word-wrap: break-word;
 }
 .WindowInfoClass-Contenet1 div:nth-child(3){
+    display: flex;
     height: 230px;
     width: 400px;
     overflow: hidden;
     border-radius: 10px;
-    object-fit: cover;
+    align-items: center;
+    justify-content: center;
 }
 .WindowInfoClass-Contenet1 div:nth-child(4){
     margin: 10px 0;
@@ -89,7 +91,8 @@
     cursor: pointer;
 }
 .WindowInfoClass-Contenet1 button:hover{
-    background-color: #000;
+    background-color: #fff;
+    color: #000;
 }
 .WindowInfoClass-Contenet2{
     padding: 10px;
@@ -112,6 +115,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    border: 2px solid #494949;
+    cursor: pointer;
+    transition: .5s;
+}
+.WindowInfoClass-profile div:hover{
     border: 2px solid var(--Main_Color);
 }
 .WindowInfoClass-profile h2{

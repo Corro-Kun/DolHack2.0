@@ -50,7 +50,7 @@ function BoxCreateClass(){
                             </select>
                         </div>
                         <div className="BoxCreateClass-img" >
-                            <label>Imagen de la clase</label>
+                            <label>Imagen de la clase (recomendado imágenes 200 x 200 superior)</label>
                             <div onClick={()=> fileInput.current.click()} className="BoxCreateClass-img-div" >
                                  <input style={{display:"none"}}  type="file" name="file" required ref={fileInput} onChange={(e)=>{
                                     setFile(URL.createObjectURL(e.target.files[0]));

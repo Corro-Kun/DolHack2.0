@@ -31,7 +31,6 @@ export function ClassProvider({children}){
     async function getListClass(){
         const {data} = await getClass();
         setClassList(data);
-        console.log(data);
     }
 
     function changerClassData({target: {name, value, files}}){

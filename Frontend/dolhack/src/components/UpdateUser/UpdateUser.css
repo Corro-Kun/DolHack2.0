@@ -101,7 +101,7 @@
     width: 80%;
     border-radius: 20px;
     border: 2px solid var(--Text_Color);
-    background-color: var(--Main_Color);    
+    background-color: #101002;    
     overflow: hidden;
     cursor: pointer;
     transition: .5s;
@@ -127,7 +127,7 @@
 }
 .UpdateUser-Banner-Div div{
     display: flex;
-    background-color: aliceblue;
+    background-color: rgb(26, 26, 26);
     border: 1px solid var(--Text_Color);
     border-radius: 15px;
     height: 90%;

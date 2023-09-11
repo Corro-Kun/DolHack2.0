@@ -62,7 +62,7 @@ function UpdateUser() {
                     <div className="UpdateUser-Img" >
                         <div>
                             <img src={Fotos.foto} onClick={() => inputFoto.current.click()} />
-                            <input type="file" name="foto" ref={inputFoto} onChange={(e)=>{
+                            <input style={{display: "none"}} type="file" name="foto" ref={inputFoto} onChange={(e)=>{
                                 setFotos({...Fotos, foto: URL.createObjectURL(e.target.files[0])});
                                 changeDataUpdate(e);
                             }}/>
