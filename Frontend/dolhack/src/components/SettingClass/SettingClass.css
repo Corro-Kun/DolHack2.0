@@ -1,0 +1,37 @@
+.SettingClass-div-render{
+    display: flex;
+    width: 82%;
+    align-items: center;
+    justify-content: center;
+}
+.SettingClass-div-render form{
+    padding: 10px;
+    width: 50%;
+    height: 60%;
+    background-color: var(--BG2_color);
+    border-radius: 10px;
+    border: 1px solid #4e4e4e;
+}
+.SettingClass-title{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.SettingClass-Buttons{
+    padding: 20px 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.SettingClass-Buttons button{
+    padding: 8px 10px 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.SettingClass-Buttons button:hover{
+    color: #fff;
+    background-color: var(--Main_Color);
+}
