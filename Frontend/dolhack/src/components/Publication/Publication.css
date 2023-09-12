@@ -1,0 +1,35 @@
+.Publication{
+    padding: 10px 0;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+}
+.Publication-Profile{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.Publication-Profile-img{
+    display: flex;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+.Publication-Profile-img img{
+    height: 30px;
+}
+.Publication-Profile-Data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--Main_Color);
+}
+.Publication-Profile-Data h4{
+    margin-left: 10px;
+}

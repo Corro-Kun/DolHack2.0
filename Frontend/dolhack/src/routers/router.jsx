@@ -12,7 +12,8 @@ import Studens from "../page/home/Studens";
 import ProtectRouter from "../security/ProtectRouter";
 import Update from "../page/home/Update";
 import CreateClass from "../page/home/CreateClass";
-import InfoClass from "../page/ClassE/inclass";
+import InfoClass from "../page/Class/inclass";
+import ClassStudent from "../page/Class/ClassStudent";
 
 function Router(){
     return(
@@ -33,8 +34,9 @@ function Router(){
                     <Route path="/studens" element={<Studens />} />
                     <Route path="/update" element={<Update />} />
                     <Route path="/newclass" element={<CreateClass />} />
+                    <Route path="/infoclass/:id" element={<InfoClass />} />
                 </Route>
-                <Route path="/infoclass/:id" element={<InfoClass />} />
+                <Route path="/class/home" element={<ClassStudent />} />
             </Routes>
         </BrowserRouter>
     );

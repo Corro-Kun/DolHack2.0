@@ -1,0 +1,12 @@
+.List-Div-Item{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.List-Div-Item p:nth-child(1){
+    cursor: pointer;
+    transition: .5s;
+}
+.List-Div-Item p:nth-child(1):hover{
+    color: var(--Main_Color);
+}

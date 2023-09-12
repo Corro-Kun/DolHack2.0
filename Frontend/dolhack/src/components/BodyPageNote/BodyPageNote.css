@@ -1,0 +1,11 @@
+.BodyPageNote{
+    padding: 10px;
+    height: 93%;
+    overflow: auto;
+}
+.BodyPageNote-Title{
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
