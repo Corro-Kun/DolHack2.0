@@ -15,3 +15,5 @@ export const UpdateClass = (data) => axios.put("/class", data);
 export const getDataClass = () => axios.get("/class/form");
 
 export const deleteClass = () => axios.delete("/class");
+
+export const ValueC = ()=> axios.get("/class/verify");

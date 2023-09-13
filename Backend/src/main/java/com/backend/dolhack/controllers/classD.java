@@ -88,6 +88,9 @@ public class classD {
     public ResponseEntity enterClass(@PathVariable String id) throws  Exception {
         try {
             String value = new Crypto().Encrypt(id);
+            if(repositorio.VerifyClassD(id) == false){
+                return ResponseEntity.badRequest().body(new message("La clase no existe"));
+            }
             HttpCookie cookie = ResponseCookie.from("class", value)
                 .maxAge(Duration.ofDays(1))
                 .secure(true)
@@ -107,8 +110,12 @@ public class classD {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PutMapping("/class")
-    public ResponseEntity modifyClass(@CookieValue("class") String id, @RequestBody UpdateClass clase) throws Exception {
+    public ResponseEntity modifyClass(@CookieValue("class") String id, @RequestBody UpdateClass clase, @CookieValue("token") String idU) throws Exception {
         try {
+            String idC = new Crypto().Decrypt(idU);
+            if (repositorio.VerifyRol(idC) == 2) {
+                return ResponseEntity.badRequest().body(new message("No tienes permisos para modificar esta clase"));
+            }
             boolean result = repositorio.UpdateClassP(id, clase);
             return ResponseEntity.ok().body(new message("Clase modificada con exito"));
         } catch (Exception e) {
@@ -133,8 +140,12 @@ public class classD {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @DeleteMapping("/class")
-    public ResponseEntity deleteClass(@CookieValue("class") String key) throws Exception {
+    public ResponseEntity deleteClass(@CookieValue("class") String key, @CookieValue("token") String idU) throws Exception {
         try {
+            String idC = new Crypto().Decrypt(idU);
+            if (repositorio.VerifyRol(idC) == 2) {
+                return ResponseEntity.badRequest().body(new message("No tienes permisos para eliminar esta clase"));
+            }
             String id = new Crypto().Decrypt(key);
             repositorio.DeleteClass(id);
             return ResponseEntity.status(200).body(new message("Clase eliminada con exito"));
@@ -145,5 +156,21 @@ public class classD {
          
 
     // validar su rol en una clase
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/class/verify")
+    public ResponseEntity verifyClass(@CookieValue("class") String key, @CookieValue("token") String key2) throws Exception {
+        try {
+            String idC = new Crypto().Decrypt(key);
+            String idU = new Crypto().Decrypt(key2);
+            if(repositorio.VerifyClassD(idC) == false){
+                return ResponseEntity.badRequest().body(new message("La clase no existe"));
+            }
+            return ResponseEntity.status(200).body(repositorio.VerifyRol(idU));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+ 
      
 }

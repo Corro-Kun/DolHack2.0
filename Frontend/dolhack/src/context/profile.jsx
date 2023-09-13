@@ -37,7 +37,6 @@ export function ProfileProvider({children}) {
         });
         const result = await MyClasses();
         setMyClass(result.data);
-        console.log(result.data);
     }
 
     async function Logout(){
@@ -76,7 +75,6 @@ export function ProfileProvider({children}) {
     async function EnterYourClass(id){
         try {
             const {data} = await EnterClass(id);
-            console.log(data);
             navigate("/class/teacher/home");
         } catch (error) {
             toast.error("Error al entrar a la clase");

@@ -12,6 +12,18 @@
     font-size: 1.8em;
     margin-left: 20px;
 }
+.BarTeacher-Main samp{
+    font-size: 1.8em;
+    cursor: pointer;
+    transform: translateY(4px);
+}
+.BarTeacher-Main samp:hover{
+    color: var(--Main_Color);
+}
+.BarTeacher-Main div{
+    display: flex;
+    align-items: center;
+}
 .BarTeacher-List{
     padding: 0 20px;
 }

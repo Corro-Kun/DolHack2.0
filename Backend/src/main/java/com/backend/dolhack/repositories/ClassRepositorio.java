@@ -4,10 +4,12 @@ import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.IDRandom;
 import com.backend.dolhack.models.classs.InfoClassModel;
 import com.backend.dolhack.models.classs.ListClassUser;
+import com.backend.dolhack.models.classs.ModelClase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
+import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.service.cloudinaryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +79,21 @@ public class ClassRepositorio {
         sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
         sql.update("DELETE FROM lista WHERE clase = ?", id);
         return true;
+    }
+
+    public int  VerifyRol(String id){
+        String query = "SELECT * FROM usuario WHERE idusuario = ?";
+        ModelUsuario user =  sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+        return user.getRol_idrol();
+    }
+
+    public boolean  VerifyClassD(String id){
+        String query = "SELECT * FROM clase WHERE idclase = ?";
+        ModelClase clase =  sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+        if(clase.getIdclase().equals(id) ){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

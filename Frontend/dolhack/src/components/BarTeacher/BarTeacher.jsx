@@ -1,18 +1,26 @@
 import "./BarTeacher.css";
+import Cookies from "js-cookie";
 import {BsFillFileEarmarkPostFill} from "react-icons/bs";
 import {FaClipboardList} from "react-icons/fa";
 import {PiExamBold} from "react-icons/pi";
 import {GiStabbedNote} from "react-icons/gi";
 import {AiFillSetting} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
+import {BiArrowBack} from "react-icons/bi"
 
 function BarTeacher({setting, home}){
     const navigate = useNavigate();
     return(
         <div className="BarTeacher-Div-Render" >
             <div className="BarTeacher-Main" >
-                <h2>Tu Clase</h2>
-            </div>
+                <div>
+                    <samp onClick={()=> {
+                        Cookies.remove("class");
+                        navigate("/home");
+                    }} ><BiArrowBack/></samp>
+                    <h2>Tus Clase</h2>
+                </div>
+           </div>
             <div className="BarTeacher-List" >
                 <ul id={home? "BarTeacher-List-Active" : null} onClick={()=> navigate("/class/teacher/home")} >
                     <div>

@@ -1,6 +1,7 @@
 import {React, createContext, useContext,  useState} from "react"
 import { UpdateClass, getDataClass, deleteClass } from "../api/class";
 import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 import { toast } from "sonner";
 
 const ClassTeacherContext = createContext()
@@ -42,7 +43,8 @@ export function ClassTeacherProvider({children}){
     async function DeleteClassT(){
         const {data} = await deleteClass();
         toast("Clase eliminada");
-        navigate("/home");        
+        Cookies.remove("class");
+        navigate("/home");
     }
 
     return(
