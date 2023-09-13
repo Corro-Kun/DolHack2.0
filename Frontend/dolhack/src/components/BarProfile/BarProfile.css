@@ -160,4 +160,5 @@
     background: transparent;
     backdrop-filter: blur(20px);
     color: var(--Text_Color);
+    text-shadow: 0 0 5px #000;
 }

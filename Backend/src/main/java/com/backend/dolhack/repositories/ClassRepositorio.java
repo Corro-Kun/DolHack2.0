@@ -3,7 +3,9 @@ package com.backend.dolhack.repositories;
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.IDRandom;
 import com.backend.dolhack.models.classs.InfoClassModel;
+import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ModelLista;
+import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
 import com.backend.dolhack.service.cloudinaryService;
@@ -52,4 +54,28 @@ public class ClassRepositorio {
         return sql.queryForObject(query, new Object[]{id} , BeanPropertyRowMapper.newInstance(InfoClassModel.class));
     }
 
+    public List<ListClassUser> listClassUser(String key) throws Exception{
+        String idUser = new Crypto().Decrypt(key);
+        String query = "SELECT clase.idclase, clase.titulo, clase.imagen FROM clase JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE usuario.idusuario = ?";
+        return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));
+    }
+
+    public boolean UpdateClassP(String key, UpdateClass clase) throws Exception{
+        String id = new Crypto().Decrypt(key);
+
+        String query = "UPDATE clase SET titulo = ?, descripcion = ?, fecha_inicio = ?, fecha_finalizacion = ?, tipo_idtipo = ?, nivel_idnivel = ? WHERE idclase = ? ";
+
+        sql.update(query, clase.getTitulo(), clase.getDescripcion(), clase.getFecha_inicio(), clase.getFecha_finalizacion(), clase.getTipo_idtipo(), clase.getNivel_idnivel(), id);
+
+        return true;
+    }
+
+    public boolean DeleteClass(String id ) throws Exception{
+        String Querry1 = "Select * FROM lista WHERE clase = ?";
+        ModelLista lista = sql.queryForObject(Querry1, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+        sql.update("DELETE FROM clase WHERE idclase = ?", id);
+        sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
+        sql.update("DELETE FROM lista WHERE clase = ?", id);
+        return true;
+    }
 }

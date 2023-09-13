@@ -1,5 +1,6 @@
 import React,{createContext, useContext, useState, useEffect} from "react";
 import {profile, update} from "../api/auth";
+import { MyClasses, EnterClass } from "../api/class";
 import {useNavigate} from "react-router-dom";
 import Cookie from "js-cookie";
 import { toast } from "sonner";
@@ -14,6 +15,7 @@ export function ProfileProvider({children}) {
     const [DataProfile, setDataProfile] = useState({});
     const [DataUpdate, setDataUpdate] = useState({});
     const [Fotos, setFotos] = useState({});
+    const [myClass, setMyClass] = useState([]); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,6 +35,9 @@ export function ProfileProvider({children}) {
             foto: data.foto,
             banner: data.banner,
         });
+        const result = await MyClasses();
+        setMyClass(result.data);
+        console.log(result.data);
     }
 
     async function Logout(){
@@ -68,8 +73,18 @@ export function ProfileProvider({children}) {
         } 
     }
 
+    async function EnterYourClass(id){
+        try {
+            const {data} = await EnterClass(id);
+            console.log(data);
+            navigate("/class/teacher/home");
+        } catch (error) {
+            toast.error("Error al entrar a la clase");
+        }
+    }
+
     return(
-        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate}} >
+        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass}} >
             {children}
         </ProfileContext.Provider>
     );

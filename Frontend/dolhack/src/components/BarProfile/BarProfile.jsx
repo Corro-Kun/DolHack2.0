@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 function BarProfile() {
   const navegate = useNavigate();
-  const {DataProfile, Logout} = useProfile();
+  const {DataProfile, Logout, myClass, EnterYourClass} = useProfile();
   return (
     <div className="Profile-Home">
       <div className="Settings-Home">
@@ -80,15 +80,13 @@ function BarProfile() {
         <a href="#">Ver Todo</a>
       </div>
       <div id="List-Profile-Class" className="Home-Profile-teachers">
-        <ul style={{backgroundImage: "url('https://p4.wallpaperbetter.com/wallpaper/637/317/264/simple-java-programming-code-wallpaper-preview.jpg')"}} >
-          <p>Java en el Backend</p>
-        </ul>
-        <ul style={{backgroundImage: "url('https://cdn.wallpapersafari.com/74/85/PEvcXa.jpeg')"}} >
-          <p>PHP frontend</p>
-        </ul>
-        <ul style={{backgroundImage: "url('https://c4.wallpaperflare.com/wallpaper/645/96/47/python-programming-programming-programming-language-code-hd-wallpaper-preview.jpg')"}} >
-          <p>Python Ciencias de datos</p>
-        </ul>
+        {
+          myClass.map((data, i)=>(
+            <ul onClick={()=> EnterYourClass(data.idclase)} style={{backgroundImage: "url('"+data.imagen+"')"}} >
+              <p>{data.titulo}</p>
+            </ul>
+          ))
+        }
       </div>
     </div>
   );
