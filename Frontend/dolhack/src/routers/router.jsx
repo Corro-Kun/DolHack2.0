@@ -17,6 +17,7 @@ import ClassStudent from "../page/Class/ClassStudent";
 import ClassTeacher from "../page/Class/ClassTeacher";
 import ClassSetting from "../page/Class/ClassSetting";
 import ProtecClass from "../security/ProtecClassTeacher";
+import ProtectClass from "../security/ProtecClassStudent";
 
 function Router(){
     return(
@@ -43,7 +44,7 @@ function Router(){
                         <Route path="/class/teacher/home" element={<ClassTeacher />} />
                         <Route path="/class/teacher/setting" element={<ClassSetting />} />
                     </Route>
-                    <Route>
+                    <Route element={<ProtectClass />} >
                         <Route path="/class/student/home" element={<ClassStudent />} />
                     </Route>
                 </Route>
