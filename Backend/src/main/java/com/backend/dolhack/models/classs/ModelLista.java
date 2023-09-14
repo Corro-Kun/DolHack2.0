@@ -1,22 +1,22 @@
 package com.backend.dolhack.models.classs;
 
 public class ModelLista {
-    private String idlista;
+    private int idlista;
     private String clase;
 
     public ModelLista() {
     }
 
-    public ModelLista(String idlista, String clase) {
+    public ModelLista(int idlista, String clase) {
         this.idlista = idlista;
         this.clase = clase;
     }
 
-    public String getIdlista() {
+    public int getIdlista() {
         return idlista;
     }
 
-    public void setIdlista(String idlista) {
+    public void setIdlista(int idlista) {
         this.idlista = idlista;
     }
 

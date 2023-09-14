@@ -17,3 +17,5 @@ export const getDataClass = () => axios.get("/class/form");
 export const deleteClass = () => axios.delete("/class");
 
 export const ValueC = ()=> axios.get("/class/verify");
+
+export const getRegisterClass = (id) => axios.get("/class/register/"+id);

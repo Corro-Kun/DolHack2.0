@@ -172,5 +172,31 @@ public class classD {
         }
     }
  
+
+    // registrar a estudiantes en una clase
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/class/register/{id}")
+    public ResponseEntity StudentRegister(@CookieValue("token") String key , @PathVariable String id) throws Exception {
+        try {
+            String idU = new Crypto().Decrypt(key);
+            if(repositorio.VerifyClassD(id) == false){
+                return ResponseEntity.badRequest().body(new message("La clase no existe"));
+            }
+            if(repositorio.VerifyRol(idU) == 1){
+                return ResponseEntity.badRequest().body(new message("Un profesor no puede registrarse en una clase"));
+            }
+            boolean valid = repositorio.RegisterStudent(idU, id);
+
+            if(valid == false){
+                return ResponseEntity.badRequest().body(new message("Ya estas registrado en esta clase"));
+            }
+
+            return ResponseEntity.status(200).body(new message("Estudiante registrado con exito"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+ 
      
 }

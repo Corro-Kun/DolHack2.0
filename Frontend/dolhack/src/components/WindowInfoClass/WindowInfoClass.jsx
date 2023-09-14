@@ -2,7 +2,8 @@ import React,{useState, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./WindowInfoClass.css";
 import {ImUndo2} from "react-icons/im";
-import { getInfoClass } from "../../api/class";
+import {toast} from "sonner";
+import { getInfoClass, getRegisterClass } from "../../api/class";
 
 function Window(){
     const navigate = useNavigate();
@@ -15,6 +16,12 @@ function Window(){
         }
         Get();
     },[]);
+
+    async function Register(){
+        const {data} = await getRegisterClass(id);
+        navigate("/classes");
+    }
+
     return(
         <div className="WindowInfoClass-Render" >
             <div className="WindowInforClass-Div" >
@@ -41,7 +48,13 @@ function Window(){
                             <p>{data.fecha_finalizacion}</p>
                         </div>
                         <div>
-                            <button>Inscribirse</button>
+                            <button onClick={()=>{
+                                toast.promise(Register(),{
+                                    loading: "Inscribiéndose",
+                                    success: "Inscrito",
+                                    error: "Ya estas inscrito a esta clase"
+                                })
+                            }} >Inscribirse</button>
                         </div>
                     </div>
                     <div className="WindowInfoClass-Contenet2">

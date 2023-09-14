@@ -43,8 +43,10 @@ function Router(){
                         <Route path="/class/teacher/home" element={<ClassTeacher />} />
                         <Route path="/class/teacher/setting" element={<ClassSetting />} />
                     </Route>
+                    <Route>
+                        <Route path="/class/student/home" element={<ClassStudent />} />
+                    </Route>
                 </Route>
-                <Route path="/class/student/home" element={<ClassStudent />} />
            </Routes>
         </BrowserRouter>
     );

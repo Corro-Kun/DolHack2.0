@@ -6,6 +6,7 @@ import com.backend.dolhack.models.classs.InfoClassModel;
 import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ModelClase;
 import com.backend.dolhack.models.classs.ModelLista;
+import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
@@ -58,8 +59,14 @@ public class ClassRepositorio {
 
     public List<ListClassUser> listClassUser(String key) throws Exception{
         String idUser = new Crypto().Decrypt(key);
-        String query = "SELECT clase.idclase, clase.titulo, clase.imagen FROM clase JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE usuario.idusuario = ?";
-        return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));
+        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+        if (user.getRol_idrol() == 1) {
+            String query = "SELECT clase.idclase, clase.titulo, clase.imagen FROM clase JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE usuario.idusuario = ?";
+            return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));            
+        }else{
+            String query = "select clase.idclase, clase.titulo, clase.imagen from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario where usuario.idusuario = ? ;";
+            return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));
+        }
     }
 
     public boolean UpdateClassP(String key, UpdateClass clase) throws Exception{
@@ -89,11 +96,25 @@ public class ClassRepositorio {
 
     public boolean  VerifyClassD(String id){
         String query = "SELECT * FROM clase WHERE idclase = ?";
-        ModelClase clase =  sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
-        if(clase.getIdclase().equals(id) ){
-            return true;
-        }else{
+        List<ModelClase> clase =  sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+
+        if(clase.isEmpty()){
             return false;
+        }else{
+            return true;
         }
+   }
+
+    public boolean RegisterStudent(String idU, String idC){
+        ModelLista lista = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+        List<ModelLista_has_usuario> valid =  sql.query("SELECT * FROM lista_has_usuario WHERE lista_idlista = ? AND usuario_idusuario = ?", new Object[]{lista.getIdlista(), idU}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+        if(valid.isEmpty()){
+            sql.update("Insert into lista_has_usuario (lista_idlista, usuario_idusuario) values(?, ?)", lista.getIdlista(), idU);
+            return true;
+        }
+
+        return false;
     }
 }
