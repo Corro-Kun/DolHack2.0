@@ -19,6 +19,8 @@ import ClassSetting from "../page/Class/ClassSetting";
 import ProtecClass from "../security/ProtecClassTeacher";
 import ProtectClass from "../security/ProtecClassStudent";
 import ClassList from "../page/Class/ClassList";
+import ExamTeacher from "../page/Class/ExamTeacher";
+import ExamNew from "../page/Exam/ExamNew";
 
 function Router(){
     return(
@@ -45,6 +47,8 @@ function Router(){
                         <Route path="/class/teacher/home" element={<ClassTeacher />} />
                         <Route path="/class/teacher/list" element={<ClassList />} />
                         <Route path="/class/teacher/setting" element={<ClassSetting />} />
+                        <Route path="/class/teacher/exam" element={<ExamTeacher />} />
+                        <Route path="/class/teacher/new/quiz" element={<ExamNew />} />
                     </Route>
                     <Route element={<ProtectClass />} >
                         <Route path="/class/student/home" element={<ClassStudent />} />

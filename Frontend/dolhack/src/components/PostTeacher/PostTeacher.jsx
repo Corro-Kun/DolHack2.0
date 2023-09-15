@@ -32,7 +32,7 @@ function PostTeacher(){
                 <div className="PostTeacher-Post-Div" >
                     {
                         post.map((data, i)=>(
-                            <div className="PostTeacher-Div-Post-One" >
+                            <div key={i} className="PostTeacher-Div-Post-One" >
                                 <div className="PostTeacher-Data" >
                                     <div>
                                         <img src={data.foto} alt="" loading="lazy" />

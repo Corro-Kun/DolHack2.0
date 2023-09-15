@@ -1,0 +1,46 @@
+.DashExam-Div-Render{
+    display: flex;
+    height: 100vh;
+    width: 82%;
+    align-items: center;
+    justify-content: center;
+}
+.DashExam-Main{
+    height: 60%;
+    width: 70%;
+    background-color: var(--BG2_color);
+    border: 1px solid #494949;
+    border-radius: 5px;
+}
+.DashExam-Title{
+    padding: 10px;
+    display: flex;
+    border-bottom: 1px solid #494949;
+    align-items: center;
+    justify-content: space-between;
+}
+.DashExam-Title button{
+    padding: 6px 10px 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--Main_Color);
+    color: var(--Text_Color);
+    cursor: pointer;
+    transition: .5s;
+    outline: none;
+}
+.DashExam-Title button:hover{
+    background-color: #000;
+}
+.DashExam-content{
+    height: 86%;
+    width: 100%;
+    border-bottom: 1px solid #494949;
+    overflow: auto;
+}
+.DashExam-Quizs{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
