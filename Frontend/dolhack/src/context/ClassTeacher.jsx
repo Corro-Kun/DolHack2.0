@@ -1,8 +1,9 @@
 import {React, createContext, useContext,  useState} from "react"
-import { UpdateClass, getDataClass, deleteClass } from "../api/class";
+import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost } from "../api/class";
 import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
+import { downloadExcen} from "../lib/downloadExcen";
 
 const ClassTeacherContext = createContext()
 
@@ -13,6 +14,9 @@ export function useClassTeacher(){
 export function ClassTeacherProvider({children}){
     const navigate = useNavigate();
     const [dataClass, setDataClass] = useState({});
+    const [PostS, setPostS] = useState({});
+    const [list, setList] = useState([]);
+    const [post, setPost] = useState([]);
 
     async function getData(){
         const {data} = await getDataClass();
@@ -47,8 +51,43 @@ export function ClassTeacherProvider({children}){
         navigate("/home");
     }
 
+    async function ListS(){
+        const {data} = await ListStudent();
+        setList(data);
+    }
+
+    function downloadList(){
+        downloadExcen(list, "Lista de estudiantes");
+        toast.success("Lista de estudiantes descargada");
+    }
+
+    function changerPost({target: {name, value, files}}){
+        if(name === "file"){
+            const [file] = files;
+            setPostS({...PostS, [name]:file});
+        }
+        else{
+            setPostS({...PostS, [name]:value});
+        }
+    }
+
+    async function HandlePost(){
+        const {file, post} = PostS;
+        const form = new FormData();
+        form.append("file", file);
+        form.append("post", post);
+        const {data} = await Postpublic(form);
+        await consultPost();
+    }
+
+    async function consultPost(){
+        const {data} = await getPost();
+        setPost(data);
+    }
+
+
     return(
-        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT}}>
+        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post}}>
            {children} 
         </ClassTeacherContext.Provider>
     );

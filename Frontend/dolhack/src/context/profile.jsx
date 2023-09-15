@@ -1,6 +1,6 @@
 import React,{createContext, useContext, useState, useEffect} from "react";
 import {profile, update} from "../api/auth";
-import { MyClasses, EnterClass } from "../api/class";
+import { MyClasses, EnterClass} from "../api/class";
 import {useNavigate} from "react-router-dom";
 import Cookie from "js-cookie";
 import { toast } from "sonner";

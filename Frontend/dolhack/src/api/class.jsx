@@ -19,3 +19,9 @@ export const deleteClass = () => axios.delete("/class");
 export const ValueC = ()=> axios.get("/class/verify");
 
 export const getRegisterClass = (id) => axios.get("/class/register/"+id);
+
+export const ListStudent = () => axios.get("/class/student");
+
+export const Postpublic = (data) => axios.post("/class/post", data);
+
+export const getPost = () => axios.get("/class/post");

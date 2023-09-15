@@ -199,4 +199,48 @@ public class classD {
     }
  
      
+    // lista de estudiantes registrados en una clase
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/class/student")
+    public ResponseEntity StuentList(@CookieValue("class") String key) throws Exception {
+        try {
+            String id = new Crypto().Decrypt(key);
+            return ResponseEntity.status(200).body(repositorio.StudentListC(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    // Publicar en la clase
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @PostMapping("/class/post")
+    public ResponseEntity PostClass(@CookieValue("class") String key, @CookieValue("token") String idU ,@RequestPart(name="file", required=false) MultipartFile file, @RequestPart(name="post", required=true) String text ) throws Exception {
+        try {
+            String idC = new Crypto().Decrypt(key);
+            String id = new Crypto().Decrypt(idU);
+            if(repositorio.VerifyRol(id) == 2){
+                return ResponseEntity.badRequest().body(new message("Un estudiante no puede publicar en una clase"));
+            }
+            repositorio.Post(idC, id, file, text);
+            return ResponseEntity.status(200).body(new message("Publicacion realizada con exito"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    // lista de publicaciones de una clase
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/class/post")
+    public ResponseEntity GetPost(@CookieValue("class") String key){
+        try {
+            String id = new Crypto().Decrypt(key);
+            return ResponseEntity.status(200).body(repositorio.PostList(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    } 
+ 
 }

@@ -1,0 +1,78 @@
+.PostTeacher-Div-Render{
+    display: flex;
+    width: 82%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.PostTeacher-Main{
+    height: 95%;
+    width: 50%;
+    border-radius: 8px;
+    background-color: var(--BG2_color);
+    border: 1px solid #494949;
+    box-shadow: 0 10px 10px #1a1a1a;
+    overflow: hidden;
+}
+.PostTeacher-Post{
+    display: flex;
+    padding: 20px;
+    height: 20%;
+    border-bottom: 1px solid #494949;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.PostTeacher-Post textarea{
+    padding: 5px;
+    height: 70%;
+    width: 90%;
+    background-color: var(--BG_Color);
+    color: var(--Text_Color);
+    border: 1px solid #494949;
+    border-radius: 4px;
+    outline: none;
+    resize: none;
+}
+.PostTeacher-Post div{
+    margin-top: 10px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+.PostTeacher-Post button{
+    padding: 8px 10px 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+.PostTeacher-Post-Div{
+    display: flex;
+    height: 78%;
+    flex-direction: column-reverse;
+    overflow: auto;
+}
+.PostTeacher-Div-Post-One{
+    padding: 10px;
+    border-bottom: 1px solid #494949;
+}
+.PostTeacher-Data{
+    display: flex;
+    align-items: center;
+}
+.PostTeacher-Data div{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+.PostTeacher-Data img{
+    height: 40px;
+}

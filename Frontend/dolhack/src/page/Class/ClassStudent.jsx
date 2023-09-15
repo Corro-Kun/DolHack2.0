@@ -1,10 +1,13 @@
 import Body from "../../components/Body/Body";
 import ShapeNotebook from "../../components/ShapeNotebook/ShapeNotebook";
+import { ClassStudentProvider } from "../../context/ClassStudent";
 
 function ClassStudent(){
     return(
         <Body>
-            <ShapeNotebook />
+            <ClassStudentProvider>
+                <ShapeNotebook />
+            </ClassStudentProvider>
         </Body>
     );
 }

@@ -4,6 +4,8 @@ import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.IDRandom;
 import com.backend.dolhack.models.classs.InfoClassModel;
 import com.backend.dolhack.models.classs.ListClassUser;
+import com.backend.dolhack.models.classs.ListPostClass;
+import com.backend.dolhack.models.classs.ListStudentClass;
 import com.backend.dolhack.models.classs.ModelClase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.ModelLista_has_usuario;
@@ -116,5 +118,27 @@ public class ClassRepositorio {
         }
 
         return false;
+    }
+
+    public List<ListStudentClass> StudentListC(String id){
+        String query = "SELECT usuario.foto, usuario.nombre, usuario.apellido, usuario.idusuario FROM lista_has_usuario JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista WHERE lista.clase = ?";
+        return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListStudentClass.class));
+    }
+
+    public boolean Post(String idC, String idU, MultipartFile file, String Text) throws Exception{
+        if(file != null){
+            String url = cloudinary.uploadImage(file, "publicaciones");
+            String query = "insert into publicacion(texto, imagen, clase_idclase, usuario_idusuario) values(?,?,?,?);";
+            sql.update(query, Text, url, idC, idU);
+            return true;
+        }
+        String query = "insert into publicacion(texto, clase_idclase, usuario_idusuario) values(?,?,?);";
+        sql.update(query, Text, idC, idU);
+        return true;
+    }
+
+    public List<ListPostClass> PostList(String id){
+        String query = " select usuario.foto, usuario.nombre, usuario.apellido, publicacion.texto, publicacion.imagen from publicacion JOIN usuario ON usuario.idusuario = publicacion.usuario_idusuario WHERE publicacion.clase_idclase = ? ;";
+        return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListPostClass.class));
     }
 }

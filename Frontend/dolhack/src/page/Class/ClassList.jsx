@@ -1,20 +1,21 @@
-import BarTeacher from "../../components/BarTeacher/BarTeacher";
+import React from "react";
 import Body from "../../components/Body/Body";
 import BodyHome from "../../components/BodyHome/BodyHome";
-import PostTeacher from "../../components/PostTeacher/PostTeacher";
+import BarTeacher from "../../components/BarTeacher/BarTeacher";
+import ListStudent from "../../components/ListStudent/ListStudent";
 import { ClassTeacherProvider } from "../../context/ClassTeacher";
 
-function ClassTeacher(){
+function ClassList() {
     return(
         <Body>
             <BodyHome>
-                <BarTeacher home={true} />
+                <BarTeacher list={true} />
                 <ClassTeacherProvider>
-                    <PostTeacher />
+                    <ListStudent />
                 </ClassTeacherProvider>
             </BodyHome>
         </Body>
     );
 }
 
-export default ClassTeacher;
+export default ClassList;

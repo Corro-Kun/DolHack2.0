@@ -82,7 +82,7 @@ function BarProfile() {
       <div id="List-Profile-Class" className="Home-Profile-teachers">
         {
           myClass.map((data, i)=>(
-            <ul onClick={()=> EnterYourClass(data.idclase)} style={{backgroundImage: "url('"+data.imagen+"')"}} >
+            <ul key={i} onClick={()=> EnterYourClass(data.idclase)} style={{backgroundImage: "url('"+data.imagen+"')"}} >
               <p>{data.titulo}</p>
             </ul>
           ))
