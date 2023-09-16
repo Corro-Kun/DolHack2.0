@@ -2,6 +2,7 @@ import React from "react";
 import {BiX} from "react-icons/bi";
 import {AiOutlineHome} from "react-icons/ai";
 import "./CreateExam.css";
+import {toast} from "sonner";
 import { useExam } from "../../context/exam";
 
 function CreateExam(){
@@ -14,7 +15,11 @@ function CreateExam(){
                     <h2>Crea tu examen</h2>
                     <h1><AiOutlineHome /></h1>
                 </div>
-                <form onSubmit={(e)=> HandleSubmitQuiz(e)}>
+                <form onSubmit={(e)=> toast.promise(HandleSubmitQuiz(e),{
+                    loading: "Creando examen...",
+                    success: "Examen creado con exito",
+                    error: "Error al crear examen"
+                })}>
                 <div className="CreateExam-Data-Main" >
                     <input type="text" name="title" placeholder="Titulo de tu examen..." required onChange={(e)=> changerTitleQuiz(e)} />
                     <textarea name="description" placeholder="Descripción o consejos de este examen" required onChange={(e)=> changerTitleQuiz(e)} />

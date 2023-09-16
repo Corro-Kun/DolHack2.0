@@ -8,12 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
 import { useClassStudent } from "../../context/ClassStudent";
 import { useEffect } from "react";
+import { useExam } from "../../context/exam";
 
 function ShapeNotebook(){
     const navigate = useNavigate();
     const {consultPost, Post} = useClassStudent();
+    const {GetQuizs, Quizs} = useExam();
     useEffect(()=>{
         consultPost();
+        GetQuizs();
     },[]);
     return(
         <div className="ShapeNotebook-Div-Render" >
@@ -40,8 +43,11 @@ function ShapeNotebook(){
                         <h3>Nombre de la clase</h3>
                     </div>
                     <BodyPageNote title={"Exámenes"} >
-                        <List />
-                        <List />
+                        {
+                            Quizs.map((item, index)=>(
+                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} />
+                            ))
+                        }
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>

@@ -51,7 +51,7 @@
 .PostTeacher-Post-Div{
     display: flex;
     height: 78%;
-    flex-direction: column-reverse;
+    flex-direction: column;
     overflow: auto;
 }
 .PostTeacher-Div-Post-One{

@@ -1,7 +1,7 @@
 package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.IDRandom;
-import com.backend.dolhack.models.exam.ModelPregunta;
+import com.backend.dolhack.models.exam.ModelQuiz;
 import com.backend.dolhack.models.exam.NewQuizModel;
 import com.backend.dolhack.models.exam.OptionModel;
 import com.backend.dolhack.models.exam.QuestionModel;
@@ -27,11 +27,9 @@ public class ExamRepositorio {
         List<QuestionModel> questions = Quiz.getQuestions();
 
         for(QuestionModel question : questions ){
-            String query2 = "INSERT INTO pregunta(pregunta, quiz_idquiz) values(?,?);";
-            sql.update(query2, question.getQuestion(), id);
-
-            String query3 = "SELECT * FROM pregunta WHERE pregunta = ? AND quiz_idquiz = ?;";
-            ModelPregunta pregunta = sql.queryForObject(query3, new Object[]{question.getQuestion(), id}, (rs, rowNum) -> new ModelPregunta(rs.getInt("idpregunta"), rs.getString("pregunta"), rs.getString("quiz_idquiz")));
+            String query2 = "INSERT INTO pregunta(idpregunta,pregunta, quiz_idquiz) values(?,?,?);";
+            String idP = new IDRandom().generateID();
+            sql.update(query2, idP ,question.getQuestion(), id);
 
             List<OptionModel> options = question.getOptions();
 
@@ -40,13 +38,13 @@ public class ExamRepositorio {
             for(OptionModel option : options) {
                 String query5 = "INSERT INTO opcion(opcion, respuesta, calificacion, pregunta_idpregunta) values(?,?,?,?);";
                 if(value == 1){
-                    sql.update(query5, "A", option.getOption(), option.getQualification(), pregunta.getIdPregunta());
+                    sql.update(query5, "A", option.getOption(), option.getQualification(), idP);
                 }else if(value == 2){
-                    sql.update(query5, "B", option.getOption(), option.getQualification(), pregunta.getIdPregunta());
+                    sql.update(query5, "B", option.getOption(), option.getQualification(), idP);
                 }else if(value == 3){
-                    sql.update(query5, "C", option.getOption(), option.getQualification(), pregunta.getIdPregunta());
+                    sql.update(query5, "C", option.getOption(), option.getQualification(), idP);
                 }else if(value == 4){
-                    sql.update(query5, "D", option.getOption(), option.getQualification(), pregunta.getIdPregunta());
+                    sql.update(query5, "D", option.getOption(), option.getQualification(), idP);
                 }
 
                 value = value + 1;
@@ -54,5 +52,16 @@ public class ExamRepositorio {
         }
 
         return true;
+    }
+
+    public List<ModelQuiz> getQuizzes(String idC){
+        String query = "SELECT * FROM quiz WHERE clase_idclase = ?;";
+        return sql.query(query, new Object[]{idC}, (rs, rowNum) -> new ModelQuiz(
+                rs.getString("idquiz"),
+                rs.getString("titulo"),
+                rs.getString("descripcion"),
+                rs.getString("clase_idclase"),
+                rs.getString("usuario_idusuario")
+        ));
     }
 }

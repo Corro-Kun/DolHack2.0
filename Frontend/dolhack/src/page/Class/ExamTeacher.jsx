@@ -3,13 +3,16 @@ import Body from "../../components/Body/Body";
 import BodyHome from "../../components/BodyHome/BodyHome";
 import BarTeacher from "../../components/BarTeacher/BarTeacher";
 import DashExam from "../../components/DashExam/DashExam";
+import { ExamProvider } from "../../context/exam";
 
 function ExamTeacher() {
   return (
     <Body>
         <BodyHome>
             <BarTeacher exam={true} />
-            <DashExam />
+            <ExamProvider>
+              <DashExam />
+            </ExamProvider>
         </BodyHome>
     </Body>
   );

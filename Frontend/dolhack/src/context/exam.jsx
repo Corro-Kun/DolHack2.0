@@ -1,5 +1,6 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz} from "../api/exam";
+import {PostQuiz, GetQuiz} from "../api/exam";
+import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
 
@@ -8,6 +9,7 @@ export function useExam(){
 }
 
 export function ExamProvider({children}){
+    const navigate = useNavigate();
     // esto es para la creacion de examenes    
     const [NumQuestion, setNumQuestion] = useState(1);
     const [Saveopciones, setSaveopciones] = useState([0]);
@@ -138,11 +140,19 @@ export function ExamProvider({children}){
     async function HandleSubmitQuiz(e){
         e.preventDefault();
         const {data} = await PostQuiz(Quizadd);
+        navigate("/class/teacher/exam");
+    }
+
+    const [Quizs, setQuizs] = useState([]);
+
+    async function GetQuizs(){
+        const {data} = await GetQuiz();
         console.log(data);
+        setQuizs(data);
     }
 
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs}}>
             {children}
         </ExamContext.Provider>
     );

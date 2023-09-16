@@ -21,6 +21,7 @@ import ProtectClass from "../security/ProtecClassStudent";
 import ClassList from "../page/Class/ClassList";
 import ExamTeacher from "../page/Class/ExamTeacher";
 import ExamNew from "../page/Exam/ExamNew";
+import ExamAnswer from "../page/Exam/ExamAnswer";
 
 function Router(){
     return(
@@ -52,6 +53,7 @@ function Router(){
                     </Route>
                     <Route element={<ProtectClass />} >
                         <Route path="/class/student/home" element={<ClassStudent />} />
+                        <Route path="/class/student/exam/:id" element={<ExamAnswer />} />
                     </Route>
                 </Route>
            </Routes>
