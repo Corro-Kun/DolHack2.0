@@ -1,10 +1,14 @@
 package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.IDRandom;
+import com.backend.dolhack.models.exam.ModelOpcion;
+import com.backend.dolhack.models.exam.ModelPregunta;
 import com.backend.dolhack.models.exam.ModelQuiz;
 import com.backend.dolhack.models.exam.NewQuizModel;
 import com.backend.dolhack.models.exam.OptionModel;
+import com.backend.dolhack.models.exam.PreguntaViewr;
 import com.backend.dolhack.models.exam.QuestionModel;
+import com.backend.dolhack.models.exam.QuizViewr;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,5 +67,43 @@ public class ExamRepositorio {
                 rs.getString("clase_idclase"),
                 rs.getString("usuario_idusuario")
         ));
+    }
+
+    public QuizViewr getQuiz(String idQ){
+        String query = "SELECT * FROM quiz WHERE idquiz = ?;";
+        ModelQuiz quiz = sql.queryForObject(query, new Object[]{idQ}, (rs, rowNum) -> new ModelQuiz(
+                rs.getString("idquiz"),
+                rs.getString("titulo"),
+                rs.getString("descripcion"),
+                rs.getString("clase_idclase"),
+                rs.getString("usuario_idusuario")
+        ));
+
+        String query2 = "SELECT * FROM pregunta WHERE quiz_idquiz = ?;";
+
+        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, (rs, rowNum) -> new ModelPregunta(
+                rs.getString("idpregunta"),
+                rs.getString("pregunta"),
+                rs.getString("quiz_idquiz")
+        ));
+
+        List<PreguntaViewr> preguntasViewr = new java.util.ArrayList<PreguntaViewr>();
+
+        for(ModelPregunta pregunta : preguntas){
+            String query3 = "SELECT * FROM opcion WHERE pregunta_idpregunta = ?;"; 
+            List<ModelOpcion> opciones = sql.query(query3, new Object[]{pregunta.getIdPregunta()}, (rs, rowNum) -> new ModelOpcion(
+                rs.getInt("idopcion"),
+                rs.getString("opcion"),
+                rs.getString("respuesta"),
+                rs.getInt("calificacion"),
+                rs.getString("pregunta_idpregunta")
+            ));
+
+            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), opciones);
+
+            preguntasViewr.add(preguntaViewr);
+        }
+
+        return new QuizViewr(idQ, quiz.getTitulo(), quiz.getDescripcion(), preguntasViewr);
     }
 }

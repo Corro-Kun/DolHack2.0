@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById} from "../api/exam";
 import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
@@ -147,12 +147,23 @@ export function ExamProvider({children}){
 
     async function GetQuizs(){
         const {data} = await GetQuiz();
-        console.log(data);
         setQuizs(data);
     }
 
+    const [QuizId, setQuizId] = useState({
+        idquiz: '',
+        titulo: '',
+        descripcion: '',
+        preguntas:[]
+    });
+
+    async function GetQuizId(id){
+        const {data} = await GetQuizById(id);
+        setQuizId(data);
+    }
+
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId}}>
             {children}
         </ExamContext.Provider>
     );

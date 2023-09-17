@@ -1,17 +1,17 @@
 package com.backend.dolhack.models.exam;
 
 public class ModelPregunta {
-    private int idPregunta;
+    private String idPregunta;
     private String pregunta;
     private String quiz_idquiz;
 
-    public ModelPregunta(int idPregunta, String pregunta, String quiz_idquiz) {
+    public ModelPregunta(String idPregunta, String pregunta, String quiz_idquiz) {
         this.idPregunta = idPregunta;
         this.pregunta = pregunta;
         this.quiz_idquiz = quiz_idquiz;
     }
 
-    public int getIdPregunta() {
+    public String getIdPregunta() {
         return idPregunta;
     }
 
@@ -23,7 +23,7 @@ public class ModelPregunta {
         return quiz_idquiz;
     }
 
-    public void setIdPregunta(int idPregunta) {
+    public void setIdPregunta(String idPregunta) {
         this.idPregunta = idPregunta;
     }
 

@@ -40,7 +40,7 @@ function ShapeNotebook(){
                 </div>
                 <div className="ShapeNotebook-page2" >
                     <div className="ShapeNotebook-Bar-2" >
-                        <h3>Nombre de la clase</h3>
+                        <h3>DolHack</h3>
                     </div>
                     <BodyPageNote title={"Exámenes"} >
                         {
