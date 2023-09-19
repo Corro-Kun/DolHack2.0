@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import "./DashExam.css";
 import { useNavigate } from "react-router-dom";
 import { useExam } from "../../context/exam";
+import {AiTwotoneDelete} from "react-icons/ai"
+import {BsPencilSquare} from "react-icons/bs"
 
 function DashExam() {
     const navigate = useNavigate();
@@ -21,8 +23,16 @@ function DashExam() {
             <div className="DashExam-content" >
                 {Quizs.map((data, i) => (
                     <div key={i} className="DashExam-Quizs" >
-                        <h3>{data.titulo}</h3>
-                        <h3>{i+1}</h3>
+                        <div className="DashExam-Quizs-title" >
+                            <h3>{data.titulo}</h3>
+                        </div>
+                        <div className="DashExam-Quizs-description" >
+                            <p>{data.descripcion}</p>
+                        </div>
+                        <div className="DashExam-Quizs-button" >
+                            <button><BsPencilSquare /></button>
+                            <button><AiTwotoneDelete /></button>
+                        </div>
                     </div>
                 ))}
             </div>

@@ -6,7 +6,7 @@ import {toast} from "sonner";
 
 function AnswerQuiz(){
     const {id} = useParams();
-    const {GetQuizId, QuizId} = useExam();
+    const {GetQuizId, QuizId, changerAnswer, handleSubmitAnswer} = useExam();
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -21,9 +21,11 @@ function AnswerQuiz(){
                     <p>{QuizId.descripcion}</p>
                 </div>
                 <form onSubmit={(e)=>{
-                    e.preventDefault();
-                    toast.success("Examen enviado");
-                    navigate("/class/student/home");
+                    toast.promise(handleSubmitAnswer(e, id), {
+                        loading: "Enviando respuestas...",
+                        success: "Respuestas enviadas",
+                        error: "Error al enviar respuestas"
+                    })
                 }}>
                 <div className="AnswerQuiz-Questions" >
                     {
@@ -32,9 +34,9 @@ function AnswerQuiz(){
                                 <h3>{index + 1}. {pregunta.pregunta}</h3>
                             <div className="AnswerQuiz-Options" >
                                 {
-                                    pregunta.opciones?.map((opcion, index) => (
-                                        <div key={index} >
-                                            <input type="radio" required name={pregunta.idpregunta} />
+                                    pregunta.opciones?.map((opcion, i) => (
+                                        <div key={i} >
+                                            <input type="radio" required name={pregunta.idpregunta} onChange={()=> changerAnswer(opcion.opcion, opcion.respuesta, opcion.calificacion, pregunta.idpregunta, index)} />
                                             <label>{opcion.opcion}. {opcion.respuesta} </label>
                                         </div>
                                     ))

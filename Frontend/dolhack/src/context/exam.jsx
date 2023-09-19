@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz, GetQuizById} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById, AnswerForm} from "../api/exam";
 import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
@@ -162,8 +162,36 @@ export function ExamProvider({children}){
         setQuizId(data);
     }
 
+    const [QuizAnswer, setQuizAnswer] = useState({
+        respuestas:[
+            {
+                opcion: '',
+                respuesta: '',
+                calificacion: 0,
+                pregunta_idpregunta: ''
+            }
+        ]
+    });
+
+    function changerAnswer(opcion, respuesta, calificacion, pregunta_idpregunta, i){
+        let newdata = {...QuizAnswer};
+        newdata.respuestas[i] = {
+            opcion: opcion,
+            respuesta: respuesta,
+            calificacion: calificacion,
+            pregunta_idpregunta: pregunta_idpregunta
+        }
+        setQuizAnswer(newdata);
+    }
+
+    async function handleSubmitAnswer(e, id){
+        e.preventDefault();
+        const {data} = await AnswerForm(id, QuizAnswer);
+        console.log(data);
+    }
+
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer}}>
             {children}
         </ExamContext.Provider>
     );

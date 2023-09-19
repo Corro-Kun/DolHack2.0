@@ -45,7 +45,7 @@ function ShapeNotebook(){
                     <BodyPageNote title={"Exámenes"} >
                         {
                             Quizs.map((item, index)=>(
-                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} />
+                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} description={item.descripcion} />
                             ))
                         }
                     </BodyPageNote>

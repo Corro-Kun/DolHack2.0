@@ -2,11 +2,22 @@
     padding: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #494949;
 }
-.List-Div-Item p:nth-child(1){
+.List-Div-Item-title{
+    width: 20%;
+}
+.List-Div-Item-description{
+    width: 50%;
+    text-align: center;
+    word-break: break-all;
+    transform: translateX(-55px);
+}
+.List-Div-Item-title p{
     cursor: pointer;
     transition: .5s;
 }
-.List-Div-Item p:nth-child(1):hover{
+.List-Div-Item-title p:hover{
     color: var(--Main_Color);
 }
