@@ -187,6 +187,7 @@ export function ExamProvider({children}){
     async function handleSubmitAnswer(e, id){
         e.preventDefault();
         const {data} = await AnswerForm(id, QuizAnswer);
+        navigate("/class/student/home");
         console.log(data);
     }
 
