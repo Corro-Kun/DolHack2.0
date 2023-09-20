@@ -8,15 +8,13 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
 import { useClassStudent } from "../../context/ClassStudent";
 import { useEffect } from "react";
-import { useExam } from "../../context/exam";
 
 function ShapeNotebook(){
     const navigate = useNavigate();
-    const {consultPost, Post} = useClassStudent();
-    const {GetQuizs, Quizs} = useExam();
+    const {consultPost, Post, consultQualification, Qualification} = useClassStudent();
     useEffect(()=>{
         consultPost();
-        GetQuizs();
+        consultQualification();
     },[]);
     return(
         <div className="ShapeNotebook-Div-Render" >
@@ -44,15 +42,15 @@ function ShapeNotebook(){
                     </div>
                     <BodyPageNote title={"Exámenes"} >
                         {
-                            Quizs.map((item, index)=>(
-                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} description={item.descripcion} />
+                            Qualification.map((item, index)=>(        
+                                <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion}/>
                             ))
                         }
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>
-                            <h2 style={{color: "var(--Main_Color)"}} ><FaSheetPlastic /></h2>
-                            <h2 onClick={()=> navigate("/class/student/qualification")} ><FaCheckDouble /></h2>
+                            <h2 onClick={()=> navigate("/class/student/home")} ><FaSheetPlastic /></h2>
+                            <h2 style={{color: "var(--Main_Color)"}} ><FaCheckDouble /></h2>
                         </div>
                     </div>
                 </div>

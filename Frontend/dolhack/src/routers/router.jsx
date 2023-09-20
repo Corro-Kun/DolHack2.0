@@ -22,6 +22,8 @@ import ClassList from "../page/Class/ClassList";
 import ExamTeacher from "../page/Class/ExamTeacher";
 import ExamNew from "../page/Exam/ExamNew";
 import ExamAnswer from "../page/Exam/ExamAnswer";
+import ClassQuialification from '../page/Class/ClassQuialification';
+import ClassCalific from "../page/Class/ClassCalific";
 
 function Router(){
     return(
@@ -50,10 +52,12 @@ function Router(){
                         <Route path="/class/teacher/setting" element={<ClassSetting />} />
                         <Route path="/class/teacher/exam" element={<ExamTeacher />} />
                         <Route path="/class/teacher/new/quiz" element={<ExamNew />} />
+                        <Route path="/class/teacher/qualification" element={<ClassQuialification />} />
                     </Route>
                     <Route element={<ProtectClass />} >
                         <Route path="/class/student/home" element={<ClassStudent />} />
                         <Route path="/class/student/exam/:id" element={<ExamAnswer />} />
+                        <Route path="/class/student/qualification" element={<ClassCalific />} />
                     </Route>
                 </Route>
            </Routes>

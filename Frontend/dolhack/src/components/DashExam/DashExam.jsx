@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {toast} from "sonner";
 import "./DashExam.css";
 import { useNavigate } from "react-router-dom";
 import { useExam } from "../../context/exam";
@@ -7,7 +8,7 @@ import {BsPencilSquare} from "react-icons/bs"
 
 function DashExam() {
     const navigate = useNavigate();
-    const {GetQuizs, Quizs} = useExam();
+    const {GetQuizs, Quizs, DeleteQuizs} = useExam();
 
     useEffect(()=>{
         GetQuizs();
@@ -31,7 +32,16 @@ function DashExam() {
                         </div>
                         <div className="DashExam-Quizs-button" >
                             <button><BsPencilSquare /></button>
-                            <button><AiTwotoneDelete /></button>
+                            <button onClick={()=> {
+                                toast("¿Seguro que quieres eliminar este examen?",{
+                                    action:{
+                                        label: "Si",
+                                        onClick: () =>{
+                                            DeleteQuizs(data.idquiz);
+                                        }
+                                    }
+                                });    
+                            }} ><AiTwotoneDelete /></button>
                         </div>
                     </div>
                 ))}

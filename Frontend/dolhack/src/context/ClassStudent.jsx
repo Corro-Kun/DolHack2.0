@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {getPost} from "../api/class";
+import {getPost, StudenQualification} from "../api/class";
 
 const ClassStudentContext = createContext();
 
@@ -13,8 +13,14 @@ export function ClassStudentProvider({children}){
         const {data} = await getPost();
         setPost(data);
     }
+    const [Qualification, setQualification] = useState([]);
+    async function consultQualification(){
+        const {data} = await StudenQualification();
+        console.log(data);
+        setQualification(data);
+    }
     return(
-        <ClassStudentContext.Provider value={{consultPost, Post}} >
+        <ClassStudentContext.Provider value={{consultPost, Post, consultQualification, Qualification}} >
             {children}
         </ClassStudentContext.Provider>
     );

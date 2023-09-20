@@ -1,5 +1,5 @@
 import {React, createContext, useContext,  useState} from "react"
-import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost } from "../api/class";
+import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost, getQualification } from "../api/class";
 import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
@@ -85,9 +85,16 @@ export function ClassTeacherProvider({children}){
         setPost(data);
     }
 
+    const [Listqualification, setListqualification] = useState([]);
+
+    async function ListQualification(){
+        const {data} = await getQualification();
+        console.log(data);
+        setListqualification(data);
+    }
 
     return(
-        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post}}>
+        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification}}>
            {children} 
         </ClassTeacherContext.Provider>
     );

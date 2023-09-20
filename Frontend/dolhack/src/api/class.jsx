@@ -25,3 +25,7 @@ export const ListStudent = () => axios.get("/class/student");
 export const Postpublic = (data) => axios.post("/class/post", data);
 
 export const getPost = () => axios.get("/class/post");
+
+export const getQualification = () => axios.get("/qualification");
+
+export const StudenQualification = () => axios.get("/qualification/student");

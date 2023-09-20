@@ -8,7 +8,7 @@ import {AiFillSetting} from "react-icons/ai";
 import {useNavigate} from "react-router-dom";
 import {BiArrowBack} from "react-icons/bi"
 
-function BarTeacher({setting, home, list, exam}){
+function BarTeacher({setting, home, list, exam, quilification}){
     const navigate = useNavigate();
     return(
         <div className="BarTeacher-Div-Render" >
@@ -40,7 +40,7 @@ function BarTeacher({setting, home, list, exam}){
                         <p> Exámenes</p>
                     </div>
                 </ul>
-                <ul>
+                <ul id={quilification? "BarTeacher-List-Active" : null} onClick={()=> navigate("/class/teacher/qualification")} >
                     <div>
                         <samp><GiStabbedNote /></samp>
                         <p> Calificaciones</p>
