@@ -1,6 +1,8 @@
 package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.IDRandom;
+import com.backend.dolhack.models.exam.AnswerModel;
+import com.backend.dolhack.models.exam.ListAnswersModel;
 import com.backend.dolhack.models.exam.ModelOpcion;
 import com.backend.dolhack.models.exam.ModelPregunta;
 import com.backend.dolhack.models.exam.ModelQuiz;
@@ -9,7 +11,9 @@ import com.backend.dolhack.models.exam.OptionModel;
 import com.backend.dolhack.models.exam.PreguntaViewr;
 import com.backend.dolhack.models.exam.QuestionModel;
 import com.backend.dolhack.models.exam.QuizViewr;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -106,4 +110,39 @@ public class ExamRepositorio {
 
         return new QuizViewr(idQ, quiz.getTitulo(), quiz.getDescripcion(), preguntasViewr);
     }
+
+    public boolean PostAnswer(ListAnswersModel answer, String idc, String idu, String idq){
+        List<AnswerModel> answers = answer.getRespuestas();
+        int quizs = 0;
+        int quialification = 0;
+        for(AnswerModel ans : answers){
+            String id = new IDRandom().generateID();
+            String querry = "insert into respuesta(idrespuesta, opcion, respuesta, calificacion, quiz_idquiz, pregunta_idpregunta, usuario_idusuario, clase_idclase) values (?, ?, ?, ?, ?, ?, ?, ?);";
+            sql.update(querry, id, ans.getOpcion(), ans.getRespuesta(), ans.getCalificacion(), idq, ans.getPregunta_idpregunta(), idu, idc);  
+            quizs = quizs + 1;
+            quialification = quialification + Integer.parseInt(ans.getCalificacion());          
+        }
+        float calificacion = ((float)quialification / (float)quizs) * 100;
+        String idCa = new IDRandom().generateID();
+        String querry2 = "insert into calificacion(idcalificacion, preguntas, respuestas, calificacion, quiz_idquiz, usuario_idusuario, clase_idclase) values(?, ?, ?, ?, ?, ?, ?);";
+        sql.update(querry2, idCa, quizs, quialification, calificacion, idq, idu, idc);
+        return true;
+    }
+
+    public boolean DeleteQuiz(String idc, String idq){
+        sql.update("DELETE FROM calificacion WHERE quiz_idquiz = ?;", idq);
+        sql.update("DELETE FROM respuesta WHERE quiz_idquiz = ?;" , idq);
+        List<ModelPregunta> preguntas = sql.query("SELECT * FROM pregunta WHERE quiz_idquiz = ?;", new Object[]{idq}, (rs, rowNum) -> new ModelPregunta(
+                rs.getString("idpregunta"),
+                rs.getString("pregunta"),
+                rs.getString("quiz_idquiz")
+        ));
+        for(ModelPregunta pregunta : preguntas){
+            sql.update("DELETE FROM opcion WHERE pregunta_idpregunta = ?;", pregunta.getIdPregunta());
+        }
+        sql.update("DELETE FROM pregunta WHERE quiz_idquiz = ?;", idq);
+        sql.update("DELETE FROM quiz WHERE idquiz = ?;", idq);
+        return true;
+    }
+
 }

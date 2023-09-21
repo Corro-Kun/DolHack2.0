@@ -1,25 +1,29 @@
 package com.backend.dolhack.repositories;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.IDRandom;
 import com.backend.dolhack.models.classs.InfoClassModel;
+import com.backend.dolhack.models.classs.LQuialificationsStudent;
 import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ListPostClass;
 import com.backend.dolhack.models.classs.ListStudentClass;
 import com.backend.dolhack.models.classs.ModelClase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.ModelLista_has_usuario;
+import com.backend.dolhack.models.classs.QualificationStudent;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.service.cloudinaryService;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 @Repository
 public class ClassRepositorio {
@@ -140,5 +144,28 @@ public class ClassRepositorio {
     public List<ListPostClass> PostList(String id){
         String query = " select usuario.foto, usuario.nombre, usuario.apellido, publicacion.texto, publicacion.imagen from publicacion JOIN usuario ON usuario.idusuario = publicacion.usuario_idusuario WHERE publicacion.clase_idclase = ? ;";
         return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListPostClass.class));
+    }
+
+    public List<LQuialificationsStudent> getQualification(String idC){
+        String querry = "SELECT usuario.foto ,usuario.nombre, usuario.apellido, calificacion.preguntas, calificacion.respuestas, calificacion.calificacion, quiz.titulo FROM calificacion JOIN usuario ON usuario.idusuario = calificacion.usuario_idusuario JOIN quiz ON quiz.idquiz = calificacion.quiz_idquiz WHERE calificacion.clase_idclase = ? ;";
+        return sql.query(querry, new Object[]{idC}, (rs, rowNum) -> new LQuialificationsStudent(
+                rs.getString("foto"),
+                rs.getString("nombre"),
+                rs.getString("apellido"),
+                rs.getString("preguntas"),
+                rs.getString("respuestas"),
+                rs.getString("calificacion"),
+                rs.getString("titulo")
+        ));
+    }
+
+    public List<QualificationStudent> studentQualification(String idU, String idC){
+        String querry = "SELECT quiz.titulo, calificacion.preguntas, calificacion.respuestas, calificacion.calificacion FROM calificacion JOIN quiz ON calificacion.quiz_idquiz = quiz.idquiz WHERE calificacion.usuario_idusuario = ? AND calificacion.clase_idclase = ? ;";
+        return sql.query(querry, new Object[]{idU, idC}, (rs, rowNum) -> new QualificationStudent(
+                rs.getString("titulo"),
+                rs.getString("preguntas"),
+                rs.getString("respuestas"),
+                rs.getInt("calificacion")
+        ));
     }
 }

@@ -1,11 +1,7 @@
 package com.backend.dolhack.controllers;
 
-import com.backend.dolhack.lib.Crypto;
-import com.backend.dolhack.models.classs.UpdateClass;
-import com.backend.dolhack.models.classs.newClassModel;
-import com.backend.dolhack.models.message;
-import com.backend.dolhack.repositories.ClassRepositorio;
 import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.ResponseCookie;
@@ -21,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.backend.dolhack.lib.Crypto;
+import com.backend.dolhack.models.classs.UpdateClass;
+import com.backend.dolhack.models.classs.newClassModel;
+import com.backend.dolhack.models.message;
+import com.backend.dolhack.repositories.ClassRepositorio;
 
 @RestController
 public class classD {
@@ -242,5 +244,28 @@ public class classD {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     } 
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/qualification")
+    public ResponseEntity ListQualification(@CookieValue("class") String key) throws Exception {
+        try {
+            String idC = new Crypto().Decrypt(key);
+            return ResponseEntity.status(200).body(repositorio.getQualification(idC));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+ 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/qualification/student")
+    public ResponseEntity StudentQualificatio(@CookieValue("class") String key , @CookieValue("token") String token) throws Exception {
+        try {
+            String idC = new Crypto().Decrypt(key);
+            String idU = new Crypto().Decrypt(token);
+            return ResponseEntity.status(200).body(repositorio.studentQualification(idU, idC));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }        
+    }
  
 }
