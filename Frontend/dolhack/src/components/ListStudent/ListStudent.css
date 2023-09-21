@@ -60,3 +60,19 @@
 .ListStudent-Data div img{
     height: 50px;
 }
+.ListStudent-Filter{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.ListStudent-Filter input{
+    padding: 5px;
+    width: 90%;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: var(--BG_Color);
+    color: var(--Text_Color);
+    border: 1px solid #494949;
+}

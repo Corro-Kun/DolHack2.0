@@ -89,12 +89,26 @@ export function ClassTeacherProvider({children}){
 
     async function ListQualification(){
         const {data} = await getQualification();
-        console.log(data);
         setListqualification(data);
     }
 
+    function FilterStudent({target: {value}}){
+        if(value === ""){
+            ListS();
+        }else{
+            const filter = list.filter((l)=> l.nombre.toLowerCase().includes(value.toLowerCase()) || l.apellido.toLowerCase().includes(value.toLowerCase()));
+            setList(filter);
+        }
+    }
+
+    function downloadQualification(){
+        downloadExcen(Listqualification, "Calificación de estudiantes");
+        toast.success("Lista de estudiantes descargada");
+    }
+
+
     return(
-        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification}}>
+        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification, FilterStudent, downloadQualification}}>
            {children} 
         </ClassTeacherContext.Provider>
     );

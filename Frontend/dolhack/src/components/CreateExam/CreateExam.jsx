@@ -4,14 +4,16 @@ import {AiOutlineHome} from "react-icons/ai";
 import "./CreateExam.css";
 import {toast} from "sonner";
 import { useExam } from "../../context/exam";
+import { useNavigate } from "react-router-dom";
 
 function CreateExam(){
     const {changerTitleQuiz, AddQuestion, setNumQuestion, NumQuestion, HandleSubmitQuiz} = useExam();
+    const navegate = useNavigate();
     return(
         <div className="CreateExam-Div-Render" >
             <div className="CreateExam-Main">
                 <div className="CreateExam-Title" >
-                    <h1><BiX /></h1>
+                    <h1 onClick={()=> navegate("/class/teacher/exam")} ><BiX /></h1>
                     <h2>Crea tu examen</h2>
                     <h1><AiOutlineHome /></h1>
                 </div>

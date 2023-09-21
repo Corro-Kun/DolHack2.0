@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useClassTeacher } from "../../context/ClassTeacher";
 
 function ListQuialification(){
-    const {ListQualification,Listqualification} = useClassTeacher();
+    const {ListQualification,Listqualification, downloadQualification} = useClassTeacher();
     useEffect(()=>{
         ListQualification();
     },[]);
@@ -30,7 +30,7 @@ function ListQuialification(){
                     }
                </div>
                 <div className="ListStudent-Button" >
-                    <button>Descargar</button>
+                    <button onClick={()=> downloadQualification()} >Descargar</button>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import "./ListStudent.css";
 import { useClassTeacher } from "../../context/ClassTeacher";
 
 function ListStudent(){
-    const {ListS, list, downloadList} = useClassTeacher();
+    const {ListS, list, downloadList, FilterStudent} = useClassTeacher();
     useEffect(()=>{
         ListS();
     },[]);
@@ -14,6 +14,9 @@ function ListStudent(){
                     <h2>Lista de estudiantes</h2>
                 </div>
                 <div className="ListStudent-Contenet" >
+                    <div className="ListStudent-Filter" >
+                        <input type="text" placeholder="Buscar..." onChange={(e)=> FilterStudent(e) }/>
+                    </div>
                     {list.map((l,i)=>(
                         <div key={i} className="ListStudent-Student" >
                         <div className="ListStudent-Data" >

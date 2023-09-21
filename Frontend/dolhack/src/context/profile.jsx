@@ -1,5 +1,5 @@
 import React,{createContext, useContext, useState, useEffect} from "react";
-import {profile, update} from "../api/auth";
+import {profile, update, YourList} from "../api/auth";
 import { MyClasses, EnterClass} from "../api/class";
 import {useNavigate} from "react-router-dom";
 import Cookie from "js-cookie";
@@ -20,6 +20,7 @@ export function ProfileProvider({children}) {
 
     useEffect(() => {
         GetProfile();
+        GetYourList();
     },[]);
 
     async function GetProfile(){
@@ -81,8 +82,15 @@ export function ProfileProvider({children}) {
         }
     }
 
+    const [list, setList] = useState([{}]);
+
+    async function GetYourList(){
+        const {data} = await YourList();
+        setList(data);
+    }
+
     return(
-        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass}} >
+        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass, GetYourList, list}} >
             {children}
         </ProfileContext.Provider>
     );

@@ -9,6 +9,7 @@ import { HomeProvider } from "../../context/home";
 import CardClass from "../../components/CardClass/CardClass";
 import StoreCardClass from "../../components/StoreCardClass/StoreCardClass";
 import { ClassProvider } from "../../context/class";
+import ContenetHomeClass from "../../components/ContenetHomeClass/ContenetHomeClass";
 
 function Classes(){
     return(
@@ -18,9 +19,9 @@ function Classes(){
                 <BarHome classs={true}/>
                 <HomeProvider>
                     <ClassProvider>
-                        <ContenetHome>
+                        <ContenetHomeClass>
                             <StoreCardClass />
-                        </ContenetHome>
+                        </ContenetHomeClass>
                     </ClassProvider>
                </HomeProvider>
                     <BarProfile />

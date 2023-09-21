@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import "./BarProfile.css";
 import {FiSettings} from "react-icons/fi";
 import {MdOutlineEditNotifications} from "react-icons/md";
@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 function BarProfile() {
   const navegate = useNavigate();
-  const {DataProfile, Logout, myClass, EnterYourClass} = useProfile();
+  const {DataProfile, Logout, myClass, EnterYourClass, GetYourList, list} = useProfile();
   return (
     <div className="Profile-Home">
       <div className="Settings-Home">
@@ -56,25 +56,17 @@ function BarProfile() {
         <a href="#">Ver Todo</a>
       </div>
       <div className="Home-Profile-teachers">
-        <ul>
-          <div className="Home-Photo-Teachers">
-            <img src={"https://encuentra.com/wp-content/uploads/2022/06/Valoresparaprofesores-encuentra.com_.jpg"} loading="lazy" />
-          </div>
-          <p>Isabella Vega</p>
-        </ul>
-        <ul>
-          <div className="Home-Photo-Teachers">
-            <img src={"https://img.freepik.com/fotos-premium/joven-maestro-pie-libro_488220-18480.jpg?w=360"} loading="lazy" />
-          </div>
-          <p>Lucas Mendez</p>
-        </ul>
-        <ul>
-          <div className="Home-Photo-Teachers">
-            <img src={"https://st.depositphotos.com/1011643/2892/i/600/depositphotos_28926109-stock-photo-primary-teacher-helping-student-in.jpg"} />
-          </div>
-          <p>Mateo Sánchez</p>
-        </ul>
-      </div>
+        {
+          list?.map((item, index)=>(
+            <ul key={index} >
+              <div className="Home-Photo-Teachers">
+                <img src={item.foto} loading="lazy" />
+              </div>
+              <p>{item.nombre} {item.apellido}</p>
+            </ul> 
+          ))
+        }
+     </div>
       <div className="Home-Profile-Profesor">
         <p>Tus Clases</p>
         <a href="#">Ver Todo</a>

@@ -89,8 +89,19 @@ export function ClassProvider({children}){
         });
     }
 
+    function filterClass({target: {value}}){
+        if(value == ""){
+            getListClass();
+        }else{
+            const filter = classList.filter((item)=>{
+                return item.titulo.toLowerCase().includes(value.toLowerCase());
+            });
+            setClassList(filter); 
+        }
+    }
+
     return(
-        <ClassContext.Provider value={{classData, changerClassData, handleClassData, classList}}>
+        <ClassContext.Provider value={{classData, changerClassData, handleClassData, classList, filterClass}}>
             {children}
         </ClassContext.Provider>
     );
