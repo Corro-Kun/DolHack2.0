@@ -1,0 +1,14 @@
+.Title-Home-BestClass{
+    padding: 5px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Title-Home-BestClass a{
+    color: #bdbdbd;
+    text-decoration: none;
+    transition: .5s;
+}
+.Title-Home-BestClass a:hover{
+    color: var(--Main_Color);
+}

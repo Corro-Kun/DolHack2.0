@@ -1,5 +1,5 @@
 import React,{useEffect, useState, createContext, useContext} from "react";
-import { getListStudents, getListTeachers } from "../api/home";
+import { getListStudents, getListTeachers,homeMain } from "../api/home";
 import CardUser from "../components/CardUser/CardUser";
 
 const HomeContext = createContext();
@@ -64,9 +64,15 @@ export const HomeProvider = ({children}) => {
         }
     }
 
+    const [main, setMain] = useState({});
+
+    async function MainHomeData(){
+        const {data} = await homeMain();
+        setMain(data);
+    }
 
     return(
-        <HomeContext.Provider value={{selectionUser, filterUsers}}>
+        <HomeContext.Provider value={{selectionUser, filterUsers, MainHomeData, main}}>
             {children}
         </HomeContext.Provider>
     )

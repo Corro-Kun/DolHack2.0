@@ -6,6 +6,9 @@ import ContenetHome from "../../components/ContenetHome/ContenetHome";
 import BarProfile from "../../components/BarProfile/BarProfile";
 import { ProfileProvider } from "../../context/profile";
 import { HomeProvider } from "../../context/home";
+import Carrouser from "../../components/Carrouser/Carrouser";
+import Separator from "../../components/Separator/Separator";
+import ContenetBestClass from "../../components/ContenetBestClass/ContenetBestClass";
 
 function Home() {
     return(
@@ -15,7 +18,11 @@ function Home() {
                 <BarHome home={true}/>
                 <HomeProvider>
                     <ContenetHome>
-                    
+                        <Carrouser />
+                        <Separator title={"Mejores Clases"} link={"Ver Todas"} />
+                        <ContenetBestClass classs={true} />
+                        <Separator title={"Mejores Profesores"} link={"Ver Todos"} />
+                        <ContenetBestClass />
                     </ContenetHome>
                 </HomeProvider> 
                     <BarProfile />

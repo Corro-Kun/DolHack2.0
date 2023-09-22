@@ -54,4 +54,14 @@ public class home {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/main")
+    public ResponseEntity Main(){
+        try {
+            return ResponseEntity.ok().body(repositorio.Main());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+ 
 }
