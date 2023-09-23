@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.backend.dolhack.models.exam.getExamUpdate;
+
 @Repository
 public class ExamRepositorio {
     private final JdbcTemplate sql;
@@ -145,4 +147,41 @@ public class ExamRepositorio {
         return true;
     }
 
+    public getExamUpdate getExamUp(String idQ){
+        String query = "SELECT * FROM quiz WHERE idquiz = ?;";
+        ModelQuiz quiz = sql.queryForObject(query, new Object[]{idQ}, (rs, rowNum) -> new ModelQuiz(
+                rs.getString("idquiz"),
+                rs.getString("titulo"),
+                rs.getString("descripcion"),
+                rs.getString("clase_idclase"),
+                rs.getString("usuario_idusuario")
+        ));
+
+        String query2 = "SELECT * FROM pregunta WHERE quiz_idquiz = ?;";
+
+        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, (rs, rowNum) -> new ModelPregunta(
+                rs.getString("idpregunta"),
+                rs.getString("pregunta"),
+                rs.getString("quiz_idquiz")
+        ));
+
+        List<PreguntaViewr> preguntasViewr = new java.util.ArrayList<PreguntaViewr>();
+
+        for(ModelPregunta pregunta : preguntas){
+            String query3 = "SELECT * FROM opcion WHERE pregunta_idpregunta = ?;"; 
+            List<ModelOpcion> opciones = sql.query(query3, new Object[]{pregunta.getIdPregunta()}, (rs, rowNum) -> new ModelOpcion(
+                rs.getInt("idopcion"),
+                rs.getString("opcion"),
+                rs.getString("respuesta"),
+                rs.getInt("calificacion"),
+                rs.getString("pregunta_idpregunta")
+            ));
+
+            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), opciones);
+
+            preguntasViewr.add(preguntaViewr);
+        }
+
+        return new getExamUpdate(idQ, quiz.getTitulo(), quiz.getDescripcion(), preguntasViewr);
+    }
 }

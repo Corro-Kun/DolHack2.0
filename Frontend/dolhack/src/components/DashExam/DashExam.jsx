@@ -31,7 +31,7 @@ function DashExam() {
                             <p>{data.descripcion}</p>
                         </div>
                         <div className="DashExam-Quizs-button" >
-                            <button><BsPencilSquare /></button>
+                            <button onClick={()=> navigate("/class/teacher/exam/update/"+data.idquiz)} ><BsPencilSquare /></button>
                             <button onClick={()=> {
                                 toast("¿Seguro que quieres eliminar este examen?",{
                                     action:{
