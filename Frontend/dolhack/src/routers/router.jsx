@@ -57,7 +57,7 @@ function Router(){
                         <Route path="/class/teacher/exam/update/:id" element={<ExamUpdate />} />
                     </Route>
                     <Route element={<ProtectClass />} >
-                        <Route path="/class/student/home" element={<ClassStudent />} />
+                        <Route path="/class/student/home/" element={<ClassStudent />} />
                         <Route path="/class/student/exam/:id" element={<ExamAnswer />} />
                         <Route path="/class/student/qualification" element={<ClassCalific />} />
                     </Route>

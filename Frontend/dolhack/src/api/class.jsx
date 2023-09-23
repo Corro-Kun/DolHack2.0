@@ -29,3 +29,5 @@ export const getPost = () => axios.get("/class/post");
 export const getQualification = () => axios.get("/qualification");
 
 export const StudenQualification = () => axios.get("/qualification/student");
+
+export const nameClass = () => axios.get("/nameclass");

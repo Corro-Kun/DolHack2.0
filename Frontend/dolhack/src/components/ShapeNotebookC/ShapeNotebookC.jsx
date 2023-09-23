@@ -8,13 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
 import { useClassStudent } from "../../context/ClassStudent";
 import { useEffect } from "react";
+import { downloadExcen } from "../../lib/downloadExcen";
 
 function ShapeNotebook(){
     const navigate = useNavigate();
-    const {consultPost, Post, consultQualification, Qualification} = useClassStudent();
+    const {consultPost, Post, consultQualification, Qualification, nameClasss, classs} = useClassStudent();
     useEffect(()=>{
         consultPost();
         consultQualification();
+        nameClasss();
     },[]);
     return(
         <div className="ShapeNotebook-Div-Render" >
@@ -38,12 +40,15 @@ function ShapeNotebook(){
                 </div>
                 <div className="ShapeNotebook-page2" >
                     <div className="ShapeNotebook-Bar-2" >
-                        <h3>DolHack</h3>
+                        <h3>{classs?.titulo}</h3>
                     </div>
-                    <BodyPageNote title={"Exámenes"} >
+                    <BodyPageNote title={"Tus Calificaciones"} >
+                        <div style={{display: "flex", justifyContent: "center"}} >
+                            <button onClick={()=> downloadExcen(Qualification, "Mis Calificaciones")} style={{padding: "5px", border: "none", backgroundColor: "green", color: "white", cursor: "pointer", borderRadius: "4px"}} >Descargar</button>
+                        </div>
                         {
                             Qualification.map((item, index)=>(        
-                                <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion}/>
+                                <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion} />
                             ))
                         }
                     </BodyPageNote>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.models.exam.ListAnswersModel;
 import com.backend.dolhack.models.exam.NewQuizModel;
+import com.backend.dolhack.models.exam.getExamUpdate;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.repositories.ExamRepositorio;
 
@@ -100,9 +101,10 @@ public class exam {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PutMapping("/exam/{idQ}")
-    public ResponseEntity PutExam(@PathVariable String idQ, @RequestBody NewQuizModel Quiz, @CookieValue("class") String idC ) throws  Exception {
+    public ResponseEntity PutExam(@PathVariable String idQ, @RequestBody getExamUpdate Quiz, @CookieValue("class") String idC ) throws  Exception {
         try {
             String idc = new Crypto().Decrypt(idC);
+            repositorio.UpdateQuiz(Quiz);
             return ResponseEntity.ok().body(new message("success"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));

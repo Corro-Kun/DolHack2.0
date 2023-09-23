@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 function UpdateExam(){
     const {id} = useParams();
-    const {GetEQuizs, EQuizs} = useExam();
+    const {GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs} = useExam();
 
     useEffect(()=>{
         GetEQuizs(id);
@@ -15,20 +15,20 @@ function UpdateExam(){
         <div className="UpdateExam-Render-div" >
             <div className="UpdateExam-Main" >
                 <div className="UpdateExam-title" >
-                    <input type="text" placeholder="titulo..." value={EQuizs.titulo} />
-                    <textarea name="" placeholder="descripción..." value={EQuizs.descripcion} ></textarea>
+                    <input type="text" placeholder="titulo..." name="titulo" value={EQuizs.titulo} onChange={(e)=> changerUpdateQuizs(e,0,0,"m")} />
+                    <textarea placeholder="descripción..." name="descripcion" value={EQuizs.descripcion} onChange={(e)=> changerUpdateQuizs(e,0,0,"m")} ></textarea>
                 </div>
                 <div className="UpdateExam-Inputs" >
                     {
                         EQuizs?.preguntas?.map((pregunta, i) => (
-                            <div className="UpdateExam-Question" >
+                            <div key={i} className="UpdateExam-Question" >
                                 <label>1.</label>
-                                <input style={{width:"400px"}} type="text" value={pregunta.pregunta} />
+                                <input style={{width:"400px"}} type="text" name="pregunta" defaultValue={pregunta.pregunta}  onChange={(e)=> changerUpdateQuizs(e,i,0,"p")} />
                                 {
                                     pregunta?.opciones?.map((opcion, a) => (
-                                        <div>
+                                        <div key={a} >
                                             <label>{opcion.opcion}.</label>
-                                            <input type="text" value={opcion.respuesta} />
+                                            <input type="text" name="respuesta" defaultValue={opcion.respuesta} onChange={(e)=> changerUpdateQuizs(e, i, a, "o")} />
                                         </div> 
                                     ))
                                 }
@@ -38,7 +38,7 @@ function UpdateExam(){
                 </div>
                 <div className="UpdateExam-Button" >
                     <div>
-                        <button>Actualizar</button>
+                        <button onClick={()=>UpdateQuizs(id)} >Actualizar</button>
                     </div>
                 </div>
             </div>

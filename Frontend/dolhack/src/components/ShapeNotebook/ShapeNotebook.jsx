@@ -12,11 +12,13 @@ import { useExam } from "../../context/exam";
 
 function ShapeNotebook(){
     const navigate = useNavigate();
-    const {consultPost, Post} = useClassStudent();
+    const {consultPost, Post, nameClasss, classs} = useClassStudent();
     const {GetQuizs, Quizs} = useExam();
+    
     useEffect(()=>{
         consultPost();
         GetQuizs();
+        nameClasss();
     },[]);
     return(
         <div className="ShapeNotebook-Div-Render" >
@@ -40,7 +42,7 @@ function ShapeNotebook(){
                 </div>
                 <div className="ShapeNotebook-page2" >
                     <div className="ShapeNotebook-Bar-2" >
-                        <h3>DolHack</h3>
+                        <h3>{classs?.titulo}</h3>
                     </div>
                     <BodyPageNote title={"Exámenes"} >
                         {

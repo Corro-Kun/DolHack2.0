@@ -184,4 +184,37 @@ public class ExamRepositorio {
 
         return new getExamUpdate(idQ, quiz.getTitulo(), quiz.getDescripcion(), preguntasViewr);
     }
+
+    public boolean UpdateQuiz(getExamUpdate Quiz){
+        String query = "UPDATE quiz SET titulo = ?, descripcion = ? WHERE idquiz = ?;";
+        sql.update(query, Quiz.getTitulo(), Quiz.getDescripcion(), Quiz.getIdquiz());
+
+        List<PreguntaViewr> questions = Quiz.getPreguntas();
+
+        for(PreguntaViewr question : questions ){
+            String query2 = "UPDATE pregunta SET pregunta = ? WHERE idpregunta = ?;";
+            sql.update(query2, question.getPregunta(), question.getIdpregunta());
+
+            List<ModelOpcion> options = question.getOpciones();
+
+            int value = 1;
+
+            for(ModelOpcion option : options) {
+                String query5 = "UPDATE opcion SET opcion = ?, respuesta = ?, calificacion = ? WHERE idopcion = ?;";
+                if(value == 1){
+                    sql.update(query5, option.getOpcion(), option.getRespuesta(), option.getCalificacion(), option.getIdopcion());
+                }else if(value == 2){
+                    sql.update(query5, option.getOpcion(), option.getRespuesta(), option.getCalificacion(), option.getIdopcion());
+                }else if(value == 3){
+                    sql.update(query5, option.getOpcion(), option.getRespuesta(), option.getCalificacion(), option.getIdopcion());
+                }else if(value == 4){
+                    sql.update(query5, option.getOpcion(), option.getRespuesta(), option.getCalificacion(), option.getIdopcion());
+                }
+
+                value = value + 1;
+            }
+        }
+
+        return true;
+    }
 }

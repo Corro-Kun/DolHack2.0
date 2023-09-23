@@ -268,4 +268,15 @@ public class classD {
         }        
     }
  
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @GetMapping("/nameclass")
+    public ResponseEntity NameClass(@CookieValue("class") String key) throws Exception {
+        try {
+            String id = new Crypto().Decrypt(key);
+            return ResponseEntity.status(200).body(repositorio.getClass(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+     
 }

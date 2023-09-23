@@ -168,4 +168,9 @@ public class ClassRepositorio {
                 rs.getInt("calificacion")
         ));
     }
+
+    public ModelClase getClass(String id){
+        String query = "SELECT * FROM clase WHERE idclase = ?";
+        return sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+    }
 }

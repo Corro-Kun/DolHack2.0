@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz} from "../api/exam";
 import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
@@ -196,20 +196,55 @@ export function ExamProvider({children}){
         GetQuizs();
     }
 
-    const [EQuizs, setEQuizs] = useState({});
+    const [EQuizs, setEQuizs] = useState({
+        idquiz: '',
+        titulo: '',
+        descripcion: '',
+        preguntas:[
+            {
+                idpregunta: '',
+                pregunta: '',
+                opciones:[
+                    {
+                        idopcion: '',
+                        opcion: '',
+                        respuesta: '',
+                        calificacion: 0,
+                        pregunta_idpregunta: ''
+                    }
+                ]
+            }
+        ]
+    });
 
     async function GetEQuizs(id){
         const {data} = await GetQuizByIdD(id);
         setEQuizs(data);
-        console.log(data);
+    }
+
+    function changerUpdateQuizs({target:{name, value}}, pi, oi, conditions){
+        if(conditions === "m"){
+            let data = EQuizs;
+            data = {...data, [name]: value};
+            setEQuizs(data);
+        }else if(conditions === "p"){
+            let data = EQuizs;
+            data.preguntas[pi] = {...data.preguntas[pi], [name]: value};
+            setEQuizs(data);
+        }else if(conditions === "o"){
+            let data = EQuizs;
+            data.preguntas[pi].opciones[oi] = {...data.preguntas[pi].opciones[oi], [name]: value};
+            setEQuizs(data);
+        }
     }
 
     async function UpdateQuizs(id){
-
+        const {data} = await UpdateQuiz(id, EQuizs);
+        navigate("/class/teacher/exam");
     }
 
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs}}>
             {children}
         </ExamContext.Provider>
     );
