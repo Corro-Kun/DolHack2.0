@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 function BoxRegister(){
     const {changerComplet, complet} = useAuth();
-    const [img,setImg] = useState("https://cdn.discordapp.com/attachments/466035511451189268/1144101471844044960/Vana_-_Future_Gamer_2023-08-23-4_19_49PM_0.png");
+    const [img,setImg] = useState("https://cdn.discordapp.com/attachments/466035511451189268/1155337418208182383/cartoon-character-with-hoodie-that-says-i-m-boy_784625-10887.png");
     const imgFile = useRef(null);
     return(
         <div className="BoxRegister-Render">

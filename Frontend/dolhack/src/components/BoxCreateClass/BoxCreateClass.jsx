@@ -56,7 +56,7 @@ function BoxCreateClass(){
                                     setFile(URL.createObjectURL(e.target.files[0]));
                                     changerClassData(e);
                                 }}/>
-                                <img src={"https://i.blogs.es/a1f869/dell1/1366_2000.jpeg"}/>
+                                <img src={"https://cdn.discordapp.com/attachments/466035511451189268/1155316556738338866/editar_foto.png"}/>
                             </div>
                         </div>
                     </div>
