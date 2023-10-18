@@ -7,7 +7,7 @@ import { downloadExcen} from "../lib/downloadExcen";
 
 const ClassTeacherContext = createContext()
 
-export function useClassTeacher(){
+export function  useClassTeacher(){
     return useContext(ClassTeacherContext)
 }
 
@@ -20,7 +20,25 @@ export function ClassTeacherProvider({children}){
 
     async function getData(){
         const {data} = await getDataClass();
-        setDataClass(data);
+        let cache = data;
+        
+        if(cache.nombretipo === "Programación"){        
+            cache.tipo_idtipo = 1;
+        }else{
+            cache.tipo_idtipo = 2;
+        }
+
+        if(cache.nombrenivel === "Principiante"){
+            cache.nivel_idnivel = 1;
+        }
+        else if(cache.nombrenivel === "Intermedio"){
+            cache.nivel_idnivel = 2;
+        }
+        else{
+            cache.nivel_idnivel = 3;
+        }
+
+        setDataClass(cache);
     }
 
     async function handleSubmitDataClass(e){
@@ -57,7 +75,16 @@ export function ClassTeacherProvider({children}){
     }
 
     function downloadList(){
-        downloadExcen(list, "Lista de estudiantes");
+        let listData = [];
+        list.map((data, index)=>{
+            listData[index] = {
+                "N°": index+1,
+                "Nombre": data.nombre,
+                "Apellido": data.apellido,
+                "Foto": data.foto,
+            }
+        });
+        downloadExcen(listData, "Lista de estudiantes");
         toast.success("Lista de estudiantes descargada");
     }
 

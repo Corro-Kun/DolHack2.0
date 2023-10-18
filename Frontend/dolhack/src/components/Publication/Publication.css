@@ -1,5 +1,5 @@
 .Publication{
-    padding: 10px 0;
+    padding: 10px 0 8px 0;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -14,15 +14,15 @@
 }
 .Publication-Profile-img{
     display: flex;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     overflow: hidden;
     align-items: center;
     justify-content: center;
     border-radius: 2px;
 }
 .Publication-Profile-img img{
-    height: 30px;
+    height: 32px;
 }
 .Publication-Profile-Data{
     display: flex;
@@ -32,4 +32,31 @@
 }
 .Publication-Profile-Data h4{
     margin-left: 10px;
+}
+.Publication-Div-Render-Img{
+    display: flex;
+    padding: 3px;
+    align-items: center;
+    justify-content: center;
+}
+.Publication-Div-IMg{
+    margin-top: 2px;
+    display: flex;
+    height: 250px;
+    width: 400px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+}
+.Publication-Div-IMg:hover{
+    border: 1px solid var(--Main_Color);
+    box-shadow: 0 0 5px var(--Main_Color);
+}
+.Publication-Div-IMg img{
+    height: 250px;
+    object-fit: cover;
 }

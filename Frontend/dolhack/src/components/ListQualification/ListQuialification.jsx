@@ -23,14 +23,14 @@ function ListQuialification(){
                                     <h3>{item.nombre} {item.apellido}</h3>
                                 </div>
                                 <p style={{marginRight: "50px"}} >{item.titulo}</p>
-                                <h3>{item.respuestas}/{item.preguntas} = {item.calificacion}</h3>
+                                <h3>{item.respuestas}/{item.preguntas} = {item.calificacion}%</h3>
                             </div>
  
                         ))
                     }
                </div>
                 <div className="ListStudent-Button" >
-                    <button onClick={()=> downloadQualification()} >Descargar</button>
+                    <button title="¿Descargar Excel?" onClick={()=> downloadQualification()} >Descargar</button>
                 </div>
             </div>
         </div>

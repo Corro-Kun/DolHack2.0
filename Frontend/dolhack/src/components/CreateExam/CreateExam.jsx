@@ -15,7 +15,7 @@ function CreateExam(){
                 <div className="CreateExam-Title" >
                     <h1 onClick={()=> navegate("/class/teacher/exam")} ><BiX /></h1>
                     <h2>Crea tu examen</h2>
-                    <h1><AiOutlineHome /></h1>
+                    <h1 onClick={()=> navegate("/home")} ><AiOutlineHome /></h1>
                 </div>
                 <form onSubmit={(e)=> toast.promise(HandleSubmitQuiz(e),{
                     loading: "Creando examen...",

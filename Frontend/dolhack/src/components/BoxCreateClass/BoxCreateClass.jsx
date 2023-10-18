@@ -36,7 +36,8 @@ function BoxCreateClass(){
                         </div>
                         <div className="BoxCreateClass-Select-div" >
                             <label>Tipo de clase</label>
-                            <select name="type" required onChange={(e)=> changerClassData(e)} >
+                            <select name="type" required onChange={(e)=> changerClassData(e)}>
+                                <option value="">Elige una opción...</option>
                                 <option value="Programación">Programación</option>
                                 <option value="Lenguas">Lenguas</option>
                             </select>
@@ -44,6 +45,7 @@ function BoxCreateClass(){
                         <div className="BoxCreateClass-Select-div" >
                             <label>Nivel de la clase</label>
                             <select name="level" required onChange={(e)=> changerClassData(e)} >
+                                <option value="">Elige una opción...</option>
                                 <option value="Principiante">Principiante</option>
                                 <option value="Intermedio">Intermedio</option>
                                 <option value="Avanzado">Avanzado</option>

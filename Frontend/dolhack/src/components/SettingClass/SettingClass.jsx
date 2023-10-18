@@ -59,17 +59,17 @@ function SettingClass(){
                 </div>
                 <div className="BoxCreateClass-Select-div" >
                     <label>Tipo de clase</label>
-                    <select name="type" required onChange={(e)=> changerDataClass(e) } >
-                        <option value="Programación">Programación</option>
-                        <option value="Lenguas">Lenguas</option>
+                    <select name="type" required onChange={(e)=> changerDataClass(e) }>
+                        <option value="Programación" selected={dataClass.nombretipo === "Programación"? true : false} >Programación</option>
+                        <option value="Lenguas" selected={dataClass.nombretipo === "Lenguas"? true : false} >Lenguas</option>
                     </select>
                 </div>
                 <div className="BoxCreateClass-Select-div" >
                     <label>Nivel de la clase</label>
                     <select name="level" required onChange={(e)=> changerDataClass(e) } >
-                        <option value="Principiante">Principiante</option>
-                        <option value="Intermedio">Intermedio</option>
-                        <option value="Avanzado">Avanzado</option>
+                        <option value="Principiante" selected={dataClass.nombrenivel === "Principiante"? true: false} >Principiante</option>
+                        <option value="Intermedio" selected={dataClass.nombrenivel === "Intermedio"? true: false} >Intermedio</option>
+                        <option value="Avanzado" selected={dataClass.nombrenivel === "Avanzado"? true: false} >Avanzado</option>
                     </select>
                 </div>
                 <div className="SettingClass-Buttons" >

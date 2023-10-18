@@ -23,12 +23,12 @@ function ShapeNotebook(){
             <div className="ShapeNotebook-Div" >
                 <div className="ShapeNotebook-page1" >
                     <div className="ShapeNotebook-Bar-1" >
-                        <h2 onClick={()=> {
+                        <h2 title="Salir" onClick={()=> {
                             Cookies.remove("class");
                             navigate("/home");
                         }} ><FaXmark /></h2>
                         <h3>Publicaciones de tu profesor</h3>
-                        <h2><FaArrowsRotate /></h2>
+                        <h2 title="Refrescar" ><FaArrowsRotate /></h2>
                     </div> 
                     <BodyPublication>
                         {
@@ -42,20 +42,20 @@ function ShapeNotebook(){
                     <div className="ShapeNotebook-Bar-2" >
                         <h3>{classs?.titulo}</h3>
                     </div>
-                    <BodyPageNote title={"Tus Calificaciones"} >
+                    <BodyPageNote title={"⭐ Tus Calificaciones ⭐"} >
                         <div style={{display: "flex", justifyContent: "center"}} >
-                            <button onClick={()=> downloadExcen(Qualification, "Mis Calificaciones")} style={{padding: "5px", border: "none", backgroundColor: "green", color: "white", cursor: "pointer", borderRadius: "4px"}} >Descargar</button>
+                            <button title="¿Descargar Excel?" onClick={()=> downloadExcen(Qualification, "Mis Calificaciones")} style={{padding: "5px", border: "none", backgroundColor: "green", color: "white", cursor: "pointer", borderRadius: "4px"}} >Descargar</button>
                         </div>
                         {
                             Qualification.map((item, index)=>(        
-                                <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion} />
+                                <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion + " %"} pass={false} />
                             ))
                         }
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>
-                            <h2 onClick={()=> navigate("/class/student/home")} ><FaSheetPlastic /></h2>
-                            <h2 style={{color: "var(--Main_Color)"}} ><FaCheckDouble /></h2>
+                            <h2 onClick={()=> navigate("/class/student/home")} title="Exámenes" ><FaSheetPlastic /></h2>
+                            <h2 style={{color: "var(--Main_Color)"}} title="Calificaciones" ><FaCheckDouble /></h2>
                         </div>
                     </div>
                 </div>

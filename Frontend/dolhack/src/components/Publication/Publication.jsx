@@ -15,8 +15,16 @@ function Publication({contenet, name, img, last, image}){
             <p style={{marginBottom: "2px"}} >
                 {contenet}
             </p>
-            <img src={image} alt="" loading="lazy" />
-        </div>
+            {
+                image ?  
+                <div className="Publication-Div-Render-Img" >
+                    <div className="Publication-Div-IMg" onClick={()=> window.open(image, "_blank")} >
+                        <img src={image} alt="" loading="lazy" />
+                    </div>
+                </div>
+                : null
+            }
+       </div>
     );
 }
 

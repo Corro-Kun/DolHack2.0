@@ -30,7 +30,7 @@ function ShapeNotebook(){
                             navigate("/home");
                         }} ><FaXmark /></h2>
                         <h3>Publicaciones de tu profesor</h3>
-                        <h2><FaArrowsRotate /></h2>
+                        <h2 onClick={()=> consultPost()} ><FaArrowsRotate /></h2>
                     </div> 
                     <BodyPublication>
                         {
@@ -44,10 +44,10 @@ function ShapeNotebook(){
                     <div className="ShapeNotebook-Bar-2" >
                         <h3>{classs?.titulo}</h3>
                     </div>
-                    <BodyPageNote title={"Exámenes"} >
+                    <BodyPageNote title={"📝 Exámenes 📝"} >
                         {
                             Quizs.map((item, index)=>(
-                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} description={item.descripcion} />
+                                <List key={index} title={item.titulo} data={index+1} id={item.idquiz} description={item.descripcion} pass={true} />
                             ))
                         }
                     </BodyPageNote>

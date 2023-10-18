@@ -28,7 +28,7 @@
     color: aliceblue;
     cursor: pointer;
     background-color: var(--Main_Color);
-    border: none;
+    border: 1px solid transparent;
     border-radius: 10px;
     transition: .5s ease;
 }

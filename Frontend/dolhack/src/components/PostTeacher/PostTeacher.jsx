@@ -40,8 +40,17 @@ function PostTeacher(){
                                     <h3>{data.nombre} {data.apellido}</h3>
                                 </div>
                                 <p style={{marginBottom: "4px"}} >{data.texto}</p>
-                                <img src={data.imagen} alt="" />
-                            </div>
+                                {
+                                    data.imagen ? 
+                                    <div className="PostTeacher-Render-Div-Img" >
+                                        <div className="PostTeacher-Div-Img" >
+                                            <img src={data.imagen} alt="" />
+                                        </div>
+                                    </div>
+                                    : null
+                                }
+                           </div>
+
                         ))
                     }
                 </div>

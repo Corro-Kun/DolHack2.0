@@ -8,4 +8,5 @@ function BodyPublication({children}){
     );
 }
 
+
 export default BodyPublication;

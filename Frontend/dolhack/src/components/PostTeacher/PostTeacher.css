@@ -55,6 +55,7 @@
     overflow: auto;
 }
 .PostTeacher-Div-Post-One{
+    margin: 5px 20px;
     padding: 10px;
     border-bottom: 1px solid #494949;
 }
@@ -75,4 +76,25 @@
 }
 .PostTeacher-Data img{
     height: 40px;
+}
+.PostTeacher-Render-Div-Img{
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+}
+.PostTeacher-Div-Img{
+    display: flex;
+    height: 250px;
+    width: 450px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #494949;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+.PostTeacher-Div-Img:hover{
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px #fff;
 }
