@@ -1,40 +1,13 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense} from "react";
 import "./BarProfile.css";
-import {FiSettings} from "react-icons/fi";
-import {MdOutlineEditNotifications} from "react-icons/md";
-import {TbMessages} from "react-icons/tb";
 import {useProfile} from "../../context/profile";
-import {BsDoorOpen} from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import MinBarProfile from "../MinBarProfile/MinBarProfile";
 
 function BarProfile() {
-  const navegate = useNavigate();
-  const {DataProfile, Logout, myClass, EnterYourClass, GetYourList, list} = useProfile();
+  const {DataProfile, myClass, EnterYourClass, list} = useProfile();
   return (
     <div className="Profile-Home">
-      <div className="Settings-Home">
-        <ul>
-          <samp>
-            <TbMessages />
-          </samp>
-        </ul>
-        <ul>
-          <samp>
-            <MdOutlineEditNotifications />
-          </samp>
-        </ul>
-        <ul>
-          <samp onClick={()=> navegate("/update")} >
-            <FiSettings />
-          </samp>
-        </ul>
-        <ul>
-          <samp onClick={()=> Logout()} >
-            <BsDoorOpen />
-          </samp>
-        </ul>
-      </div>
+      <MinBarProfile />
       <Suspense fallback={<div>Loading...</div>}>
         <div className="Photo-Home">
           <div className="Photo-Home-Shape1"></div>
@@ -57,14 +30,18 @@ function BarProfile() {
       </div>
       <div className="Home-Profile-teachers">
         {
-          list?.map((item, index)=>(
-            <ul key={index} >
-              <div className="Home-Photo-Teachers">
-                <img src={item.foto} loading="lazy" />
-              </div>
-              <p>{item.nombre} {item.apellido}</p>
-            </ul> 
-          ))
+          list.length > 0 ? list?.map((item, index)=>{
+            if(index <= 2){
+              return(
+              <ul key={index} >
+                <div className="Home-Photo-Teachers">
+                  <img src={item.foto} loading="lazy" />
+                </div>
+                <p>{item.nombre} {item.apellido}</p>
+              </ul> 
+              )
+            }
+          }) : <p style={{color: "GrayText"}} >No tienes {DataProfile.rol === "profesor"? "Estudiantes" : "Profesores"}</p>
         }
      </div>
       <div className="Home-Profile-Profesor">
@@ -73,11 +50,21 @@ function BarProfile() {
       </div>
       <div id="List-Profile-Class" className="Home-Profile-teachers">
         {
-          myClass.map((data, i)=>(
-            <ul key={i} onClick={()=> EnterYourClass(data.idclase)} style={{backgroundImage: "url('"+data.imagen+"')"}} >
-              <p>{data.titulo}</p>
-            </ul>
-          ))
+          myClass.length > 0 ? myClass.map((data, i)=>{
+            if(i <= 2){
+              return(
+                <ul key={i} onClick={()=> {
+                  let bolean = false;
+                  if (DataProfile.rol === "profesor") {
+                    bolean = true;
+                  }
+                  EnterYourClass(data.idclase, bolean)
+                  }} style={{backgroundImage: "url('"+data.imagen+"')"}} >
+                  <p>{data.titulo}</p>
+                </ul>
+              )
+            }
+          }) : <p style={{color: "GrayText"}} >No tienes clases</p>
         }
       </div>
     </div>

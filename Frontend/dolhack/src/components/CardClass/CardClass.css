@@ -47,8 +47,18 @@
     justify-content: space-between;
     flex-direction: column;
 }
+.CardClass-Home-Info h3{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 25ch;
+}
 .CardClass-Home-Info p{
     color: #bdbdbd;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 .CardClass-Home-Info div{
     padding: 0 20px;

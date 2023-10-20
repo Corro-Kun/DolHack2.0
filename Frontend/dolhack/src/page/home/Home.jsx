@@ -19,9 +19,9 @@ function Home() {
                 <HomeProvider>
                     <ContenetHome>
                         <Carrouser />
-                        <Separator title={"Mejores Clases"} link={"Ver Todas"} />
+                        <Separator title={"Mejores Clases"} link={"Ver Todas"} path={"/classes"} />
                         <ContenetBestClass classs={true} />
-                        <Separator title={"Mejores Profesores"} link={"Ver Todos"} />
+                        <Separator title={"Mejores Profesores"} link={"Ver Todos"} path={"/teachers"} />
                         <ContenetBestClass />
                     </ContenetHome>
                 </HomeProvider> 

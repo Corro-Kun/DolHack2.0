@@ -34,9 +34,11 @@ function ShapeNotebook(){
                     </div> 
                     <BodyPublication>
                         {
+                            Post.length > 0 ? 
                             Post.map((item, index)=>(
                             <Publication key={index} contenet={item.texto} name={item.nombre} img={item.foto} last={item.apellido} image={item.imagen} />
                             ))
+                            : <p style={{color: "GrayText"}}>Aun no hay publicaciones del docente</p>
                         }
                     </BodyPublication>
                 </div>
@@ -46,9 +48,11 @@ function ShapeNotebook(){
                     </div>
                     <BodyPageNote title={"📝 Exámenes 📝"} >
                         {
+                            Quizs.length > 0 ? 
                             Quizs.map((item, index)=>(
                                 <List key={index} title={item.titulo} data={index+1} id={item.idquiz} description={item.descripcion} pass={true} />
                             ))
+                            : <p style={{color: "GrayText"}}>Aun no tienes exámenes</p> 
                         }
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >

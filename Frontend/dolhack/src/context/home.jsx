@@ -29,19 +29,25 @@ export const HomeProvider = ({children}) => {
 
     function selectionUser(teacher){
         if(teacher){
-            return Teachers?.map((teacher, i) => (
-                <CardUser key={teacher.idusuario} 
-                name={teacher.nombre}
-                lastna={teacher.apellido}
-                description={teacher.biografia}
-                img={teacher.foto}
-                data={teacher.rol}       
-                banner={teacher.banner}
-                />
-            ))
+            return Teachers?.map((teacher, i) => {
+                if(i <= 9){
+                    return(
+                    <CardUser key={teacher.idusuario} 
+                    name={teacher.nombre}
+                    lastna={teacher.apellido}
+                    description={teacher.biografia}
+                    img={teacher.foto}
+                    data={teacher.rol}       
+                    banner={teacher.banner}
+                    />
+                    )
+                }
+            })
         }
         else{
-            return Studenst?.map((student, i) => (
+            return Studenst?.map((student, i) => {
+                if(i <= 9){
+                    return(
                     <CardUser key={student.idusuario} 
                     name={student.nombre} 
                     lastna={student.apellido} 
@@ -50,7 +56,9 @@ export const HomeProvider = ({children}) => {
                     data={student.rol}
                     banner={student.banner}
                     />
-                ))
+                    )
+                }
+            })
         }
     }
 

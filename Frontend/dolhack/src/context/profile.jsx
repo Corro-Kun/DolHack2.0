@@ -73,10 +73,14 @@ export function ProfileProvider({children}) {
         } 
     }
 
-    async function EnterYourClass(id){
+    async function EnterYourClass(id, teacher){
         try {
             const {data} = await EnterClass(id);
-            navigate("/class/teacher/home");
+            if(teacher){
+                navigate("/class/teacher/home");
+            }else{
+                navigate("/class/student/home");
+            }
         } catch (error) {
             toast.error("Error al entrar a la clase");
         }

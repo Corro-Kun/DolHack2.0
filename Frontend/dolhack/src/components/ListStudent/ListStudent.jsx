@@ -17,17 +17,22 @@ function ListStudent(){
                     <div className="ListStudent-Filter" >
                         <input type="text" placeholder="Buscar..." onChange={(e)=> FilterStudent(e) }/>
                     </div>
-                    {list.map((l,i)=>(
-                        <div key={i} className="ListStudent-Student" >
-                        <div className="ListStudent-Data" >
-                            <div>
-                                <img src={l.foto} alt="" />
+                    {
+                        list.length > 0 ?
+                        list.map((l,i)=>(
+                            <div key={i} className="ListStudent-Student" >
+                                <div className="ListStudent-Data" >
+                                    <div>
+                                        <img src={l.foto} alt="" />
+                                    </div>
+                                    <h3>{l.nombre} {l.apellido}</h3>
+                                </div>
+                                <h3>{i+1}</h3>
                             </div>
-                            <h3>{l.nombre} {l.apellido}</h3>
-                        </div>
-                            <h3>{i+1}</h3>
-                        </div>
-                    ))} 
+                        ))
+                        : <p style={{color: "GrayText"}}>No hay ningún estudiante</p>
+                    }
+
                 </div>
                 <div className="ListStudent-Button" >
                     <button title="¿Descargar Excel?" onClick={()=> downloadList()} >Descargar</button>

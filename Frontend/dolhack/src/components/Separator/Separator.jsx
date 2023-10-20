@@ -1,10 +1,11 @@
 import "./Separator.css"
+import { Link } from "react-router-dom";
 
-function Separator({title, link}) {
+function Separator({title, link, path}) {
     return(
         <div className="Title-Home-BestClass">
             <h2>{title}</h2>
-            <a href="#">{link}</a>
+            <Link to={path}>{link}</Link>
         </div>
     ); 
 }

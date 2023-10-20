@@ -32,9 +32,11 @@ function ShapeNotebook(){
                     </div> 
                     <BodyPublication>
                         {
+                            Post.length > 0 ? 
                             Post.map((item, index)=>(
                             <Publication key={index} contenet={item.texto} name={item.nombre} img={item.foto} last={item.apellido} image={item.imagen} />
                             ))
+                            : <p style={{color: "GrayText"}}>Aun no hay publicaciones del docente</p>
                         }
                     </BodyPublication>
                 </div>
@@ -47,9 +49,11 @@ function ShapeNotebook(){
                             <button title="¿Descargar Excel?" onClick={()=> downloadExcen(Qualification, "Mis Calificaciones")} style={{padding: "5px", border: "none", backgroundColor: "green", color: "white", cursor: "pointer", borderRadius: "4px"}} >Descargar</button>
                         </div>
                         {
+                            Qualification.length > 0 ?
                             Qualification.map((item, index)=>(        
                                 <List key={index} title={item.titulo} description={item.respuestas + "/" + item.preguntas} data={item.calificacion + " %"} pass={false} />
                             ))
+                            : <p style={{color: "GrayText"}}>Aun no tienes calificaciones de exámenes</p>
                         }
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >

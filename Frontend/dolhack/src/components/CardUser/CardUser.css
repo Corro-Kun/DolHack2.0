@@ -44,6 +44,12 @@
     z-index: 1;
     transition: .5s;
 }
+.Card-User-Info p{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
 .Card-User-Main:hover{
     box-shadow: 0 0 15px var(--Main_Color);
     border: 2px solid var(--Main_Color);
