@@ -8,7 +8,7 @@ public class getExamUpdate {
     private String descripcion;
     private List<PreguntaViewr> preguntas;
 
-    public getExamUpdate() {
+    public getExamUpdate(String idrespuesta, String opcion, String respuesta, String calificacion, String quizIdquiz, String preguntaIdpregunta, String usuarioIdusuario, String claseIdclase) {
     }
 
     public getExamUpdate(String idquiz, String titulo, String descripcion, List<PreguntaViewr> preguntas) {

@@ -15,6 +15,8 @@ export const HomeProvider = ({children}) => {
     useEffect(()=>{
         getStudenst();
         getTeachers();
+        document.title = "Home";
+        return () => document.title = "DolHack";
     },[]);
 
     async function getStudenst(){

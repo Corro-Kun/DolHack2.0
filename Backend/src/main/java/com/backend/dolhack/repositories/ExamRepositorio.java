@@ -1,24 +1,14 @@
 package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.IDRandom;
-import com.backend.dolhack.models.exam.AnswerModel;
-import com.backend.dolhack.models.exam.ListAnswersModel;
-import com.backend.dolhack.models.exam.ModelOpcion;
-import com.backend.dolhack.models.exam.ModelPregunta;
-import com.backend.dolhack.models.exam.ModelQuiz;
-import com.backend.dolhack.models.exam.NewQuizModel;
-import com.backend.dolhack.models.exam.OptionModel;
-import com.backend.dolhack.models.exam.PreguntaViewr;
-import com.backend.dolhack.models.exam.QuestionModel;
-import com.backend.dolhack.models.exam.QuizViewr;
+import com.backend.dolhack.models.exam.*;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import com.backend.dolhack.models.exam.getExamUpdate;
 
 @Repository
 public class ExamRepositorio {
@@ -113,7 +103,19 @@ public class ExamRepositorio {
         return new QuizViewr(idQ, quiz.getTitulo(), quiz.getDescripcion(), preguntasViewr);
     }
 
+    public boolean VerificExam(String idu, String idq){
+        List<ModelRespuesta> verifc = sql.query("select * from respuesta where quiz_idquiz = ? AND usuario_idusuario = ?;", new Object[]{idq, idu}, BeanPropertyRowMapper.newInstance(ModelRespuesta.class));
+        if(verifc.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
     public boolean PostAnswer(ListAnswersModel answer, String idc, String idu, String idq){
+        List<ModelRespuesta> verifc = sql.query("select * from respuesta where quiz_idquiz = ? AND usuario_idusuario = ?;", new Object[]{idq, idu}, BeanPropertyRowMapper.newInstance(ModelRespuesta.class));
+        if(!verifc.isEmpty()){
+            return false;
+        }
         List<AnswerModel> answers = answer.getRespuestas();
         int quizs = 0;
         int quialification = 0;

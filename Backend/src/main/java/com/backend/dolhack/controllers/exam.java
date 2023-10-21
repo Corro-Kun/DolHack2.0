@@ -19,6 +19,7 @@ import com.backend.dolhack.models.exam.getExamUpdate;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.repositories.ExamRepositorio;
 
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 public class exam {
     private final ExamRepositorio repositorio;
@@ -27,8 +28,9 @@ public class exam {
     public exam(ExamRepositorio repositorio) {
         this.repositorio = repositorio;
     }
-    
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+    // crear un examen
+
     @PostMapping("/exam")
     public ResponseEntity postExam(@RequestBody NewQuizModel Quiz, @CookieValue("token") String token, @CookieValue("class") String id) throws  Exception {
         try {
@@ -41,7 +43,9 @@ public class exam {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    // obtener examenes de una clase
+
+
     @GetMapping("/exam")
     public ResponseEntity getExam(@CookieValue("class") String id) throws  Exception {
         try {
@@ -51,8 +55,9 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
- 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+    // obtener examen por id
+
     @GetMapping("/quiz/{id}")
     public ResponseEntity getQuiz(@PathVariable String id) throws  Exception {
         try {
@@ -61,21 +66,38 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
-     
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+    // verifica si ya iso el examen
+
+    @GetMapping("/exam/verify/{idQ}")
+    public ResponseEntity getExamVerify(@PathVariable String idQ, @CookieValue("token") String idU) throws Exception {
+        try {
+            String idu = new Crypto().Decrypt(idU);
+            return ResponseEntity.ok().body(repositorio.VerificExam(idu, idQ));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    // enviar respuestas del examen
+
     @PostMapping("/exam/{idQ}")
     public ResponseEntity AnswerExam(@PathVariable String idQ, @RequestBody ListAnswersModel answer, @CookieValue("token") String idU, @CookieValue("class") String idC ) throws  Exception {
         try {
             String idc = new Crypto().Decrypt(idC);
             String idu = new Crypto().Decrypt(idU);
-            repositorio.PostAnswer(answer, idc , idu, idQ);
+            boolean result = repositorio.PostAnswer(answer, idc , idu, idQ);
+            if(!result){
+                return ResponseEntity.badRequest().body(new message("Ya contestaste este examen"));
+            }
             return ResponseEntity.ok().body(new message("success"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    // eliminar examen
+
     @DeleteMapping("/exam/{idQ}")
     public ResponseEntity DeleteExam(@PathVariable String idQ, @CookieValue("class") String idC ) throws  Exception {
         try {
@@ -86,8 +108,9 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
-    
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+
+
     @GetMapping("/exam/{idQ}")
     public ResponseEntity getExamU(@PathVariable String idQ, @CookieValue("class") String idC ) throws  Exception {
         try {
@@ -99,7 +122,6 @@ public class exam {
     }
  
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PutMapping("/exam/{idQ}")
     public ResponseEntity PutExam(@PathVariable String idQ, @RequestBody getExamUpdate Quiz, @CookieValue("class") String idC ) throws  Exception {
         try {

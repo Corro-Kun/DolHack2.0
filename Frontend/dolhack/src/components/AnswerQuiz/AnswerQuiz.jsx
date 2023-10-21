@@ -24,7 +24,7 @@ function AnswerQuiz(){
                     toast.promise(handleSubmitAnswer(e, id), {
                         loading: "Enviando respuestas...",
                         success: "Respuestas enviadas",
-                        error: "Error al enviar respuestas"
+                        error: (err) => err?.response?.data?.message
                     })
                 }}>
                 <div className="AnswerQuiz-Questions" >

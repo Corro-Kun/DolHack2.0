@@ -1,4 +1,4 @@
-import React,{useState, useRef} from "react";
+import React,{useState, useRef, useEffect} from "react";
 import "./BoxRegister.css";
 import { useAuth } from "../../context/auth";
 import { toast } from "sonner";
@@ -7,6 +7,11 @@ function BoxRegister(){
     const {changerComplet, complet} = useAuth();
     const [img,setImg] = useState("https://cdn.discordapp.com/attachments/466035511451189268/1155337418208182383/cartoon-character-with-hoodie-that-says-i-m-boy_784625-10887.png");
     const imgFile = useRef(null);
+    useEffect(()=>{
+        document.title = "Completar perfil";
+
+        return () => document.title = "DolHack";
+    },[])
     return(
         <div className="BoxRegister-Render">
             <div className="BoxRegister-Div" >

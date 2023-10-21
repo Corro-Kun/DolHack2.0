@@ -19,6 +19,7 @@ function LoginRegister(){
             LoginLayaut.classList.remove('login')
             HomeLR.classList.remove('active') 
         })
+        document.title = "login";
         return () => {
             RegisterBTN.addEventListener('click', ()=> {
                 LoginLayaut.classList.add('login')
@@ -28,6 +29,7 @@ function LoginRegister(){
                 LoginLayaut.classList.remove('login')
                 HomeLR.classList.remove('active') 
             })
+            document.title = "DolHack";
         }
     },[])
 

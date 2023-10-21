@@ -23,7 +23,7 @@ import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.newClassModel;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.repositories.ClassRepositorio;
-
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 public class classD {
     private final ClassRepositorio repositorio;
@@ -35,7 +35,6 @@ public class classD {
 
     // Crear una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/class")
     public ResponseEntity<message> CreateClass(@CookieValue("token") String token, @RequestPart("file") MultipartFile file, @RequestPart("titulo") String titulo, @RequestPart("descripcion") String descripcion, @RequestPart("fecha_inicio") String fecha_inicio, @RequestPart("fecha_finalizacion") String fecha_finalizacion, @RequestPart("tipo") String tipo, @RequestPart("nivel") String nivel) throws Exception {
         try {
@@ -49,7 +48,6 @@ public class classD {
 
     // Listas de clases
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class")
     public ResponseEntity ListClass(){
         try {
@@ -61,7 +59,6 @@ public class classD {
 
     // Informacion de una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/class/{id}")
     public ResponseEntity classData(@PathVariable String id){
         try {
@@ -71,9 +68,8 @@ public class classD {
         }
     }
  
-    // lista de las clases de un usuario(añadir verificador de rol)
+    // lista de las clases de un usuario
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/yourclass")
     public ResponseEntity YourClass(@CookieValue("token") String token){
         try {
@@ -85,7 +81,6 @@ public class classD {
 
     // entrar a una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/enter/class/{id}")
     public ResponseEntity enterClass(@PathVariable String id) throws  Exception {
         try {
@@ -107,10 +102,8 @@ public class classD {
         }
     }
  
-
     // modificar una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PutMapping("/class")
     public ResponseEntity modifyClass(@CookieValue("class") String id, @RequestBody UpdateClass clase, @CookieValue("token") String idU) throws Exception {
         try {
@@ -127,7 +120,6 @@ public class classD {
  
     // mandar datos para el formulario de una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class/form")
     public ResponseEntity classForm(@CookieValue("class") String key) throws Exception {
         try {
@@ -140,7 +132,6 @@ public class classD {
 
     // eliminar una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @DeleteMapping("/class")
     public ResponseEntity deleteClass(@CookieValue("class") String key, @CookieValue("token") String idU) throws Exception {
         try {
@@ -159,7 +150,6 @@ public class classD {
 
     // validar su rol en una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class/verify")
     public ResponseEntity verifyClass(@CookieValue("class") String key, @CookieValue("token") String key2) throws Exception {
         try {
@@ -177,7 +167,6 @@ public class classD {
 
     // registrar a estudiantes en una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class/register/{id}")
     public ResponseEntity StudentRegister(@CookieValue("token") String key , @PathVariable String id) throws Exception {
         try {
@@ -203,7 +192,6 @@ public class classD {
      
     // lista de estudiantes registrados en una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class/student")
     public ResponseEntity StuentList(@CookieValue("class") String key) throws Exception {
         try {
@@ -216,7 +204,6 @@ public class classD {
 
     // Publicar en la clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/class/post")
     public ResponseEntity PostClass(@CookieValue("class") String key, @CookieValue("token") String idU ,@RequestPart(name="file", required=false) MultipartFile file, @RequestPart(name="post", required=true) String text ) throws Exception {
         try {
@@ -234,7 +221,6 @@ public class classD {
 
     // lista de publicaciones de una clase
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/class/post")
     public ResponseEntity GetPost(@CookieValue("class") String key){
         try {
@@ -245,7 +231,8 @@ public class classD {
         }
     } 
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    // lista de calificaciones de la clase
+
     @GetMapping("/qualification")
     public ResponseEntity ListQualification(@CookieValue("class") String key) throws Exception {
         try {
@@ -255,8 +242,9 @@ public class classD {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
- 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+    // calificaciones del estudiante en la clase
+
     @GetMapping("/qualification/student")
     public ResponseEntity StudentQualificatio(@CookieValue("class") String key , @CookieValue("token") String token) throws Exception {
         try {
@@ -267,8 +255,9 @@ public class classD {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }        
     }
- 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+
+    // informacion de la clase para estudiantes
+
     @GetMapping("/nameclass")
     public ResponseEntity NameClass(@CookieValue("class") String key) throws Exception {
         try {

@@ -23,6 +23,8 @@ public class home {
         this.repositorio = repositorio;
     }
 
+    // lista de profesores
+
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/teacher")
     public ResponseEntity profesor() throws Exception {
@@ -32,6 +34,8 @@ public class home {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    // lista de estudiantes
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/student")
@@ -43,6 +47,8 @@ public class home {
         }
     }
 
+    //
+
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/peopleList")
     public ResponseEntity yourList(@CookieValue("token") String id){
@@ -53,6 +59,8 @@ public class home {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    //
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @GetMapping("/main")

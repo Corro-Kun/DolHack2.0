@@ -1,4 +1,4 @@
-import React,{useRef, useState} from "react";
+import React,{useEffect, useRef, useState} from "react";
 import "./BoxCreateClass.css";
 import { useClass } from "../../context/class";
 
@@ -6,6 +6,10 @@ function BoxCreateClass(){
     const {classData, changerClassData, handleClassData} = useClass();
     const fileInput = useRef(null);
     const [file, setFile] = useState(null);
+    useEffect(()=>{
+        document.title = "Crear clase";
+        return () => document.title = "DolHack";
+    },[])
     return(
         <div className="BoxCreateClass-Main-Body" >
             <div className="BoxCreateClass-Main-Div">

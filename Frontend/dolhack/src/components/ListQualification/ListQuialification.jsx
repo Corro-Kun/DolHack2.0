@@ -23,7 +23,7 @@ function ListQuialification(){
                                     <h3>{item.nombre} {item.apellido}</h3>
                                 </div>
                                 <p style={{marginRight: "50px"}} >{item.titulo}</p>
-                                <h3>{item.respuestas}/{item.preguntas} = {item.calificacion}%</h3>
+                                <h3>{item.respuestas}/{item.preguntas} = {Math.floor(item.calificacion)}%</h3>
                             </div>
  
                         ))

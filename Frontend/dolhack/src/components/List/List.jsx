@@ -1,12 +1,12 @@
+import { useClassStudent } from "../../context/ClassStudent";
 import "./List.css"
-import { useNavigate } from "react-router-dom";
 
 function List({title, data, id ,description, pass}){
-    const navigate = useNavigate();
+    const {verify} = useClassStudent();
     return(
         <div className="List-Div-Item" >
             <div className="List-Div-Item-title" >
-                <p onClick={pass? ()=> navigate("/class/student/exam/"+ id) : null } >{title}</p>
+                <p onClick={pass? ()=> verify(id) : null } >{title}</p>
             </div>
             <div className="List-Div-Item-description" >
                 <p>{description}</p>

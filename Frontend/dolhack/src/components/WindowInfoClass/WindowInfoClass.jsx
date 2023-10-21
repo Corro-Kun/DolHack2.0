@@ -52,7 +52,7 @@ function Window(){
                                 toast.promise(Register(),{
                                     loading: "Inscribiéndose",
                                     success: "Inscrito",
-                                    error: "Ya estas inscrito a esta clase"
+                                    error: (err)=> err?.response?.data?.message
                                 })
                             }} >Inscribirse</button>
                         </div>

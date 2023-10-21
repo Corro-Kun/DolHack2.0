@@ -123,7 +123,7 @@ export function ClassTeacherProvider({children}){
         if(value === ""){
             ListS();
         }else{
-            const filter = list.filter((l)=> l.nombre.toLowerCase().includes(value.toLowerCase()) || l.apellido.toLowerCase().includes(value.toLowerCase()));
+            const filter = list.filter((l)=> l.nombre?.toLowerCase().includes(value.toLowerCase()) || l.apellido?.toLowerCase().includes(value.toLowerCase()));
             setList(filter);
         }
     }
