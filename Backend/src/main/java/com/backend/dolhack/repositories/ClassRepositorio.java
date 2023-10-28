@@ -2,175 +2,98 @@ package com.backend.dolhack.repositories;
 
 import java.util.List;
 
+import com.backend.dolhack.strategies.interfaces.QueryStrategyClass;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.backend.dolhack.lib.Crypto;
-import com.backend.dolhack.lib.IDRandom;
+import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.models.classs.InfoClassModel;
 import com.backend.dolhack.models.classs.LQuialificationsStudent;
 import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ListPostClass;
 import com.backend.dolhack.models.classs.ListStudentClass;
 import com.backend.dolhack.models.classs.ModelClase;
-import com.backend.dolhack.models.classs.ModelLista;
-import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.classs.QualificationStudent;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
-import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.service.cloudinaryService;
 
 @Repository
 public class ClassRepositorio {
     private final JdbcTemplate sql;
     private final cloudinaryService cloudinary;
+    private final IDRandomFactory IDRandom;
+
+    private final QueryStrategyClass queryStrategyClass;
  
     @Autowired
-    public ClassRepositorio(JdbcTemplate sql, cloudinaryService cloudinary){
+    public ClassRepositorio(JdbcTemplate sql, cloudinaryService cloudinary, IDRandomFactory IDRandom, QueryStrategyClass queryStrategyClass){
         this.sql = sql;
         this.cloudinary = cloudinary;
+        this.IDRandom = IDRandom;
+        this.queryStrategyClass = queryStrategyClass;
     }
     
     public boolean newClass(newClassModel clase, String key, MultipartFile file) throws Exception{
-        String idUser = new Crypto().Decrypt(key);
-        String id = new IDRandom().generateID();
-
-        sql.update("INSERT INTO lista(clase) values(?)", id );
-
-        ModelLista lis = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
-
-        String url = cloudinary.uploadImage(file, "clase");
- 
-        String query = "INSERT INTO clase( idclase ,titulo, descripcion, fecha_inicio, fecha_finalizacion, tipo_idtipo, nivel_idnivel, lista_idlista, usuario_idusuario, imagen) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        sql.update(query, id ,clase.getTitulo(), clase.getDescripcion(), clase.getFecha_inicio(), clase.getFecha_finalizacion(), clase.getTipo(), clase.getNivel(), lis.getIdlista(), idUser, url);
-
-        return true;
+        return queryStrategyClass.newClassQuery(IDRandom, sql, cloudinary, clase, key, file);
     }
 
     public List<classListModel> listClass(){
-        String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario";
-        return sql.query(query, BeanPropertyRowMapper.newInstance(classListModel.class));
+        return queryStrategyClass.listClassQuery(sql);
     }
 
     public InfoClassModel infoClass(String id){
-        String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto, usuario.nombre, usuario.apellido, correo.correo FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario JOIN correo ON correo.usuario_idusuario = usuario.idusuario  WHERE idclase = ?";
-        return sql.queryForObject(query, new Object[]{id} , BeanPropertyRowMapper.newInstance(InfoClassModel.class));
+        return queryStrategyClass.infoClassQuery(sql, id);
     }
 
     public List<ListClassUser> listClassUser(String key) throws Exception{
-        String idUser = new Crypto().Decrypt(key);
-        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
-        if (user.getRol_idrol() == 1) {
-            String query = "SELECT clase.idclase, clase.titulo, clase.imagen FROM clase JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE usuario.idusuario = ?";
-            return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));            
-        }else{
-            String query = "select clase.idclase, clase.titulo, clase.imagen from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario where usuario.idusuario = ? ;";
-            return sql.query(query, new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ListClassUser.class));
-        }
+        return queryStrategyClass.listClassUserQuery(sql, key);
     }
 
     public boolean UpdateClassP(String key, UpdateClass clase) throws Exception{
-        String id = new Crypto().Decrypt(key);
-
-        String query = "UPDATE clase SET titulo = ?, descripcion = ?, fecha_inicio = ?, fecha_finalizacion = ?, tipo_idtipo = ?, nivel_idnivel = ? WHERE idclase = ? ";
-
-        sql.update(query, clase.getTitulo(), clase.getDescripcion(), clase.getFecha_inicio(), clase.getFecha_finalizacion(), clase.getTipo_idtipo(), clase.getNivel_idnivel(), id);
-
-        return true;
+        return queryStrategyClass.UpdateClassPQuery(sql, key, clase);
     }
 
     public boolean DeleteClass(String id ) throws Exception{
-        String Querry1 = "Select * FROM lista WHERE clase = ?";
-        ModelLista lista = sql.queryForObject(Querry1, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
-        sql.update("DELETE FROM clase WHERE idclase = ?", id);
-        sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
-        sql.update("DELETE FROM lista WHERE clase = ?", id);
-        return true;
+        return queryStrategyClass.DeleteClassQuery(sql, id);
     }
 
     public int  VerifyRol(String id){
-        String query = "SELECT * FROM usuario WHERE idusuario = ?";
-        ModelUsuario user =  sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
-        return user.getRol_idrol();
+        return queryStrategyClass.VerifyRolQuery(sql, id);
     }
 
     public boolean  VerifyClassD(String id){
-        String query = "SELECT * FROM clase WHERE idclase = ?";
-        List<ModelClase> clase =  sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
-
-        if(clase.isEmpty()){
-            return false;
-        }else{
-            return true;
-        }
+        return queryStrategyClass.VerifyClassDQuery(sql, id);
    }
 
     public boolean RegisterStudent(String idU, String idC){
-        ModelLista lista = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
-
-        List<ModelLista_has_usuario> valid =  sql.query("SELECT * FROM lista_has_usuario WHERE lista_idlista = ? AND usuario_idusuario = ?", new Object[]{lista.getIdlista(), idU}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
-
-        if(valid.isEmpty()){
-            sql.update("Insert into lista_has_usuario (lista_idlista, usuario_idusuario) values(?, ?)", lista.getIdlista(), idU);
-            return true;
-        }
-
-        return false;
+        return queryStrategyClass.RegisterStudentQuery(sql, idU, idC);
     }
 
     public List<ListStudentClass> StudentListC(String id){
-        String query = "SELECT usuario.foto, usuario.nombre, usuario.apellido, usuario.idusuario FROM lista_has_usuario JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista WHERE lista.clase = ?";
-        return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListStudentClass.class));
+        return queryStrategyClass.StudentListCQuery(sql, id);
     }
 
     public boolean Post(String idC, String idU, MultipartFile file, String Text) throws Exception{
-        if(file != null){
-            String url = cloudinary.uploadImage(file, "publicaciones");
-            String query = "insert into publicacion(texto, imagen, clase_idclase, usuario_idusuario) values(?,?,?,?);";
-            sql.update(query, Text, url, idC, idU);
-            return true;
-        }
-        String query = "insert into publicacion(texto, clase_idclase, usuario_idusuario) values(?,?,?);";
-        sql.update(query, Text, idC, idU);
-        return true;
+        return queryStrategyClass.PostQuery(cloudinary,sql , idC, idU, file, Text);
     }
 
     public List<ListPostClass> PostList(String id){
-        String query = " select usuario.foto, usuario.nombre, usuario.apellido, publicacion.texto, publicacion.imagen from publicacion JOIN usuario ON usuario.idusuario = publicacion.usuario_idusuario WHERE publicacion.clase_idclase = ? ;";
-        return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListPostClass.class));
+        return queryStrategyClass.PostListQuery(sql, id);
     }
 
     public List<LQuialificationsStudent> getQualification(String idC){
-        String querry = "SELECT usuario.foto ,usuario.nombre, usuario.apellido, calificacion.preguntas, calificacion.respuestas, calificacion.calificacion, quiz.titulo FROM calificacion JOIN usuario ON usuario.idusuario = calificacion.usuario_idusuario JOIN quiz ON quiz.idquiz = calificacion.quiz_idquiz WHERE calificacion.clase_idclase = ? ;";
-        return sql.query(querry, new Object[]{idC}, (rs, rowNum) -> new LQuialificationsStudent(
-                rs.getString("foto"),
-                rs.getString("nombre"),
-                rs.getString("apellido"),
-                rs.getString("preguntas"),
-                rs.getString("respuestas"),
-                rs.getString("calificacion"),
-                rs.getString("titulo")
-        ));
+        return queryStrategyClass.getQualificationQuery(sql, idC);
     }
 
     public List<QualificationStudent> studentQualification(String idU, String idC){
-        String querry = "SELECT quiz.titulo, calificacion.preguntas, calificacion.respuestas, calificacion.calificacion FROM calificacion JOIN quiz ON calificacion.quiz_idquiz = quiz.idquiz WHERE calificacion.usuario_idusuario = ? AND calificacion.clase_idclase = ? ;";
-        return sql.query(querry, new Object[]{idU, idC}, (rs, rowNum) -> new QualificationStudent(
-                rs.getString("titulo"),
-                rs.getString("preguntas"),
-                rs.getString("respuestas"),
-                rs.getInt("calificacion")
-        ));
+        return queryStrategyClass.studentQualificationQuery(sql, idU, idC);
     }
 
     public ModelClase getClass(String id){
-        String query = "SELECT * FROM clase WHERE idclase = ?";
-        return sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+        return queryStrategyClass.getClassQuery(sql, id);
     }
 }

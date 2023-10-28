@@ -1,9 +1,12 @@
 package com.backend.dolhack.lib;
 
+import org.springframework.stereotype.Component;
+
 import java.security.SecureRandom;
 import java.util.Random;
 
-public class IDRandom{
+@Component
+public class IDRandomFactory{
     private final Random random = new SecureRandom();
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int ID_LENGTH = 30;

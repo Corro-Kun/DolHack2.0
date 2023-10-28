@@ -2,7 +2,8 @@ package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.Hash;
-import com.backend.dolhack.lib.IDRandom;
+import com.backend.dolhack.lib.IDRandomFactory;
+import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.models.user.ModelCorreo;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.models.user.loginUserModel;
@@ -20,19 +21,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class UsuarioRepositorio {
     private final JdbcTemplate sql;
     private final cloudinaryService cloudinary;
+    private final IDRandomFactory idRandom;
 
     @Autowired
-    public UsuarioRepositorio(JdbcTemplate sql, cloudinaryService cloudinary){
+    public UsuarioRepositorio(JdbcTemplate sql, cloudinaryService cloudinary, IDRandomFactory idRandom){
         this.sql = sql;
         this.cloudinary = cloudinary;
+        this.idRandom = idRandom;
     }
     
     public String newUser(newUserModel user) throws Exception{
-        String id = new IDRandom().generateID();
+        String id = idRandom.generateID();
         String contrasena = new Hash().generateHash(user.getContraseña());
 
         sql.update("INSERT INTO usuario (idusuario, nombre, contraseña, rol_idrol) values (?, ?, ?, ?)",id, user.getNombre(), contrasena, user.getRol());
-        sql.update("INSERT INTO correo (idcorreo, correo, usuario_idusuario) values (?, ?, ?)", new IDRandom().generateID(), user.getCorreo(), id);
+        sql.update("INSERT INTO correo (idcorreo, correo, usuario_idusuario) values (?, ?, ?)", idRandom.generateID(), user.getCorreo(), id);
 
         String key = new Crypto().Encrypt(id);
 
