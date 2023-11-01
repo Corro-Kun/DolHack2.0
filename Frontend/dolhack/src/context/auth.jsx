@@ -1,6 +1,7 @@
 import React,{createContext, useContext, useState} from "react";
 import {login as postLogin, register as postRegister, complet as postComplet} from "../api/auth";
 import {useNavigate} from "react-router-dom";
+import {toast} from "sonner";
 
 export const AuthContext = createContext();
 
@@ -41,8 +42,13 @@ export function AuthProvider({children}) {
 
     async function register(e) {
         e.preventDefault();
-        const {data} = await postRegister(UserRegister);
-        Navegate("/register");
+        if(UserRegister.contraseña.length < 8){
+            throw new Error("La contraseña debe tener al menos 8 caracteres");
+        }
+        else{
+            const {data} = await postRegister(UserRegister);
+            Navegate("/register");
+        }
     }    
 
     function changerComplet({target:{name,value, files}}){

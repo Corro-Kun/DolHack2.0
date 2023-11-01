@@ -75,7 +75,7 @@ function LoginRegister(){
                     <form onSubmit={(e) => toast.promise(register(e),{
                         loading: "Registrando...",
                         success: "Registrado con exito",
-                        error: "Error al registrar"
+                        error: (err) => "" +err
                     })}>
                         <div className="Input-box">
                             <input 
