@@ -29,7 +29,18 @@ public class UsuarioRepositorio {
     
     public String newUser(newUserModel user) throws Exception{
         String id = idRandom.generateID();
+
+        if(user.getContraseña().length() < 8){
+            throw new Exception("La contraseña debe tener al menos 8 caracteres");
+        }
+
         String contrasena = new Hash().generateHash(user.getContraseña());
+
+        List<ModelCorreo> correos = sql.query("select * from correo WHERE correo = ?;", new Object[]{user.getCorreo()}, BeanPropertyRowMapper.newInstance(ModelCorreo.class));
+
+        if(!correos.isEmpty()){
+            throw new Exception("El correo ya esta en uso");
+        }
 
         sql.update("INSERT INTO usuario (idusuario, nombre, contraseña, rol_idrol) values (?, ?, ?, ?)",id, user.getNombre(), contrasena, user.getRol());
         sql.update("INSERT INTO correo (idcorreo, correo, usuario_idusuario) values (?, ?, ?)", idRandom.generateID(), user.getCorreo(), id);
@@ -76,6 +87,13 @@ public class UsuarioRepositorio {
         String querry = "SELECT usuario.nombre, usuario.apellido, usuario.biografia, usuario.foto, usuario.banner, correo.correo, rol.rol FROM usuario JOIN correo ON correo.usuario_idusuario = usuario.idusuario JOIN rol ON rol.idrol = usuario.rol_idrol WHERE usuario.idusuario = ?";
 
         profileUserModel profile = sql.queryForObject(querry,new Object[]{id}, BeanPropertyRowMapper.newInstance(profileUserModel.class));
+
+        List<ModelTelefono> telefonos = sql.query("select * from telefono WHERE usuario_idusuario = ?;", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelTelefono.class));
+
+        if (telefonos.isEmpty()) {
+            profile.setTelefono(null);
+            return profile;
+        }
 
         ModelTelefono telefono = sql.queryForObject("SELECT * FROM telefono WHERE usuario_idusuario = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelTelefono.class));
 

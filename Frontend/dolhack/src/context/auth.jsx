@@ -42,13 +42,8 @@ export function AuthProvider({children}) {
 
     async function register(e) {
         e.preventDefault();
-        if(UserRegister.contraseña.length < 8){
-            throw new Error("La contraseña debe tener al menos 8 caracteres");
-        }
-        else{
-            const {data} = await postRegister(UserRegister);
-            Navegate("/register");
-        }
+        const {data} = await postRegister(UserRegister);
+        Navegate("/register");
     }    
 
     function changerComplet({target:{name,value, files}}){
