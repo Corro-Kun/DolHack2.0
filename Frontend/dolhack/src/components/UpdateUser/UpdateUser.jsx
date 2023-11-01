@@ -48,6 +48,7 @@ function UpdateUser() {
                             value={DataUpdate?.telefono=== undefined ? "" : DataUpdate?.telefono}
                             onChange={changeDataUpdate}
                             />
+                            
                             <label>Telefono</label>
                         </div>
                         <div>

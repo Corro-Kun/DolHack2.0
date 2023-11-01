@@ -4,18 +4,15 @@ import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.Hash;
 import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.lib.IDRandomFactory;
-import com.backend.dolhack.models.user.ModelCorreo;
-import com.backend.dolhack.models.user.ModelUsuario;
-import com.backend.dolhack.models.user.loginUserModel;
-import com.backend.dolhack.models.user.newUserModel;
-import com.backend.dolhack.models.user.profileUserModel;
-import com.backend.dolhack.models.user.updateUserModel;
+import com.backend.dolhack.models.user.*;
 import com.backend.dolhack.service.cloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Repository
 public class UsuarioRepositorio {
@@ -80,6 +77,10 @@ public class UsuarioRepositorio {
 
         profileUserModel profile = sql.queryForObject(querry,new Object[]{id}, BeanPropertyRowMapper.newInstance(profileUserModel.class));
 
+        ModelTelefono telefono = sql.queryForObject("SELECT * FROM telefono WHERE usuario_idusuario = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelTelefono.class));
+
+        profile.setTelefono(telefono.getTelefono());
+
         return profile;
     }
 
@@ -126,6 +127,18 @@ public class UsuarioRepositorio {
             String querry = "UPDATE usuario SET nombre = ?, apellido = ?, biografia = ?, foto = ?, banner = ? WHERE idusuario = ?";
 
             sql.update(querry, user.getNombre(), user.getApellido(), user.getBiografia(), fotoP, fotoB, id);
+        }
+
+        List<ModelTelefono> telefonos = sql.query("select * from telefono WHERE usuario_idusuario = ?;", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelTelefono.class));
+
+        if(telefonos.isEmpty()){
+            String idT = idRandom.generateID();
+
+            sql.update("INSERT INTO telefono (idtelefono, telefono, usuario_idusuario) values (?, ?, ?)", idT, user.getTelefono(), id);
+        }else{
+            String querry = "UPDATE telefono SET telefono = ? WHERE usuario_idusuario = ?";
+
+            sql.update(querry, user.getTelefono(), id);
         }
 
         return true;

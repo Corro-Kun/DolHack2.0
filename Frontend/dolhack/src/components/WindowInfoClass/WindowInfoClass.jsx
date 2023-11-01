@@ -65,6 +65,7 @@ function Window(){
                             </div>
                             <h2>{data.nombre} {data.apellido}</h2>
                             <p>{data.correo}</p>
+                            <p>{data.telefono}</p>
                         </div>
                     </div>
                 </div>

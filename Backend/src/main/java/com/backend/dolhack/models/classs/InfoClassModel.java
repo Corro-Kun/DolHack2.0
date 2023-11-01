@@ -14,11 +14,13 @@ public class InfoClassModel {
     private String apellido;
     private String correo;
 
+    private String telefono;
+
     public InfoClassModel(){
 
     }
 
-    public InfoClassModel(String idclase, String titulo, String descripcion, String fecha_inicio, String fecha_finalizacion, String nombretipo, String nombrenivel, String imagen, String foto, String nombre, String apellido, String correo) {
+    public InfoClassModel(String idclase, String titulo, String descripcion, String fecha_inicio, String fecha_finalizacion, String nombretipo, String nombrenivel, String imagen, String foto, String nombre, String apellido, String correo, String telefono) {
         this.idclase = idclase;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -31,6 +33,7 @@ public class InfoClassModel {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
+        this.telefono = telefono;
     }
 
     public String getIdclase() {
@@ -129,4 +132,11 @@ public class InfoClassModel {
         this.correo = correo;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 }

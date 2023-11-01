@@ -29,7 +29,7 @@ export function ProfileProvider({children}) {
         setDataUpdate({
             nombre: data.nombre,
             apellido: data.apellido,
-            telefono: "",
+            telefono: data.telefono,
             biografia: data.biografia,
         });
         setFotos({

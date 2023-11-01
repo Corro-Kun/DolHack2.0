@@ -9,11 +9,13 @@ public class profileUserModel {
     private String banner;
     private String rol;
 
+    private String telefono;
+
     public profileUserModel(){
 
     }
 
-    public profileUserModel(String nombre, String apellido, String biografia, String foto, String banner, String rol, String correo){
+    public profileUserModel(String nombre, String apellido, String biografia, String foto, String banner, String rol, String correo, String telefono){
         this.nombre = nombre;
         this.apellido = apellido;
         this.biografia = biografia;
@@ -21,6 +23,7 @@ public class profileUserModel {
         this.banner = banner;
         this.rol = rol;
         this.correo = correo;
+        this.telefono = telefono;
     }
 
     public String getNombre(){
@@ -77,5 +80,13 @@ public class profileUserModel {
 
     public void setCorreo(String correo){
         this.correo = correo;
+    }
+
+    public String getTelefono(){
+        return this.telefono;
+    }
+
+    public void setTelefono(String telefono){
+        this.telefono = telefono;
     }
 }

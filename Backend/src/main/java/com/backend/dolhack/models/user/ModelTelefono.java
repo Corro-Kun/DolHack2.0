@@ -1,40 +1,41 @@
 package com.backend.dolhack.models.user;
 
 public class ModelTelefono {
-    private int idtelefono;
+    private String idtelefono;
     private String telefono;
-    private int usuario_idusuario;
-    
-    public ModelTelefono() {
+    private String usuario_idusuario;
+
+    public ModelTelefono(){
+
     }
 
-    public ModelTelefono(int idtelefono, String telefono, int usuario_idusuario) {
+    public ModelTelefono(String idtelefono, String telefono, String usuario_idusuario){
         this.idtelefono = idtelefono;
         this.telefono = telefono;
         this.usuario_idusuario = usuario_idusuario;
     }
 
-    public int getIdtelefono() {
-        return this.idtelefono;
+    public String getIdtelefono() {
+        return idtelefono;
     }
 
-    public void setIdtelefono(int idtelefono) {
+    public void setIdtelefono(String idtelefono) {
         this.idtelefono = idtelefono;
     }
 
     public String getTelefono() {
-        return this.telefono;
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public int getUsuario_idusuario() {
-        return this.usuario_idusuario;
+    public String getUsuario_idusuario() {
+        return usuario_idusuario;
     }
 
-    public void setUsuario_idusuario(int usuario_idusuario) {
+    public void setUsuario_idusuario(String usuario_idusuario) {
         this.usuario_idusuario = usuario_idusuario;
     }
 }

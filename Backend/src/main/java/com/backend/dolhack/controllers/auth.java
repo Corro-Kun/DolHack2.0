@@ -119,12 +119,12 @@ public class auth {
 
     @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     @PostMapping("/update")
-    public ResponseEntity<message> update(@CookieValue(name="token",required=true) String token,@RequestPart("nombre") String nombre, @RequestPart("apellido") String apellido, @RequestPart("biografia") String biografia ,@RequestPart(name="foto", required=false) MultipartFile foto, @RequestPart(name="banner", required=false) MultipartFile banner) throws Exception {
+    public ResponseEntity<message> update(@CookieValue(name="token",required=true) String token,@RequestPart("nombre") String nombre, @RequestPart("apellido") String apellido, @RequestPart("biografia") String biografia ,@RequestPart(name="foto", required=false) MultipartFile foto,@RequestPart(name="telefono", required=false) String telefono , @RequestPart(name="banner", required=false) MultipartFile banner) throws Exception {
         try {
             if (new VerificCookie(repositorio).verificCookie(token) == false) {
                 return ResponseEntity.status(401).body(new message("no autorizado"));
             }
-            updateUserModel user = new updateUserModel(nombre, apellido, biografia, "");
+            updateUserModel user = new updateUserModel(nombre, apellido, biografia, telefono);
             if(repositorio.UpdateCompletProfile(token, foto, banner, user)){
                 return ResponseEntity.ok().body(new message("Usuario actualizado con exito"));
             }
