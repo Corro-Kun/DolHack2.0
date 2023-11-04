@@ -2,6 +2,7 @@ import React, { Suspense} from "react";
 import "./BarProfile.css";
 import {useProfile} from "../../context/profile";
 import MinBarProfile from "../MinBarProfile/MinBarProfile";
+import { Link } from "react-router-dom";
 
 function BarProfile() {
   const {DataProfile, myClass, EnterYourClass, list} = useProfile();
@@ -26,7 +27,7 @@ function BarProfile() {
       </div>
       <div className="Home-Profile-Profesor">
         <p>{DataProfile.rol === "profesor"? "Tus Estudiantes" : "Tus Profesor"}</p>
-        <a href="#">Ver Todo</a>
+        <Link to={"/users"}>Ver Todo</Link>
       </div>
       <div className="Home-Profile-teachers">
         {
@@ -46,7 +47,7 @@ function BarProfile() {
      </div>
       <div className="Home-Profile-Profesor">
         <p>Tus Clases</p>
-        <a href="#">Ver Todo</a>
+        <Link to={"/xd"}>Ver Todo</Link>
       </div>
       <div id="List-Profile-Class" className="Home-Profile-teachers">
         {

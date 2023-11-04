@@ -1,0 +1,151 @@
+.BodyList-Render-Div{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-between;
+}
+.BodyList-RightAndLeft{
+    display: flex;
+    height: 10%;
+    width: 3%;
+    align-items: center;
+    justify-content: center;
+}
+.BodyList-RightAndLeft h1{
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    animation: ArrowScale 2s infinite;
+}
+
+@keyframes ArrowScale {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.BodyList-Main-Div{
+    display: flex;
+    padding: 5px 10px;
+    height: 98%;
+    width: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: BodyListStart 0.3s;
+}
+
+@keyframes BodyListStart {
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.BodyList-Bar-Div{
+    display: flex;
+    height: 5%;
+    width: 100%;
+    align-items: center;
+}
+.BodyList-Bar-Div input{
+    height: 35px;
+    width: 26%;
+    padding: 4px 10px;
+    background-color: var(--BG2_color);
+    color: var(--Text_Color);
+    border: 1px solid #5d5d5d;
+    border-radius: 5px;
+    outline: none;
+}
+.BodyList-Bar-Div input::placeholder{
+    color: var(--Text_Color);
+}
+
+.BodyList-Card-Div{
+    display: flex;
+    width: 100%;
+    height: 45%;
+    background-position: center;
+    background-size: cover;
+    align-items: end;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #5d5d5d;
+    box-shadow: 0 0 10px #000;
+    transition: .3s ease-in-out;
+}
+.BodyList-Card-Div:hover{
+    border: 1px solid var(--Main_Color);
+    box-shadow: 0 0 20px var(--Main_Color);
+}
+.BodyList-Card-Conte{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: right;
+}
+.BodyList-Card-Des{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--BG2_color);
+    border-left:1px solid #5d5d5d; 
+    border-radius: 30px 0 0 30px;
+    flex-direction: column;
+}
+
+.BodyList-Card-Des div:nth-child(1){
+    display: flex;
+    width: 90%;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.BodyList-Card-Des div:nth-child(1) h4{
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.BodyList-Card-Des div:nth-child(1) h4:hover{
+    color: var(--Main_Color);
+}
+
+.BodyList-Card-Des div:nth-child(3){
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.BodyList-Card-Photo{
+    display: flex;
+    width: 240px;
+    height: 240px;
+    background-color: azure;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #5d5d5d;
+    box-shadow: 0 0 10px #000;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.BodyList-Card-Photo:hover{
+    border: 2px solid var(--Main_Color);
+    box-shadow: 0 0 20px var(--Main_Color);
+}
+.BodyList-Card-Photo img{
+    height: 240px;
+}
