@@ -149,3 +149,60 @@
 .BodyList-Card-Photo img{
     height: 240px;
 }
+
+.BodyList-List{
+    width: 100%;
+    height: 25%;
+    overflow: hidden;
+}
+.BodyList-List-Scroll{
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+.BodyList-List-Card{
+    display: inline-block;
+    margin-right: 10px;
+    height: 230px;
+    width: 240px;
+    background-color: var(--BG2_color) ;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #5d5d5d;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.BodyList-List-Card:hover{
+    border: 1px solid var(--Main_Color);
+}
+.BodyList-List-Card-Contenet{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+.BodyList-List-Card-Contenet div{
+    display: flex;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #5d5d5d;
+    box-shadow: 0 0 10px #2c2c2c;
+    transition: .3s ease-in-out;
+}
+.BodyList-List-Card-Contenet:hover div{
+    border: 1px solid var(--Main_Color);
+    box-shadow: 0 0 5px var(--Main_Color);
+}
+.BodyList-List-Card-Contenet img{
+    height: 100px;
+}
+.BodyList-List-Card-Contenet h3{
+    margin-top: 10px;
+}

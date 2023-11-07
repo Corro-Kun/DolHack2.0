@@ -1,8 +1,14 @@
 import "./BodyList.css";
 import {MdArrowBackIosNew, MdArrowForwardIos} from "react-icons/md";
 import {FiMessageSquare} from "react-icons/fi";
+import { useEffect } from "react";
+import { useExploreUser } from "../../context/ExploreUser";
 
 function BodyList(){
+    const {GetListUser, List} = useExploreUser();
+    useEffect(()=>{
+        GetListUser();
+    },[]);
     return(
         <div className="BodyList-Render-Div" >
             <div className="BodyList-RightAndLeft" >
@@ -30,8 +36,21 @@ function BodyList(){
                        </div>
                     </div>
                 </div>
-                <div>
-
+                <div className="BodyList-List" >
+                    <div className="BodyList-List-Scroll" >
+                        {
+                            List?.map((item)=>(
+                            <div className="BodyList-List-Card" >
+                                <div className="BodyList-List-Card-Contenet" >
+                                    <div>
+                                        <img src={item.foto} alt="" />
+                                    </div>
+                                    <h3>{item.nombre} {item.apellido}</h3>
+                                </div>
+                            </div>
+                            ))
+                        }
+                   </div>
                 </div>
             </div>
             <div className="BodyList-RightAndLeft" >
