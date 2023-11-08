@@ -23,12 +23,12 @@ public class MySQLQueryStrategyHome implements QueryStrategyHome {
         String querry = "SELECT * FROM usuario WHERE idusuario = ?";
         ModelUsuario usuario = sql.queryForObject(querry, new Object[]{id}, (rs, rowNum) -> new ModelUsuario(rs.getString("idusuario"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("contraseña"), rs.getString("biografia"), rs.getString("foto"), rs.getString("banner"), rs.getInt("rol_idrol")));
         if(usuario.getRol_idrol() == 1){
-            String querry2 = "select lista_has_usuario.usuario_idusuario, usuario.nombre, usuario.foto,usuario.apellido from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario WHERE clase.usuario_idusuario = ? ;";
-            return sql.query(querry2, new Object[]{id}, (rs, rowNum) -> new ListPeople(rs.getString("usuario_idusuario"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("foto")));
+            String querry2 = "select lista_has_usuario.usuario_idusuario, usuario.nombre, usuario.foto,usuario.apellido, usuario.banner, clase.titulo, usuario.rol_idrol from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario WHERE clase.usuario_idusuario = ? ;";
+            return sql.query(querry2, new Object[]{id}, (rs, rowNum) -> new ListPeople(rs.getString("usuario_idusuario"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("foto"), rs.getString("banner"), rs.getString("titulo"), rs.getInt("rol_idrol")));
         }
-        String querry3 = "select usuario.idusuario, usuario.nombre, usuario.foto,usuario.apellido from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE lista_has_usuario.usuario_idusuario = ? ;";
-        return sql.query(querry3, new Object[]{id}, (rs, rowNum) -> new ListPeople(rs.getString("idusuario"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("foto")));
-    }
+        String querry3 = "select usuario.idusuario, usuario.nombre, usuario.foto,usuario.apellido, usuario.banner, clase.titulo, usuario.rol_idrol from lista_has_usuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista JOIN clase ON lista.idlista = clase.lista_idlista JOIN usuario ON usuario.idusuario = clase.usuario_idusuario WHERE lista_has_usuario.usuario_idusuario = ? ;";
+        return sql.query(querry3, new Object[]{id}, (rs, rowNum) -> new ListPeople(rs.getString("idusuario"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("foto"), rs.getString("banner"), rs.getString("titulo"), rs.getInt("rol_idrol")));
+     }
 
     @Override
     public MainModel MainQuery(JdbcTemplate sql){

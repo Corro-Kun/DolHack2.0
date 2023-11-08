@@ -6,15 +6,20 @@ public class ListPeople {
     private String apellido;
     private String foto;
 
-    public ListPeople(){
+    private String banner;
 
-    }
+    private String titulo;
 
-    public ListPeople(String usuario_idusuario, String nombre, String apellido, String foto) {
+    private int rol_idrol;
+
+    public ListPeople(String usuario_idusuario, String nombre, String apellido, String foto, String banner, String titulo, int rol_idrol) {
         this.usuario_idusuario = usuario_idusuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.foto = foto;
+        this.banner = banner;
+        this.titulo = titulo;
+        this.rol_idrol = rol_idrol;
     }
 
     public String getUsuario_idusuario() {
@@ -30,7 +35,7 @@ public class ListPeople {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre.substring(0,1).toUpperCase() + nombre.substring(1);
+        this.nombre = nombre;
     }
 
     public String getApellido() {
@@ -38,7 +43,7 @@ public class ListPeople {
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido.substring(0,1).toUpperCase() + apellido.substring(1);
+        this.apellido = apellido;
     }
 
     public String getFoto() {
@@ -47,5 +52,29 @@ public class ListPeople {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getRol_idrol() {
+        return rol_idrol;
+    }
+
+    public void setRol_idrol(int rol_idrol) {
+        this.rol_idrol = rol_idrol;
     }
 }

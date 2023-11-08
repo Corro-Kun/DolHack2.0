@@ -175,6 +175,9 @@
 .BodyList-List-Card:hover{
     border: 1px solid var(--Main_Color);
 }
+#ActiveBodyListCard{
+    border: 1px solid var(--Main_Color);
+}
 .BodyList-List-Card-Contenet{
     display: flex;
     height: 100%;
@@ -197,6 +200,10 @@
     transition: .3s ease-in-out;
 }
 .BodyList-List-Card-Contenet:hover div{
+    border: 1px solid var(--Main_Color);
+    box-shadow: 0 0 5px var(--Main_Color);
+}
+#activeBodyListContenet{
     border: 1px solid var(--Main_Color);
     box-shadow: 0 0 5px var(--Main_Color);
 }
