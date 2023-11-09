@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import { useExploreUser } from "../../context/ExploreUser";
 import CardListUser from "../CardListUser/CardListUser";
 import CardListMain from "../CardListMain/CardListMain";
+import { useNavigate } from "react-router-dom";
 
 function BodyList(){
     const {GetListUser, List, index, RightClick, LeftClick, FilterList} = useExploreUser();
+    const navegate = useNavigate();
     useEffect(()=>{
         GetListUser();
     },[]);
@@ -18,6 +20,7 @@ function BodyList(){
             <div className="BodyList-Main-Div">
                 <div className="BodyList-Bar-Div">
                     <input type="text" placeholder="Buscar..." onChange={(e) => FilterList(e)} />
+                    <h2 onClick={()=> navegate("/home")} >X</h2>
                 </div>
             {
                 List.length > 0 ?

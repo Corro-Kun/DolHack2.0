@@ -5,13 +5,15 @@ public class ListClassUser {
     private String titulo;
     private String imagen;
 
+    private String descripcion;
     public ListClassUser() {
     }
 
-    public ListClassUser(String idclase, String titulo, String imagen) {
+    public ListClassUser(String idclase, String titulo, String imagen, String descripcion) {
         this.idclase = idclase;
         this.titulo = titulo;
         this.imagen = imagen;
+        this.descripcion = descripcion;
     }
 
     public String getIdclase() {
@@ -36,5 +38,13 @@ public class ListClassUser {
 
     public void setImagen(String imagen) {
         this.imagen = imagen; 
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

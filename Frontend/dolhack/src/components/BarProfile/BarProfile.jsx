@@ -47,7 +47,7 @@ function BarProfile() {
      </div>
       <div className="Home-Profile-Profesor">
         <p>Tus Clases</p>
-        <Link to={"/xd"}>Ver Todo</Link>
+        <Link to={"/class"}>Ver Todo</Link>
       </div>
       <div id="List-Profile-Class" className="Home-Profile-teachers">
         {

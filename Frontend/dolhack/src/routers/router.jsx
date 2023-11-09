@@ -26,6 +26,7 @@ import ClassQuialification from '../page/Class/ClassQuialification';
 import ClassCalific from "../page/Class/ClassCalific";
 import ExamUpdate from "../page/Exam/ExamUpdate";
 import UserList from "../page/home/UserList";
+import ListClass from "../page/home/ClassList"
 
 function Router(){
     return(
@@ -48,6 +49,7 @@ function Router(){
                     <Route path="/newclass" element={<CreateClass />} />
                     <Route path="/infoclass/:id" element={<InfoClass />} />
                     <Route path="/users" element={<UserList />} />
+                    <Route path="/class" element={<ListClass />} />
                     {/* RUTAS PROTEGIDAS DEL PROFESOR */}
                     <Route element={<ProtecClass />} >
                         <Route path="/class/teacher/home" element={<ClassTeacher />} />

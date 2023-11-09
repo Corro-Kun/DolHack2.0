@@ -55,6 +55,11 @@
     height: 5%;
     width: 100%;
     align-items: center;
+    justify-content: space-between;
+}
+.BodyList-Bar-Div h2:hover{
+    color: var(--Main_Color);
+    cursor: pointer;
 }
 .BodyList-Bar-Div input{
     height: 35px;

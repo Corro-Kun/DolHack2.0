@@ -37,6 +37,7 @@ export function ProfileProvider({children}) {
             banner: data.banner,
         });
         const result = await MyClasses();
+        console.log(result.data);
         setMyClass(result.data);
     }
 
