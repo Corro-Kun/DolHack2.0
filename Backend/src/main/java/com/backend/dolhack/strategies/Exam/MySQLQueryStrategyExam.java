@@ -1,4 +1,4 @@
-package com.backend.dolhack.strategies;
+package com.backend.dolhack.strategies.Exam;
 
 import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.models.exam.*;

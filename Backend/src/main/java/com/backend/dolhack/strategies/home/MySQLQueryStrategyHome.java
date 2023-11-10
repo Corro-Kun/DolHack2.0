@@ -1,4 +1,4 @@
-package com.backend.dolhack.strategies;
+package com.backend.dolhack.strategies.home;
 
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.home.ListPeople;

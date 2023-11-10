@@ -1,8 +1,8 @@
 package com.backend.dolhack.config;
 
-import com.backend.dolhack.strategies.MySQLQueryStrategyClass;
-import com.backend.dolhack.strategies.MySQLQueryStrategyHome;
-import com.backend.dolhack.strategies.MySQLQueryStrategyExam;
+import com.backend.dolhack.strategies.Class.MySQLQueryStrategyClass;
+import com.backend.dolhack.strategies.home.MySQLQueryStrategyHome;
+import com.backend.dolhack.strategies.Exam.MySQLQueryStrategyExam;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyClass;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyExam;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyHome;

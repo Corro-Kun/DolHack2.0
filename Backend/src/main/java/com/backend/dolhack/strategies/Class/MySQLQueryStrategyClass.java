@@ -1,4 +1,4 @@
-package com.backend.dolhack.strategies;
+package com.backend.dolhack.strategies.Class;
 
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.lib.IDRandomFactory;
