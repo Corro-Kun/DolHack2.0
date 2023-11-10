@@ -16,7 +16,11 @@ export function ExploreUserProvider({ children }) {
 
     async function GetListUser(){
         const {data} = await YourList();
-        RefactorList(data);
+        if(data.length > 0){
+            RefactorList(data);
+        }else{
+            setList([]);
+        }
     }
 
     function RefactorList(data){

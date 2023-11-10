@@ -14,7 +14,7 @@ function ContenetBestClass({classs}){
             <div className="BestClass-Home-Render">
                 {
                     main?.clase?.map((item,index)=>(
-                        <CardClass title={item.titulo} foto={item.foto} description={item.descripcion} id={item.idclase} imagen={item.imagen} nivel={item.nombrenivel} tipo={item.nombretipo} />
+                        <CardClass key={index} title={item.titulo} foto={item.foto} description={item.descripcion} id={item.idclase} imagen={item.imagen} nivel={item.nombrenivel} tipo={item.nombretipo} />
                     ))
                 }
             </div>

@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import {MyClasses} from "../api/class"
+import {EnterClass, MyClasses, ValueC} from "../api/class"
+import {toast} from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const ExploreClassContext = createContext();
 
@@ -10,10 +12,15 @@ export function ExploreClassProvider({children}){
     const [List, setList] = useState([{}]);
     const [Index, setIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const navigate = useNavigate();
 
     async function GetList(){
         const {data} = await MyClasses();
-        RefactorList(data);
+        if(data.length > 0){
+            RefactorList(data);
+        }else{
+            setList([]);
+        }
     }
 
     function RefactorList(data){
@@ -77,8 +84,32 @@ export function ExploreClassProvider({children}){
         
     }
 
+    async function EnterYourClass(id){
+        try {
+            await EnterClass(id);
+            const {data} = await ValueC();
+            if(data === 2){
+                navigate("/class/student/home");
+            }else{
+                navigate("/class/teacher/home");
+            }
+        } catch (error) {
+            toast.error("Error al entrar a la clase");
+        }
+    }
+
+    function FilterList({target: {value}}){
+        if(value === ""){
+            GetList();
+        }else{
+            let list = List;
+            list = list.filter(item => item.titulo.toLowerCase().includes(value.toLowerCase()));
+            setList(list);
+        }
+    }
+
     return(
-        <ExploreClassContext.Provider value={{GetList,List, Index, ClickCard, RightClick, LeftClick, isAnimating}} >
+        <ExploreClassContext.Provider value={{GetList,List, Index, ClickCard, RightClick, LeftClick, isAnimating, EnterYourClass, FilterList}} >
             {children}
         </ExploreClassContext.Provider>
     );
