@@ -27,6 +27,7 @@ import ClassCalific from "../page/Class/ClassCalific";
 import ExamUpdate from "../page/Exam/ExamUpdate";
 import UserList from "../page/home/UserList";
 import ListClass from "../page/home/ClassList"
+import NotFound from "../page/404";
 
 function Router(){
     return(
@@ -66,6 +67,7 @@ function Router(){
                         <Route path="/class/student/qualification" element={<ClassCalific />} />
                     </Route>
                 </Route>
+                <Route path="*" element={<NotFound />} /> 
            </Routes>
         </BrowserRouter>
     );
