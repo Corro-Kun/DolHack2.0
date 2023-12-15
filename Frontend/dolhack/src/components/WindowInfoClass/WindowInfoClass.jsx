@@ -12,6 +12,7 @@ function Window(){
     useEffect(()=>{
         async function Get(){
             const {data} = await getInfoClass(id);
+            console.log(data);
             setData(data);
         }
         Get();

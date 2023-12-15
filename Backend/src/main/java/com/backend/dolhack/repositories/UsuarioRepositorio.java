@@ -1,6 +1,7 @@
 package com.backend.dolhack.repositories;
 
 import com.backend.dolhack.lib.Crypto;
+import com.backend.dolhack.lib.Email;
 import com.backend.dolhack.lib.Hash;
 import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.lib.IDRandomFactory;
@@ -42,10 +43,13 @@ public class UsuarioRepositorio {
             throw new Exception("El correo ya esta en uso");
         }
 
+        //new Email().NewUserEmail(user.getCorreo(),user.getNombre(), user.getRol());        
+
         sql.update("INSERT INTO usuario (idusuario, nombre, contraseña, rol_idrol) values (?, ?, ?, ?)",id, user.getNombre(), contrasena, user.getRol());
         sql.update("INSERT INTO correo (idcorreo, correo, usuario_idusuario) values (?, ?, ?)", idRandom.generateID(), user.getCorreo(), id);
 
         String key = new Crypto().Encrypt(id);
+
 
         return key;
     }

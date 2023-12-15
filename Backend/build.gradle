@@ -24,7 +24,7 @@ dependencies {
  	implementation 'javax.servlet:javax.servlet-api:4.0.1'
 	implementation 'com.cloudinary:cloudinary-http44:1.32.0'
 	implementation 'com.cloudinary:cloudinary-taglib:1.24.0'
-	
+	implementation 'com.resend:resend-java:2.2.1'
 }
 
 tasks.named('test') {
