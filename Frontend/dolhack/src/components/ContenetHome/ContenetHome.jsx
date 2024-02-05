@@ -7,7 +7,7 @@ function ContenetHome({children}) {
     return(
         <div className="Contenet-Home" >
             <div className="Search-Home">
-                <input type="text" placeholder="Explore" onChange={(e)=>filterUsers(e)} />
+                <input type="text" placeholder="Buscar..." onChange={(e)=>filterUsers(e)} />
             </div>
             <Suspense fallback={<h2>Cargando...</h2>} >
                 {children}

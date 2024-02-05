@@ -13,7 +13,7 @@ function BarHome({home, classs, teacher, studen}) {
     return(
         <div className="Explorer-Home">
             <div className="Title-Div">
-                <h2 onClick={()=> navigate("/home")} >Explore</h2>
+                <h2 onClick={()=> navigate("/home")} >Explorar</h2>
                 <Suspense fallback={<h2>Cargando...</h2>}>
                 {
                     DataProfile.rol === "profesor" ? <button onClick={()=> navigate("/newclass")} >Crear Clase</button> : null

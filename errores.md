@@ -3,7 +3,6 @@
 - la barra de inicio no sirve, solo esta de adorno
 - no sirve las notificaciones
 - no sirven los mensajes
-- la barra de buscar esta en ingles
 - no hay parte de perfil
 - si el profesor no tiene un apellido no muestra las clases
 - una intefaz para ver las calificaciones del estudiante para el profesor
