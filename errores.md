@@ -1,7 +1,6 @@
 ## Errores
 
 - la barra de inicio no sirve, solo esta de adorno
-- el home esta en ingles y el software esta en español
 - no sirve las notificaciones
 - no sirven los mensajes
 - la barra de buscar esta en ingles

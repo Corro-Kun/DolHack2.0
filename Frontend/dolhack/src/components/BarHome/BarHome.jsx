@@ -21,7 +21,7 @@ function BarHome({home, classs, teacher, studen}) {
                 </Suspense>
             </div>
             <div className="List-Home">
-                <ul id={ home ? "Active-Home" : "" } onClick={() => navigate("/home")} ><samp><FaRegCompass /></samp><p>Home</p></ul>
+                <ul id={ home ? "Active-Home" : "" } onClick={() => navigate("/home")} ><samp><FaRegCompass /></samp><p>Inicio</p></ul>
                 <ul id={ classs ? "Active-Home" : "" } onClick={() => navigate("/classes")} ><samp><GiClassicalKnowledge /></samp><p>Clases</p></ul>
                 <ul id={ teacher ? "Active-Home" : "" } onClick={() => navigate("/teachers")} ><samp><FaChalkboardTeacher /></samp><p>Profesores</p></ul>
                 <ul id={ studen ? "Active-Home" : "" } onClick={() => navigate("/studens")} ><samp><PiStudentFill /></samp><p>Estudiantes</p></ul>
