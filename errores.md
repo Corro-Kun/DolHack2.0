@@ -1,6 +1,5 @@
 ## Errores
 
-- la barra de inicio no sirve, solo esta de adorno
 - no sirve las notificaciones
 - no sirven los mensajes
 - no hay parte de perfil

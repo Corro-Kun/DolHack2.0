@@ -1,4 +1,5 @@
 import React,{useEffect, useState, createContext, useContext} from "react";
+import {useNavigate} from "react-router-dom";
 import { getListStudents, getListTeachers,homeMain } from "../api/home";
 import CardUser from "../components/CardUser/CardUser";
 
@@ -11,6 +12,7 @@ export const useHome = () => {
 export const HomeProvider = ({children}) => {
     const [Studenst, setStudenst] = useState([]);
     const [Teachers, setTeachers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         getStudenst();
@@ -64,14 +66,26 @@ export const HomeProvider = ({children}) => {
         }
     }
 
-    const filterUsers=({target:{value}})=>{
-        if(value === ""){
-            getStudenst();
-            getTeachers();
-        }else{
-            setStudenst(Studenst.filter((student) => student.nombre.toLowerCase().includes(value.toLowerCase())));
-            setTeachers(Teachers.filter((teacher) => teacher.nombre.toLowerCase().includes(value.toLowerCase())));
+    const filterUsers=({target:{value}}, urlFilter)=>{ 
+      if(urlFilter === "/home"){
+        navigate("/teachers")
+      }
+
+      if(value === ""){
+        if(urlFilter === "/teachers"){
+          getTeachers();
         }
+        else{
+          getStudenst();
+        }
+      }else{
+        if(urlFilter === "/teachers"){
+          setTeachers(Teachers.filter((teacher) => teacher.nombre.toLowerCase().includes(value.toLowerCase())));
+        }
+        else{
+          setStudenst(Studenst.filter((student) => student.nombre.toLowerCase().includes(value.toLowerCase())));
+        }
+      }
     }
 
     const [main, setMain] = useState({});
