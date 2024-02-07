@@ -2,7 +2,6 @@ import BodyPageNote from "../BodyPageNote/BodyPageNote";
 import BodyPublication from "../BodyPublication/BodyPublication";
 import List from "../List/List";
 import Publication from "../Publication/Publication";
-import Cookies from "js-cookie";
 import "./ShapeNotebook.css";
 import { useNavigate } from "react-router-dom";
 import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
@@ -24,7 +23,7 @@ function ShapeNotebook(){
                 <div className="ShapeNotebook-page1" >
                     <div className="ShapeNotebook-Bar-1" >
                         <h2 title="Salir" onClick={()=> {
-                            Cookies.remove("class");
+                            localStorage.removeItem("class");
                             navigate("/home");
                         }} ><FaXmark /></h2>
                         <h3>Publicaciones de tu profesor</h3>

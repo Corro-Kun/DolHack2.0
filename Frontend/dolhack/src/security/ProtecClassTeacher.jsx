@@ -6,7 +6,7 @@ import { ValueC } from "../api/class";
 function ProtectRouter(){
     const navigate = useNavigate();
     useEffect(() => {
-        if(!Cookie.get("class")){
+        if(!localStorage.getItem("class")){
             navigate("/home");
         }
         verify()

@@ -1,5 +1,4 @@
 import "./BarTeacher.css";
-import Cookies from "js-cookie";
 import {BsFillFileEarmarkPostFill} from "react-icons/bs";
 import {FaClipboardList} from "react-icons/fa";
 import {PiExamBold} from "react-icons/pi";
@@ -15,7 +14,7 @@ function BarTeacher({setting, home, list, exam, quilification}){
             <div className="BarTeacher-Main" >
                 <div>
                     <samp onClick={()=> {
-                        Cookies.remove("class");
+                        localStorage.removeItem("class");
                         navigate("/home");
                     }} ><BiArrowBack/></samp>
                     <h2>Tus Clase</h2>

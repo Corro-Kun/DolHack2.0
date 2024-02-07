@@ -33,7 +33,6 @@ export function AuthProvider({children}) {
     async function login(e) {
         e.preventDefault();
         const {data} = await postLogin(UserLogin);
-        console.log(data)
         localStorage.setItem("token", data.token);
         Navegate("/home");
     }
@@ -45,6 +44,7 @@ export function AuthProvider({children}) {
     async function register(e) {
         e.preventDefault();
         const {data} = await postRegister(UserRegister);
+        localStorage.setItem("token", data.token);
         Navegate("/register");
     }    
 

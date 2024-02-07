@@ -2,7 +2,6 @@ import React,{createContext, useContext, useState, useEffect} from "react";
 import {profile, update, YourList} from "../api/auth";
 import { MyClasses, EnterClass} from "../api/class";
 import {useNavigate} from "react-router-dom";
-import Cookie from "js-cookie";
 import { toast } from "sonner";
 
 export const ProfileContext = createContext();
@@ -41,7 +40,7 @@ export function ProfileProvider({children}) {
     }
 
     async function Logout(){
-        Cookie.remove("token");
+        localStorage.removeItem("token");
         navigate("/login");
         toast.success("Sesión cerrada");
     }
@@ -76,6 +75,7 @@ export function ProfileProvider({children}) {
     async function EnterYourClass(id, teacher){
         try {
             const {data} = await EnterClass(id);
+            localStorage.setItem("class", data.token);
             if(teacher){
                 navigate("/class/teacher/home");
             }else{

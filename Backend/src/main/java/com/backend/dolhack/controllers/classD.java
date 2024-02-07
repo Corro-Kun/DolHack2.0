@@ -1,12 +1,7 @@
 package com.backend.dolhack.controllers;
 
-import java.time.Duration;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpCookie;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +18,7 @@ import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.newClassModel;
 import com.backend.dolhack.models.message;
+import com.backend.dolhack.models.token;
 import com.backend.dolhack.repositories.ClassRepositorio;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
@@ -36,7 +33,7 @@ public class classD {
     // Crear una clase
 
     @PostMapping("/class")
-    public ResponseEntity<message> CreateClass(@CookieValue("token") String token, @RequestPart("file") MultipartFile file, @RequestPart("titulo") String titulo, @RequestPart("descripcion") String descripcion, @RequestPart("fecha_inicio") String fecha_inicio, @RequestPart("fecha_finalizacion") String fecha_finalizacion, @RequestPart("tipo") String tipo, @RequestPart("nivel") String nivel) throws Exception {
+    public ResponseEntity<message> CreateClass(@RequestHeader("token") String token, @RequestPart("file") MultipartFile file, @RequestPart("titulo") String titulo, @RequestPart("descripcion") String descripcion, @RequestPart("fecha_inicio") String fecha_inicio, @RequestPart("fecha_finalizacion") String fecha_finalizacion, @RequestPart("tipo") String tipo, @RequestPart("nivel") String nivel) throws Exception {
         try {
             newClassModel clase = new newClassModel(titulo, descripcion, fecha_inicio, fecha_finalizacion, tipo, nivel);
             repositorio.newClass(clase, token, file);
@@ -71,7 +68,7 @@ public class classD {
     // lista de las clases de un usuario
 
     @GetMapping("/yourclass")
-    public ResponseEntity YourClass(@CookieValue("token") String token){
+    public ResponseEntity YourClass(@RequestHeader("token") String token){
         try {
             return ResponseEntity.status(200).body(repositorio.listClassUser(token));
         } catch (Exception e) {
@@ -88,14 +85,8 @@ public class classD {
             if(repositorio.VerifyClassD(id) == false){
                 return ResponseEntity.badRequest().body(new message("La clase no existe"));
             }
-            HttpCookie cookie = ResponseCookie.from("class", value)
-                .maxAge(Duration.ofDays(1))
-                .secure(true)
-                .path("/")
-                .sameSite("none")
-                .build();
                             
-            return ResponseEntity.ok().header("set-cookie", cookie.toString()).body(new message("Bienvenido a la clase")); 
+            return ResponseEntity.ok().body(new token(value)); 
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
@@ -105,7 +96,7 @@ public class classD {
     // modificar una clase
 
     @PutMapping("/class")
-    public ResponseEntity modifyClass(@CookieValue("class") String id, @RequestBody UpdateClass clase, @CookieValue("token") String idU) throws Exception {
+    public ResponseEntity modifyClass(@RequestHeader("class") String id, @RequestBody UpdateClass clase, @RequestHeader("token") String idU) throws Exception {
         try {
             String idC = new Crypto().Decrypt(idU);
             if (repositorio.VerifyRol(idC) == 2) {
@@ -121,7 +112,7 @@ public class classD {
     // mandar datos para el formulario de una clase
 
     @GetMapping("/class/form")
-    public ResponseEntity classForm(@CookieValue("class") String key) throws Exception {
+    public ResponseEntity classForm(@RequestHeader("class") String key) throws Exception {
         try {
             String id = new Crypto().Decrypt(key);
             return ResponseEntity.status(200).body(repositorio.infoClass(id));
@@ -133,7 +124,7 @@ public class classD {
     // eliminar una clase
 
     @DeleteMapping("/class")
-    public ResponseEntity deleteClass(@CookieValue("class") String key, @CookieValue("token") String idU) throws Exception {
+    public ResponseEntity deleteClass(@RequestHeader("class") String key, @RequestHeader("token") String idU) throws Exception {
         try {
             String idC = new Crypto().Decrypt(idU);
             if (repositorio.VerifyRol(idC) == 2) {
@@ -151,7 +142,7 @@ public class classD {
     // validar su rol en una clase
 
     @GetMapping("/class/verify")
-    public ResponseEntity verifyClass(@CookieValue("class") String key, @CookieValue("token") String key2) throws Exception {
+    public ResponseEntity verifyClass(@RequestHeader("class") String key, @RequestHeader("token") String key2) throws Exception {
         try {
             String idC = new Crypto().Decrypt(key);
             String idU = new Crypto().Decrypt(key2);
@@ -168,7 +159,7 @@ public class classD {
     // registrar a estudiantes en una clase
 
     @GetMapping("/class/register/{id}")
-    public ResponseEntity StudentRegister(@CookieValue("token") String key , @PathVariable String id) throws Exception {
+    public ResponseEntity StudentRegister(@RequestHeader("token") String key , @PathVariable String id) throws Exception {
         try {
             String idU = new Crypto().Decrypt(key);
             if(repositorio.VerifyClassD(id) == false){
@@ -193,7 +184,7 @@ public class classD {
     // lista de estudiantes registrados en una clase
 
     @GetMapping("/class/student")
-    public ResponseEntity StuentList(@CookieValue("class") String key) throws Exception {
+    public ResponseEntity StuentList(@RequestHeader("class") String key) throws Exception {
         try {
             String id = new Crypto().Decrypt(key);
             return ResponseEntity.status(200).body(repositorio.StudentListC(id));
@@ -205,7 +196,7 @@ public class classD {
     // Publicar en la clase
 
     @PostMapping("/class/post")
-    public ResponseEntity PostClass(@CookieValue("class") String key, @CookieValue("token") String idU ,@RequestPart(name="file", required=false) MultipartFile file, @RequestPart(name="post", required=true) String text ) throws Exception {
+    public ResponseEntity PostClass(@RequestHeader("class") String key, @RequestHeader("token") String idU ,@RequestPart(name="file", required=false) MultipartFile file, @RequestPart(name="post", required=true) String text ) throws Exception {
         try {
             String idC = new Crypto().Decrypt(key);
             String id = new Crypto().Decrypt(idU);
@@ -222,7 +213,7 @@ public class classD {
     // lista de publicaciones de una clase
 
     @GetMapping("/class/post")
-    public ResponseEntity GetPost(@CookieValue("class") String key){
+    public ResponseEntity GetPost(@RequestHeader("class") String key){
         try {
             String id = new Crypto().Decrypt(key);
             return ResponseEntity.status(200).body(repositorio.PostList(id));
@@ -234,7 +225,7 @@ public class classD {
     // lista de calificaciones de la clase
 
     @GetMapping("/qualification")
-    public ResponseEntity ListQualification(@CookieValue("class") String key) throws Exception {
+    public ResponseEntity ListQualification(@RequestHeader("class") String key) throws Exception {
         try {
             String idC = new Crypto().Decrypt(key);
             return ResponseEntity.status(200).body(repositorio.getQualification(idC));
@@ -246,7 +237,7 @@ public class classD {
     // calificaciones del estudiante en la clase
 
     @GetMapping("/qualification/student")
-    public ResponseEntity StudentQualificatio(@CookieValue("class") String key , @CookieValue("token") String token) throws Exception {
+    public ResponseEntity StudentQualificatio(@RequestHeader("class") String key , @RequestHeader("token") String token) throws Exception {
         try {
             String idC = new Crypto().Decrypt(key);
             String idU = new Crypto().Decrypt(token);
@@ -259,7 +250,7 @@ public class classD {
     // informacion de la clase para estudiantes
 
     @GetMapping("/nameclass")
-    public ResponseEntity NameClass(@CookieValue("class") String key) throws Exception {
+    public ResponseEntity NameClass(@RequestHeader("class") String key) throws Exception {
         try {
             String id = new Crypto().Decrypt(key);
             return ResponseEntity.status(200).body(repositorio.getClass(id));

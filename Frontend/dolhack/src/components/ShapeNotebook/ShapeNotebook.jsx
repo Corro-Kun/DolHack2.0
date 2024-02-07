@@ -26,7 +26,7 @@ function ShapeNotebook(){
                 <div className="ShapeNotebook-page1" >
                     <div className="ShapeNotebook-Bar-1" >
                         <h2 onClick={()=> {
-                            Cookies.remove("class");
+                            localStorage.removeItem("class");
                             navigate("/home");
                         }} ><FaXmark /></h2>
                         <h3>Publicaciones de tu profesor</h3>

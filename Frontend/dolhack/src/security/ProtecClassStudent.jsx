@@ -4,9 +4,10 @@ import Cookie from "js-cookie";
 import { ValueC } from "../api/class";
 
 function ProtectClass(){
-        const navigate = useNavigate();
+    const navigate = useNavigate();
+    
     useEffect(() => {
-        if(!Cookie.get("class")){
+        if(!localStorage.getItem("class")){
             navigate("/home");
         }
         verify()

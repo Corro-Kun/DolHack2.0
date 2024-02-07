@@ -86,7 +86,8 @@ export function ExploreClassProvider({children}){
 
     async function EnterYourClass(id){
         try {
-            await EnterClass(id);
+            const auth = await EnterClass(id);
+            localStorage.setItem("class", auth?.data?.token);
             const {data} = await ValueC();
             if(data === 2){
                 navigate("/class/student/home");

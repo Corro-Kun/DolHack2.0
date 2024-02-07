@@ -6,7 +6,7 @@ import { valid } from "../api/auth";
 function ProtectRouter(){
     const navigate = useNavigate();
     useEffect(() => {
-        if(!Cookie.get("token")){
+        if(!localStorage.getItem("token")){
             navigate("/login");
         }
         if(getResponse() == "0"){

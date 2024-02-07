@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class home {
 
     // lista de profesores
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/teacher")
     public ResponseEntity profesor() throws Exception {
         try {
@@ -37,7 +38,7 @@ public class home {
 
     // lista de estudiantes
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/student")
     public ResponseEntity estudiante(){
         try {
@@ -49,9 +50,9 @@ public class home {
 
     //
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/peopleList")
-    public ResponseEntity yourList(@CookieValue("token") String id){
+    public ResponseEntity yourList(@RequestHeader("token") String id){
         try {
             String idU = new Crypto().Decrypt(id);
             return ResponseEntity.ok().body(repositorio.getList(idU));
@@ -62,7 +63,7 @@ public class home {
 
     //
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/main")
     public ResponseEntity Main(){
         try {
