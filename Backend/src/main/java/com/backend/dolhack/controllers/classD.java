@@ -20,7 +20,7 @@ import com.backend.dolhack.models.classs.newClassModel;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.models.token;
 import com.backend.dolhack.repositories.ClassRepositorio;
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class classD {
     private final ClassRepositorio repositorio;

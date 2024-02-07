@@ -1,23 +1,54 @@
 import axios from "./axios";
 
 // crear examen
-export const PostQuiz = async (data) => axios.post("/exam", data);
+export const PostQuiz = async (data) => axios.post("/exam", data, {
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});
 
 // obtener examens
-export const GetQuiz = async () => axios.get("/exam");
+export const GetQuiz = async () => axios.get("/exam", {
+    headers:{
+        "class": localStorage.getItem("class")
+    }
+
+});
 
 // obtener el examen por id
 export const GetQuizById = async (id) => axios.get(`/quiz/${id}`);
 
 // verificar si el estudiante ya realizo el examen
-export const verifyQuiz = async (id) => axios.get(`/exam/verify/${id}`);
+export const verifyQuiz = async (id) => axios.get(`/exam/verify/${id}`,{
+    headers:{
+        "token": localStorage.getItem("token")
+    }
+});
 
 // enviar respuestas
-export const AnswerForm = async (id, data) => axios.post("/exam/"+id, data); 
+export const AnswerForm = async (id, data) => axios.post("/exam/"+id, data, {
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+}); 
 
 // Eliminar examen
-export const DeleteQuiz = async (id) => axios.delete(`/exam/${id}`);
+export const DeleteQuiz = async (id) => axios.delete(`/exam/${id}`, {
+    headers:{
+        "class": localStorage.getItem("class")
+    }
+});
 
-export const GetQuizByIdD = async (id) => axios.get(`/exam/${id}`);   
+export const GetQuizByIdD = async (id) => axios.get(`/exam/${id}`, {
+    headers:{
+        "class": localStorage.getItem("class")
+    }
+});   
 
-export const UpdateQuiz = async (id, data) => axios.put(`/exam/${id}`, data);
+export const UpdateQuiz = async (id, data) => axios.put(`/exam/${id}`, data, {
+    headers:{
+        "class": localStorage.getItem("class")
+    }
+});
