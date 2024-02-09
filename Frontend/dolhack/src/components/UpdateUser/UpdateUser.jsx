@@ -86,7 +86,7 @@ function UpdateUser() {
                             success: "Actualizado",
                             error: (err) => err,
                         })
-                    }} >Actulizar</button>
+                    }} >Actualizar</button>
                 </div>
             </div>
         </div>
