@@ -15,7 +15,7 @@ function BarMain(){
                 <ul><Link to="/services" >Servicios</Link></ul>
             </nav>
             <div>
-                <button onClick={() => navigate("/login")} >Sign Up</button>
+                <button onClick={() => navigate("/login")} >Iniciar Sesión</button>
             </div>
         </header>
     );
