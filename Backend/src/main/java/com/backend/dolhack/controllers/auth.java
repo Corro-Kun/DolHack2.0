@@ -115,14 +115,5 @@ public class auth {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
- 
-    @GetMapping("path")
-    public ResponseEntity dataComplet(){
-        try{
-
-        }catch(Exception e){
-            return ResponseEntity.badRequest().body(new message(e.getMessage()));
-        }
-    }
     
 }
