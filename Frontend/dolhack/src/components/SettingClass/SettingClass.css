@@ -11,6 +11,7 @@
     background-color: var(--BG2_color);
     border-radius: 10px;
     border: 1px solid #4e4e4e;
+    overflow: auto;
 }
 .SettingClass-title{
     display: flex;
@@ -34,4 +35,11 @@
 .SettingClass-Buttons button:hover{
     color: #fff;
     background-color: var(--Main_Color);
+}
+
+@media screen and (max-width: 1559px) {
+    .SettingClass-div-render form{
+        width: 60%;
+        height: 75%;
+    }    
 }
