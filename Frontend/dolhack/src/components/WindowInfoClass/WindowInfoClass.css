@@ -128,3 +128,19 @@
 .WindowInfoClass-profile img{
     height: 200px;
 }
+
+@media screen and (max-width: 1559px) {
+    .WindowInforClass-Div{
+        height: 85%;
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .WindowInfoClass-profile h2{
+        font-size: 1.4em;
+    }
+    .WindowInfoClass-profile{
+        padding: 5px;
+    }
+}
