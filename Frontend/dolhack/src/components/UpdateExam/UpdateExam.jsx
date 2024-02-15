@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useExam } from "../../context/exam";
 import "./UpdateExam.css"
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 function UpdateExam(){
     const {id} = useParams();
@@ -38,7 +39,11 @@ function UpdateExam(){
                 </div>
                 <div className="UpdateExam-Button" >
                     <div>
-                        <button onClick={()=>UpdateQuizs(id)} >Actualizar</button>
+                        <button onClick={()=>toast.promise(UpdateQuizs(id),{
+                            loading: "Actualizando...",
+                            success: "Examen Actualizado",
+                            error: "Error al actualizar"
+                        })} >Actualizar</button>
                     </div>
                 </div>
             </div>

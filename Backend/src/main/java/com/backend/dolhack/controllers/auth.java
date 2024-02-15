@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/auth")
 public class auth {
@@ -29,7 +32,6 @@ public class auth {
         this.repositorio = repositorio;
     } 
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody newUserModel user) throws Exception{
         try {
@@ -43,7 +45,6 @@ public class auth {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody loginUserModel user )throws Exception{
         try{
@@ -61,7 +62,6 @@ public class auth {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/complet")
     public ResponseEntity<message> complet(@RequestPart("file") MultipartFile file, @RequestPart("biografia") String biografia, @RequestHeader(name="token",required=true) String token){
         try {
@@ -76,7 +76,6 @@ public class auth {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/profile")
     public ResponseEntity profile(@RequestHeader(name="token",required=true) String token ){
         try {
@@ -89,7 +88,6 @@ public class auth {
         }
     }
 
-    @CrossOrigin(origins="http://localhost:5173")
     @GetMapping("/valid")
     public ResponseEntity valid(@RequestHeader(name="token",required = true) String token ){
         try {
@@ -102,7 +100,6 @@ public class auth {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/update")
     public ResponseEntity<message> update(@RequestHeader(name="token",required=true) String token,@RequestPart("nombre") String nombre, @RequestPart("apellido") String apellido, @RequestPart("biografia") String biografia ,@RequestPart(name="foto", required=false) MultipartFile foto,@RequestPart(name="telefono", required=false) String telefono , @RequestPart(name="banner", required=false) MultipartFile banner) throws Exception {
         try {
@@ -119,4 +116,13 @@ public class auth {
         }
     }
  
+    @GetMapping("path")
+    public ResponseEntity dataComplet(){
+        try{
+
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+    
 }

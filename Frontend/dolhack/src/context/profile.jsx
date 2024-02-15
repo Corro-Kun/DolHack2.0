@@ -17,6 +17,7 @@ export function ProfileProvider({children}) {
     const [myClass, setMyClass] = useState([]); 
     const navigate = useNavigate();
 
+
     useEffect(() => {
         GetProfile();
         GetYourList();
@@ -93,8 +94,17 @@ export function ProfileProvider({children}) {
         setList(data);
     }
 
+    function dataValid(){
+        if (DataProfile.apellido === null || DataProfile.apellido === "" || DataProfile.apellido === undefined || DataProfile.telefono === null || DataProfile.telefono === "" || DataProfile.telefono === undefined || DataProfile.biografia === null || DataProfile.biografia === "" || DataProfile.biografia === undefined || DataProfile.foto === null || DataProfile.foto === "" || DataProfile.foto === undefined || DataProfile.banner === null || DataProfile.banner === "" || DataProfile.banner === undefined) {
+            toast.error("Completa tu perfil");
+            navigate("/update");
+        }else{
+            navigate("/newclass");
+        }
+    }
+
     return(
-        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass, GetYourList, list}} >
+        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass, GetYourList, list, dataValid}} >
             {children}
         </ProfileContext.Provider>
     );

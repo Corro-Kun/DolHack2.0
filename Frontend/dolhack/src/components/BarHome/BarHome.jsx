@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useProfile } from "../../context/profile";
 
 function BarHome({home, classs, teacher, studen}) {
-    const {DataProfile} = useProfile();
+    const {DataProfile, dataValid} = useProfile();
     const navigate = useNavigate();
     return(
         <div className="Explorer-Home">
@@ -17,7 +17,7 @@ function BarHome({home, classs, teacher, studen}) {
                     <h2 onClick={()=> navigate("/home")} >Explorar</h2>
                     <Suspense fallback={<h2>Cargando...</h2>}>
                     {
-                        DataProfile.rol === "profesor" ? <button onClick={()=> navigate("/newclass")} >Crear Clase</button> : null
+                        DataProfile.rol === "profesor" ? <button onClick={()=> dataValid()} >Crear Clase</button> : null
                     }
                     </Suspense>
                 </div>
