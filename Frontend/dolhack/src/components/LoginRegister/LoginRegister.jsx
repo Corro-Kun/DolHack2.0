@@ -1,10 +1,11 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { useAuth } from "../../context/auth";
 import "./LoginRegister.css";
 import { Toaster, toast } from "sonner";
 
 function LoginRegister(){
     const {changerUserLogin, login, changerUserRegister, register} = useAuth();
+    const [Termins, setTermins] = useState(true);
     useEffect(()=>{
         const RegisterBTN = document.querySelector('.Register-link')
         const LoginLayaut = document.querySelector('.Login-Home')
@@ -125,7 +126,12 @@ function LoginRegister(){
                             </div>
                         </div>
                         <div className="Forget-Password">
-                            <label><input type="checkbox" required onClick={() =>toast("Gracias por Aceptar los terminos")} /> ¿Aceptas los términos y condiciones?</label>
+                            <label><input type="checkbox" required onClick={() =>{
+                                setTermins(!Termins)
+                                if (Termins){
+                                    toast("Gracias por Aceptar los terminos")
+                                }
+                                }} /> ¿Aceptas los términos y condiciones?</label>
                         </div>
                         <button type="submit" className="BTN-Login" >Registrar</button>
                         <div className="Login-Register">
