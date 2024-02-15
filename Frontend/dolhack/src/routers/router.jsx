@@ -28,6 +28,7 @@ import ExamUpdate from "../page/Exam/ExamUpdate";
 import UserList from "../page/home/UserList";
 import ListClass from "../page/home/ClassList"
 import NotFound from "../page/404";
+import ProtecAddClass from "../security/ProtecAddClass";
 
 function Router(){
     return(
@@ -47,7 +48,9 @@ function Router(){
                     <Route path="/teachers" element={<Teachers />} />
                     <Route path="/studens" element={<Studens />} />
                     <Route path="/update" element={<Update />} />
-                    <Route path="/newclass" element={<CreateClass />} />
+                    <Route element={<ProtecAddClass />} >
+                        <Route path="/newclass" element={<CreateClass />} />
+                    </Route> 
                     <Route path="/infoclass/:id" element={<InfoClass />} />
                     <Route path="/users" element={<UserList />} />
                     <Route path="/class" element={<ListClass />} />

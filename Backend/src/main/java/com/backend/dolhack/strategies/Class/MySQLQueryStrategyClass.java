@@ -1,16 +1,28 @@
 package com.backend.dolhack.strategies.Class;
 
-import com.backend.dolhack.lib.Crypto;
-import com.backend.dolhack.lib.IDRandomFactory;
-import com.backend.dolhack.models.classs.*;
-import com.backend.dolhack.models.user.ModelUsuario;
-import com.backend.dolhack.service.cloudinaryService;
-import com.backend.dolhack.strategies.interfaces.QueryStrategyClass;
+import java.util.List;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import com.backend.dolhack.lib.Crypto;
+import com.backend.dolhack.lib.IDRandomFactory;
+import com.backend.dolhack.models.classs.InfoClassModel;
+import com.backend.dolhack.models.classs.LQuialificationsStudent;
+import com.backend.dolhack.models.classs.ListClassUser;
+import com.backend.dolhack.models.classs.ListPostClass;
+import com.backend.dolhack.models.classs.ListStudentClass;
+import com.backend.dolhack.models.classs.ModelClase;
+import com.backend.dolhack.models.classs.ModelLista;
+import com.backend.dolhack.models.classs.ModelLista_has_usuario;
+import com.backend.dolhack.models.classs.QualificationStudent;
+import com.backend.dolhack.models.classs.UpdateClass;
+import com.backend.dolhack.models.classs.classListModel;
+import com.backend.dolhack.models.classs.newClassModel;
+import com.backend.dolhack.models.user.ModelUsuario;
+import com.backend.dolhack.service.cloudinaryService;
+import com.backend.dolhack.strategies.interfaces.QueryStrategyClass;
 
 public class MySQLQueryStrategyClass implements QueryStrategyClass {
     @Override
@@ -71,6 +83,7 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
     public boolean DeleteClassQuery(JdbcTemplate sql,String id ) throws Exception{
         String Querry1 = "Select * FROM lista WHERE clase = ?";
         ModelLista lista = sql.queryForObject(Querry1, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+        sql.update("delete from publicacion where clase_idclase = ?", id);
         sql.update("DELETE FROM clase WHERE idclase = ?", id);
         sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
         sql.update("DELETE FROM lista WHERE clase = ?", id);
