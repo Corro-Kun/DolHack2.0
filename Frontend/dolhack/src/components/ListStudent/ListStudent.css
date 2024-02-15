@@ -11,6 +11,7 @@
     border-radius: 8px;
     border: 1px solid #494949;
     box-shadow: 0 10px 20px #1f1f1f;
+    overflow: hidden;
 }
 .ListStudent-Title{
     display: flex;
@@ -75,4 +76,19 @@
     background-color: var(--BG_Color);
     color: var(--Text_Color);
     border: 1px solid #494949;
+}
+
+@media screen and (max-width: 1559px) {
+    .ListStudent-Contenet{
+        height: 86%;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .ListStudent-Contenet{
+        height: 83%;
+    }
+    .ListStudent-Main-Div{
+        height: 83%;
+    }
 }
