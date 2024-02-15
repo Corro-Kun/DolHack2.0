@@ -63,3 +63,17 @@
 .Card-User-Main:hover .Card-User-Photo{
     border: 2px solid var(--Main_Color);
 }
+
+@media screen and (max-width: 1559px){
+    .Card-User-Main{
+        height: 180px;
+        width: 31%;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .Card-User-Main{
+        height: 160px;
+        width: 31%;
+    }
+}
