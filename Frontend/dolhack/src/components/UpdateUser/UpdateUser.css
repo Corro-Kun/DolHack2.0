@@ -152,3 +152,27 @@
 .UpdateUser-Main-Div button:hover{
     background-color: #0c0c0c;
 }
+
+@media screen and (max-width: 1559px) {
+    .UpdateUser-Main-Div{
+        height: 90%;
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .UpdateUser-Main-Div{
+        height: 95%;
+        width: 70%;
+    }
+    .UpdateUser-Img div{
+        height: 200px;
+        width: 45%;
+    }
+    .UpdateUser-Input textarea{
+        height: 90px;
+    }
+    .UpdateUser-Folder-div{
+        height: 47%;
+    }
+}
