@@ -163,3 +163,22 @@
     color: var(--Text_Color);
     text-shadow: 0 0 5px #000;
 }
+
+@media screen and (max-height: 780px) {
+    .Photo-Home-Shape1{
+        display: none;
+    }
+    .Photo-Home-Shape2{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .Settings-Home samp{
+        font-size: 1.2em;
+    }
+    .Home-Profile-Profesor{
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
