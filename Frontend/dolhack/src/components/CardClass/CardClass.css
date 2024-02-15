@@ -80,3 +80,25 @@
     border: 2px solid var(--Main_Color);
     transform: translateY(40px) scale(1);
 }
+
+@media screen and (max-width: 1559px){
+    .CardClass-Home-Card{
+        width: 48%;
+        height: 280px;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .CardClass-Home-Card{
+        width: 48%;
+        height: 250px;
+    }
+    .CardClass-Home-PhotoCard{
+        height: 70px;
+        width: 70px;
+    }
+    .CardClass-Home-Card:hover .CardClass-Home-PhotoCard{
+        transform: translateY(35px) scale(1);
+    }
+
+}

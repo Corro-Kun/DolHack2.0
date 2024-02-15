@@ -3,6 +3,18 @@
     height: 100vh;
     overflow: auto;
 }
+.Contenet-Home::-webkit-scrollbar{
+    widht: 10px;
+    background: trasnparent;
+}
+.Contenet-Home::-webkit-scrollbar-thumb{
+    background: var(--Main_Color);
+    border-radius: 10px;
+}
+.Contenet-Home::-webkit-scrollbar-track{
+    background: var(--BG_Color);
+    border-radius: 10px;
+}
 /* bar div */
 .Search-Home{
     width: 100%;
