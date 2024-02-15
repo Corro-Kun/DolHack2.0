@@ -1,5 +1,6 @@
 .Profile-Home{
     width: 15%;
+    height: 100vh;
     background-color: var(--BG2_color);
     border-left:1px solid #4e4e4e ;
     overflow: auto;
