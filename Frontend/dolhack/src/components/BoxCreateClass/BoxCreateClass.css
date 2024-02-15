@@ -26,6 +26,7 @@
     height: 100%;
     width: 50%;
     border-right: 1px solid #4e4e4e ;
+    overflow: auto;
 }
 .BoxCreateClass-input-Div-1{
     padding: 10px;
@@ -162,4 +163,16 @@
     display: flex;
     width: 70%;
     justify-content: space-between;
+}
+
+@media screen and (max-width: 1559px) {
+    .BoxCreateClass-Main-Div{
+        height: 85%;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .BoxCreateClass-Main-Div{
+        height: 95%;
+    }
 }

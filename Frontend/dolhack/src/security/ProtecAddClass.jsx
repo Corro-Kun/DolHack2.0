@@ -17,7 +17,6 @@ export default function ProtecAddClass() {
     
     if(user.apellido === null || user.apellido === undefined || user.apellido === "" || user.telefono === null || user.telefono === undefined || user.telefono === "" ){
         navigate("/update");
-        toast.error("Por favor complete su perfil para continuar");
     }
 
     return(
