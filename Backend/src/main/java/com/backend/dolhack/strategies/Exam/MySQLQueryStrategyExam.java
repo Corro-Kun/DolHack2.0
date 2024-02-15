@@ -188,12 +188,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
     public boolean UpdateQuizQuery(JdbcTemplate sql,getExamUpdate Quiz){
         String query = "UPDATE quiz SET titulo = ?, descripcion = ? WHERE idquiz = ?;";
         sql.update(query, Quiz.getTitulo(), Quiz.getDescripcion(), Quiz.getIdquiz());
-
         List<PreguntaViewr> questions = Quiz.getPreguntas();
 
         for(PreguntaViewr question : questions ){
             String query2 = "UPDATE pregunta SET pregunta = ? WHERE idpregunta = ?;";
             sql.update(query2, question.getPregunta(), question.getIdpregunta());
+            System.err.println("ocurrio un error al actualizar la pregunta");
 
             List<ModelOpcion> options = question.getOpciones();
 
