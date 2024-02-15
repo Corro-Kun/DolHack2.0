@@ -12,24 +12,24 @@ function BarHome({home, classs, teacher, studen}) {
     const navigate = useNavigate();
     return(
         <div className="Explorer-Home">
-            <div className="Title-Div">
-                <h2 onClick={()=> navigate("/home")} >Explorar</h2>
-                <Suspense fallback={<h2>Cargando...</h2>}>
-                {
-                    DataProfile.rol === "profesor" ? <button onClick={()=> navigate("/newclass")} >Crear Clase</button> : null
-                }
-                </Suspense>
-            </div>
-            <div className="List-Home">
-                <ul id={ home ? "Active-Home" : "" } onClick={() => navigate("/home")} ><samp><FaRegCompass /></samp><p>Inicio</p></ul>
-                <ul id={ classs ? "Active-Home" : "" } onClick={() => navigate("/classes")} ><samp><GiClassicalKnowledge /></samp><p>Clases</p></ul>
-                <ul id={ teacher ? "Active-Home" : "" } onClick={() => navigate("/teachers")} ><samp><FaChalkboardTeacher /></samp><p>Profesores</p></ul>
-                <ul id={ studen ? "Active-Home" : "" } onClick={() => navigate("/studens")} ><samp><PiStudentFill /></samp><p>Estudiantes</p></ul>
-            </div>
-            <div className="Render-Div-Home">
-                <div className="Message-Home">
-                    <h3 id="Message">DolHack <samp className="multiText" ></samp></h3>
+            <div>
+                <div className="Title-Div">
+                    <h2 onClick={()=> navigate("/home")} >Explorar</h2>
+                    <Suspense fallback={<h2>Cargando...</h2>}>
+                    {
+                        DataProfile.rol === "profesor" ? <button onClick={()=> navigate("/newclass")} >Crear Clase</button> : null
+                    }
+                    </Suspense>
                 </div>
+                <div className="List-Home">
+                    <ul id={ home ? "Active-Home" : "" } onClick={() => navigate("/home")} ><samp><FaRegCompass /></samp><p>Inicio</p></ul>
+                    <ul id={ classs ? "Active-Home" : "" } onClick={() => navigate("/classes")} ><samp><GiClassicalKnowledge /></samp><p>Clases</p></ul>
+                    <ul id={ teacher ? "Active-Home" : "" } onClick={() => navigate("/teachers")} ><samp><FaChalkboardTeacher /></samp><p>Profesores</p></ul>
+                    <ul id={ studen ? "Active-Home" : "" } onClick={() => navigate("/studens")} ><samp><PiStudentFill /></samp><p>Estudiantes</p></ul>
+                </div>
+            </div>
+            <div className="Message-Home">
+                <h3 id="Message">DolHack <samp className="multiText" ></samp></h3>
             </div>
         </div>
     );
