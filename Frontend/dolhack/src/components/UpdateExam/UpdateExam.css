@@ -70,3 +70,18 @@
     margin-top: 5px;
     margin-left: 10px;
 }
+
+@media screen and (max-width: 1559px) {
+    .UpdateExam-title textarea{    
+        height: 70px;
+    }
+    .UpdateExam-Inputs{
+        height: 64vh;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .UpdateExam-Inputs{
+        height: 58vh;
+    }
+}
