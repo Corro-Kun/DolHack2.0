@@ -31,7 +31,20 @@ export function ExamProvider({children}){
                             newdata[a] = newdata[a] + 1;
                             setSaveopciones(newdata);
                         }} >Añadir respuestas</button>
-
+                        <button style={{margin: "10px"}} 
+                        type="button"
+                        onClick={()=>{
+                            let newdata = [...Saveopciones];
+                            if(!newdata[a]){
+                                newdata[a] = 0;
+                            }
+                            newdata[a] = newdata[a] - 1;
+                            setSaveopciones(newdata);   
+                            let newdata2= {...Quizadd};
+                            newdata2.questions[a].options.pop();
+                            setQuizadd(newdata2);    
+                        }}
+                        >Eliminar respuesta</button>
                     </div>
                 </div>
             );
