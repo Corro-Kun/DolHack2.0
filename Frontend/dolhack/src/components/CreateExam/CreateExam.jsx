@@ -7,7 +7,7 @@ import { useExam } from "../../context/exam";
 import { useNavigate } from "react-router-dom";
 
 function CreateExam(){
-    const {changerTitleQuiz, AddQuestion, setNumQuestion, NumQuestion, HandleSubmitQuiz} = useExam();
+    const {changerTitleQuiz, AddQuestion, setNumQuestion, NumQuestion, HandleSubmitQuiz, deleteQuestion} = useExam();
     const navegate = useNavigate();
     return(
         <div className="CreateExam-Div-Render" >
@@ -29,9 +29,11 @@ function CreateExam(){
                 <div className="CreateExam-List-Quiz" >
                     {
                         AddQuestion()
+
                     }
                     <div className="CreateExam-More-Quiz" >
                         <button type="button" onClick={()=> setNumQuestion(NumQuestion + 1)} >Añadir Pregunta</button>
+                        <button type="button" style={{marginLeft: "10px", backgroundColor: "red"}} onClick={()=> deleteQuestion()} >Eliminar Pregunta</button>
                     </div>
                 </div>
                 <div className="CreateExam-Handle" >

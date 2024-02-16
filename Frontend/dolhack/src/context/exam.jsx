@@ -130,6 +130,13 @@ export function ExamProvider({children}){
         setQuizadd(newdata);
     }
 
+    function deleteQuestion(){
+        setNumQuestion(NumQuestion - 1)
+        let newdata = {...Quizadd};
+        newdata.questions.pop();
+        setQuizadd(newdata);
+    }
+
     function chagerOptionsQuiz({target:{value}}, indexQuestions, indexOptions){
         let newdata = {...Quizadd};
         if(!newdata.questions[indexQuestions].options[indexOptions]){
@@ -260,7 +267,7 @@ export function ExamProvider({children}){
     }
 
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion}}>
             {children}
         </ExamContext.Provider>
     );
