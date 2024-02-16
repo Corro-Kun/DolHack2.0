@@ -98,3 +98,13 @@
     border: 1px solid #fff;
     box-shadow: 0 0 10px #fff;
 }
+
+@media screen and (max-width: 1366px) {
+    .PostTeacher-Main{
+        width: 55%;
+    }
+    .PostTeacher-Post{
+        padding: 10px;
+        height: 25%;
+    }
+}

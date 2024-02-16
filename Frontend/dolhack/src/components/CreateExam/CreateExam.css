@@ -114,3 +114,15 @@
     cursor: pointer;
     outline: none;
 }
+
+@media screen and (max-width: 1559px) {
+    .CreateExam-List-Quiz{    
+        height: 67vh;
+    }
+}
+
+@media screen and (max-width: 1366px){
+    .CreateExam-List-Quiz{
+        height: 60vh;
+    }
+}
