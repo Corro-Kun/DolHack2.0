@@ -25,6 +25,7 @@
     height: 100%;
     width: 50%;
     border-left: 1px solid #494949;
+    overflow: hidden;
 }
 .ShapeNotebook-Bar-1{
     padding: 0 30px 0 10px;

@@ -17,7 +17,7 @@ export function ClassStudentProvider({children}){
 
     async function consultPost(){
         const {data} = await getPost();
-        setPost(data);
+        setPost(data.reverse());
     }
 
     const [Qualification, setQualification] = useState([]);
