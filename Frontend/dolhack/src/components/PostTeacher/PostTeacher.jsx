@@ -5,6 +5,7 @@ import { useClassTeacher } from "../../context/ClassTeacher";
 
 function PostTeacher(){
     const inputFile = useRef(null);
+    const text = useRef(null);
     const [buton, setButon] = useState("Sube una foto");
     const {changerPost, HandlePost, consultPost, post} = useClassTeacher();
     useEffect(()=>{
@@ -14,19 +15,29 @@ function PostTeacher(){
         <div className="PostTeacher-Div-Render" >
             <div className="PostTeacher-Main" >
                 <div className="PostTeacher-Post" >
-                    <textarea name="post" placeholder="Tu publicación..." onChange={(e)=> changerPost(e) } />
+                    <textarea name="post" placeholder="Tu publicación..." ref={text} onChange={(e)=> changerPost(e) } />
                     <div>
                         <input style={{display: "none"}} type="file" name="file" ref={inputFile} onChange={(e)=> {
-                            changerPost(e);
-                            setButon("Foto cargada");
-                            toast.success("Foto cargada correctamente");
+                            if (e.target.files[0].name.endsWith(".png") || e.target.files[0].name.endsWith(".jpg") || e.target.files[0].name.endsWith(".jpeg") || e.target.files[0].name.endsWith(".gif") || e.target.files[0].name.endsWith(".webp")){
+                                console.log("archivo valido");
+                                changerPost(e);
+                                setButon("Foto cargada");
+                                toast.success("Foto cargada correctamente");
+                            }else{
+                                toast.error("El archivo no es una imagen");
+                                setButon("Sube una foto");
+                            }
                         }} />
                         <button onClick={()=> inputFile.current.click() } >{buton}</button>
-                        <button style={{backgroundColor: "var(--Main_Color)", color: "var(--Text_Color)"}} onClick={()=> toast.promise(HandlePost(),{
+                        <button style={{backgroundColor: "var(--Main_Color)", color: "var(--Text_Color)"}} onClick={()=> {toast.promise(HandlePost(),{
                             loading: "Publicando...",
                             success: "Publicado",
                             error: "Error al publicar"
-                        })} >Publicar</button>
+                        })
+                        text.current.value = "";
+                        inputFile.current.value = "";
+                        setButon("Sube una foto");
+                        }} >Publicar</button>
                     </div>
                </div>
                 <div className="PostTeacher-Post-Div" >

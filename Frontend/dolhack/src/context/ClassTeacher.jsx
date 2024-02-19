@@ -98,12 +98,18 @@ export function ClassTeacherProvider({children}){
     }
 
     async function HandlePost(){
-        const {file, post} = PostS;
-        const form = new FormData();
-        form.append("file", file);
-        form.append("post", post);
-        const {data} = await Postpublic(form);
-        await consultPost();
+        if (PostS.post === "" || PostS.post === undefined){
+            toast.error("Escribe algo para publicar");
+            throw new Error("Escribe algo para publicar");
+        }else{
+            const {file, post} = PostS;
+            const form = new FormData();
+            form.append("file", file);
+            form.append("post", post);
+            const {data} = await Postpublic(form);
+            await consultPost();
+            setPostS({});
+        }
     }
 
     async function consultPost(){
