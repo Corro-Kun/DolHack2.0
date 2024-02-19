@@ -25,12 +25,12 @@ function ShapeNotebook(){
             <div className="ShapeNotebook-Div" >
                 <div className="ShapeNotebook-page1" >
                     <div className="ShapeNotebook-Bar-1" >
-                        <h2 onClick={()=> {
+                        <h2 title="Salir" onClick={()=> {
                             localStorage.removeItem("class");
                             navigate("/home");
                         }} ><FaXmark /></h2>
                         <h3>Publicaciones de tu profesor</h3>
-                        <h2 onClick={()=> consultPost()} ><FaArrowsRotate /></h2>
+                        <h2 title="Actualizar" onClick={()=> consultPost()} ><FaArrowsRotate /></h2>
                     </div> 
                     <BodyPublication>
                         {
@@ -57,8 +57,8 @@ function ShapeNotebook(){
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>
-                            <h2 style={{color: "var(--Main_Color)"}} ><FaSheetPlastic /></h2>
-                            <h2 onClick={()=> navigate("/class/student/qualification")} ><FaCheckDouble /></h2>
+                            <h2 title="Exámenes" style={{color: "var(--Main_Color)"}} ><FaSheetPlastic /></h2>
+                            <h2 title="Calificaciones" onClick={()=> navigate("/class/student/qualification")} ><FaCheckDouble /></h2>
                         </div>
                     </div>
                 </div>
