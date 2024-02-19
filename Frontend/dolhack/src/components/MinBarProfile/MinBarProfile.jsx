@@ -11,22 +11,22 @@ function MinBarProfile(){
     return(
       <div className="Settings-Home">
             <ul>
-                <samp>
+                <samp title="Mensajes" >
                     <TbMessages />
                 </samp>
             </ul>
             <ul>
-                <samp>
+                <samp title="Notificaciones">
                     <MdOutlineEditNotifications />
                 </samp>
             </ul>
             <ul>
-                <samp onClick={()=> navegate("/update")} >
+                <samp title="Configuraciones" onClick={()=> navegate("/update")} >
                     <FiSettings />
                 </samp>
             </ul>
             <ul>
-                <samp onClick={()=> Logout()} >
+                <samp title="Salir" onClick={()=> Logout()} >
                     <BsDoorOpen />
                 </samp>
             </ul>
