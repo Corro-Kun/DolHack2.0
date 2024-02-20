@@ -5,7 +5,7 @@ import Publication from "../Publication/Publication";
 import Cookies from "js-cookie";
 import "./ShapeNotebook.css";
 import { useNavigate } from "react-router-dom";
-import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
+import { FaArrowsRotate, FaXmark, FaClipboardList, FaCheckDouble, FaRegAddressCard, FaRegTrashCan} from "react-icons/fa6";
 import { useClassStudent } from "../../context/ClassStudent";
 import { useEffect } from "react";
 import { useExam } from "../../context/exam";
@@ -57,8 +57,10 @@ function ShapeNotebook(){
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>
-                            <h2 title="Exámenes" style={{color: "var(--Main_Color)"}} ><FaSheetPlastic /></h2>
+                            <h2 title="Exámenes" style={{color: "var(--Main_Color)"}} ><FaClipboardList /></h2>
                             <h2 title="Calificaciones" onClick={()=> navigate("/class/student/qualification")} ><FaCheckDouble /></h2>
+                            <h2 title="Estado"> <FaRegAddressCard /></h2>
+                            <h2 title="¿Abandonar?" ><FaRegTrashCan /></h2>
                         </div>
                     </div>
                 </div>

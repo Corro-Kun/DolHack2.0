@@ -4,7 +4,7 @@ import List from "../List/List";
 import Publication from "../Publication/Publication";
 import "./ShapeNotebook.css";
 import { useNavigate } from "react-router-dom";
-import { FaArrowsRotate, FaXmark, FaSheetPlastic, FaCheckDouble} from "react-icons/fa6";
+import { FaArrowsRotate, FaXmark, FaClipboardList, FaCheckDouble, FaRegAddressCard, FaRegTrashCan} from "react-icons/fa6";
 import { useClassStudent } from "../../context/ClassStudent";
 import { useEffect } from "react";
 import { downloadExcen } from "../../lib/downloadExcen";
@@ -57,8 +57,10 @@ function ShapeNotebook(){
                     </BodyPageNote>
                     <div className="ShapeNotebook-Bar-Botom" >
                         <div>
-                            <h2 onClick={()=> navigate("/class/student/home")} title="Exámenes" ><FaSheetPlastic /></h2>
+                            <h2 onClick={()=> navigate("/class/student/home")} title="Exámenes" ><FaClipboardList /></h2>
                             <h2 style={{color: "var(--Main_Color)"}} title="Calificaciones" ><FaCheckDouble /></h2>
+                            <h2 title="Estado"> <FaRegAddressCard /></h2>
+                            <h2 title="¿Abandonar?" ><FaRegTrashCan /></h2>
                         </div>
                     </div>
                 </div>
