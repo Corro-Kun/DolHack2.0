@@ -27,6 +27,8 @@ public interface QueryStrategyClass {
 
     public boolean RegisterStudentQuery(JdbcTemplate sql,String idU, String idC);
 
+    public boolean UnRegisterStudentQuery(JdbcTemplate sql,String idU, String idC);
+
     public List<ListStudentClass> StudentListCQuery(JdbcTemplate sql,String id);
 
     public boolean PostQuery(cloudinaryService cloudinary,JdbcTemplate sql,String idC, String idU, MultipartFile file, String Text) throws Exception;

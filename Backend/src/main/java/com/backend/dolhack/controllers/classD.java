@@ -179,7 +179,29 @@ public class classD {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
- 
+
+    @DeleteMapping("/class/unregister")
+    public ResponseEntity StudentUnRegister(@RequestHeader("token") String key , @RequestHeader("class") String id) throws Exception {
+        try {
+            String idU = new Crypto().Decrypt(key);
+            String idC = new Crypto().Decrypt(id);
+            if(repositorio.VerifyClassD(idC) == false){
+                return ResponseEntity.badRequest().body(new message("La clase no existe"));
+            }
+            if(repositorio.VerifyRol(idU) == 1){
+                return ResponseEntity.badRequest().body(new message("Un profesor no puede desregistrarse de una clase"));
+            }
+            boolean valid = repositorio.UnRegisterStudent(idU, idC);
+
+            if(valid == false){
+                return ResponseEntity.badRequest().body(new message("No estas registrado en esta clase"));
+            }
+
+            return ResponseEntity.status(200).body(new message("Estudiante desregistrado con exito"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
      
     // lista de estudiantes registrados en una clase
 

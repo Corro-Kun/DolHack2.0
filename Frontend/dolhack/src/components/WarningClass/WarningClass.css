@@ -1,0 +1,35 @@
+.warning-class-render{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.warning-class-div{
+    display: flex;
+    height: 80%;
+    width: 40%;
+    background-color: var(--BG2_color);
+    border-radius: 10px;
+    border: 1px solid #494949;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.warning-class-buttons{
+    display: flex;
+    height: 7%;
+    justify-content: center;
+    align-items: center;
+}
+.warning-class-buttons button{
+    padding: 7px 10px 7px 10px;
+    border: none;
+    border-radius: 5px;
+    color: var(--Text_Color);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.warning-class-buttons button:hover{
+    transform: scale(1.1);
+}

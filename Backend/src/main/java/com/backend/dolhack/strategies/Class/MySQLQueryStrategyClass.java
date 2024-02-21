@@ -124,6 +124,17 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
     }
 
     @Override
+    public boolean UnRegisterStudentQuery(JdbcTemplate sql,String idU, String idC){
+        ModelLista lista = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+        sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ? AND usuario_idusuario = ?", lista.getIdlista(), idU);
+        sql.update("DELETE FROM respuesta WHERE usuario_idusuario = ? AND clase_idclase = ?", idU, idC);
+        sql.update("DELETE FROM calificacion WHERE usuario_idusuario = ? AND clase_idclase = ?", idU, idC);
+        
+        return true;
+    };
+
+    @Override
     public List<ListStudentClass> StudentListCQuery(JdbcTemplate sql,String id){
         String query = "SELECT usuario.foto, usuario.nombre, usuario.apellido, usuario.idusuario FROM lista_has_usuario JOIN usuario ON usuario.idusuario = lista_has_usuario.usuario_idusuario JOIN lista ON lista.idlista = lista_has_usuario.lista_idlista WHERE lista.clase = ?";
         return sql.query(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ListStudentClass.class));

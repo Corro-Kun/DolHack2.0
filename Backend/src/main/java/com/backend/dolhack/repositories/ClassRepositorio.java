@@ -73,6 +73,10 @@ public class ClassRepositorio {
         return queryStrategyClass.RegisterStudentQuery(sql, idU, idC);
     }
 
+    public boolean UnRegisterStudent(String idU, String idC){
+        return queryStrategyClass.UnRegisterStudentQuery(sql, idU, idC);
+    }
+
     public List<ListStudentClass> StudentListC(String id){
         return queryStrategyClass.StudentListCQuery(sql, id);
     }

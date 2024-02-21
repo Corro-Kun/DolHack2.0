@@ -29,6 +29,7 @@ import UserList from "../page/home/UserList";
 import ListClass from "../page/home/ClassList"
 import NotFound from "../page/404";
 import ProtecAddClass from "../security/ProtecAddClass";
+import ClassLeave from "../page/Class/ClassLeave";
 
 function Router(){
     return(
@@ -68,6 +69,7 @@ function Router(){
                         <Route path="/class/student/home/" element={<ClassStudent />} />
                         <Route path="/class/student/exam/:id" element={<ExamAnswer />} />
                         <Route path="/class/student/qualification" element={<ClassCalific />} />
+                        <Route path="/class/student/leave" element={<ClassLeave />} />
                     </Route>
                 </Route>
                 <Route path="*" element={<NotFound />} /> 
