@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {getPost, StudenQualification, nameClass} from "../api/class";
+import {getPost, StudenQualification, nameClass, quiteClass} from "../api/class";
 import { useNavigate } from "react-router-dom";
 import { verifyQuiz } from "../api/exam";
 import {toast} from "sonner";
@@ -44,8 +44,17 @@ export function ClassStudentProvider({children}){
 
     }
 
+    async function leaveClass(){
+        try{
+            await quiteClass();
+            navigate("/home");
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     return(
-        <ClassStudentContext.Provider value={{consultPost, Post, consultQualification, Qualification, nameClasss, classs, verify}} >
+        <ClassStudentContext.Provider value={{consultPost, Post, consultQualification, Qualification, nameClasss, classs, verify, leaveClass}} >
             {children}
         </ClassStudentContext.Provider>
     );

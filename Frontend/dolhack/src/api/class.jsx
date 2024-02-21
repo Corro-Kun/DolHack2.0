@@ -104,3 +104,11 @@ export const nameClass = () => axios.get("/nameclass", {
         "class": localStorage.getItem("class")
     }
 });
+
+// salir de una clase
+export const quiteClass = () => axios.delete("/class/unregister", {
+    headers:{
+        "class": localStorage.getItem("class"),
+        "token": localStorage.getItem("token")
+    }
+});

@@ -15,6 +15,35 @@
     justify-content: space-between;
     flex-direction: column;
 }
+.warning-class-text{
+    width: 100%;
+    height: 93%;
+    overflow: auto;
+}
+.warning-class-title{
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    display: flex;
+    text-align: center;
+    word-break: break-all;
+    justify-content: center;
+    border-bottom: 1px solid #494949;
+}
+.warning-class-check{
+    margin-top: 10px;
+    padding: 0 10px;
+    display: flex;
+}
+.warning-class-check input{
+    margin-right: 10px;
+}
+.warning-class-check input[type="checkbox"]{
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    transform: translateY(1px);
+    accent-color: var(--Main_Color);
+}
 .warning-class-buttons{
     display: flex;
     height: 7%;
