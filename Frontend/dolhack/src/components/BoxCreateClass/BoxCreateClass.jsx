@@ -1,6 +1,7 @@
 import React,{useEffect, useRef, useState} from "react";
 import "./BoxCreateClass.css";
 import { useClass } from "../../context/class";
+import { toast } from "sonner";
 
 function BoxCreateClass(){
     const {classData, changerClassData, handleClassData} = useClass();
@@ -59,8 +60,13 @@ function BoxCreateClass(){
                             <label>Imagen de la clase (recomendado imágenes 200 x 200 superior)</label>
                             <div onClick={()=> fileInput.current.click()} className="BoxCreateClass-img-div" >
                                  <input style={{display:"none"}}  type="file" name="file" required ref={fileInput} onChange={(e)=>{
-                                    setFile(URL.createObjectURL(e.target.files[0]));
-                                    changerClassData(e);
+                                    if (e.target.files[0].name.endsWith(".png") || e.target.files[0].name.endsWith(".jpg") || e.target.files[0].name.endsWith(".jpeg") || e.target.files[0].name.endsWith(".gif") || e.target.files[0].name.endsWith(".webp")){
+                                        setFile(URL.createObjectURL(e.target.files[0]));
+                                        changerClassData(e);
+                                    }else{
+                                        toast.error("El tipo de archivo no es valido");
+                                        fileInput.current.value = "";
+                                    }
                                 }}/>
                                 <img src={"https://cdn.discordapp.com/attachments/466035511451189268/1155316556738338866/editar_foto.png"}/>
                             </div>

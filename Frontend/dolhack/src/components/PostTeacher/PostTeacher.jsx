@@ -19,7 +19,6 @@ function PostTeacher(){
                     <div>
                         <input style={{display: "none"}} type="file" name="file" ref={inputFile} onChange={(e)=> {
                             if (e.target.files[0].name.endsWith(".png") || e.target.files[0].name.endsWith(".jpg") || e.target.files[0].name.endsWith(".jpeg") || e.target.files[0].name.endsWith(".gif") || e.target.files[0].name.endsWith(".webp")){
-                                console.log("archivo valido");
                                 changerPost(e);
                                 setButon("Foto cargada");
                                 toast.success("Foto cargada correctamente");
