@@ -30,6 +30,7 @@ import ListClass from "../page/home/ClassList"
 import NotFound from "../page/404";
 import ProtecAddClass from "../security/ProtecAddClass";
 import ClassLeave from "../page/Class/ClassLeave";
+import Notificacions from "../page/home/Notifications";
 
 function Router(){
     return(
@@ -55,6 +56,7 @@ function Router(){
                     <Route path="/infoclass/:id" element={<InfoClass />} />
                     <Route path="/users" element={<UserList />} />
                     <Route path="/class" element={<ListClass />} />
+                    <Route path="/notification" element={<Notificacions />} />
                     {/* RUTAS PROTEGIDAS DEL PROFESOR */}
                     <Route element={<ProtecClass />} >
                         <Route path="/class/teacher/home" element={<ClassTeacher />} />

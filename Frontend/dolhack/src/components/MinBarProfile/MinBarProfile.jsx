@@ -16,7 +16,7 @@ function MinBarProfile(){
                 </samp>
             </ul>
             <ul>
-                <samp title="Notificaciones">
+                <samp title="Notificaciones" onClick={()=> navegate("/notification")} >
                     <MdOutlineEditNotifications />
                 </samp>
             </ul>
