@@ -192,8 +192,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
         for(PreguntaViewr question : questions ){
             String query2 = "UPDATE pregunta SET pregunta = ? WHERE idpregunta = ?;";
+
+            if(question.getPregunta().length() <= 0){
+                throw new RuntimeException("La pregunta no puede estar vacia");
+            }
+
             sql.update(query2, question.getPregunta(), question.getIdpregunta());
-            System.err.println("ocurrio un error al actualizar la pregunta");
 
             List<ModelOpcion> options = question.getOpciones();
 
@@ -201,6 +205,11 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
             for(ModelOpcion option : options) {
                 String query5 = "UPDATE opcion SET opcion = ?, respuesta = ?, calificacion = ? WHERE idopcion = ?;";
+
+                if(option.getRespuesta().length() <= 0){
+                    throw new RuntimeException("La opcion no puede estar vacia");
+                }
+
                 if(value == 1){
                     sql.update(query5, option.getOpcion(), option.getRespuesta(), option.getCalificacion(), option.getIdopcion());
                 }else if(value == 2){

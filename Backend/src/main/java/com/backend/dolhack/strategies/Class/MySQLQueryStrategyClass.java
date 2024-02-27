@@ -20,6 +20,7 @@ import com.backend.dolhack.models.classs.QualificationStudent;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.classs.newClassModel;
+import com.backend.dolhack.models.exam.ModelQuiz;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.service.cloudinaryService;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyClass;
@@ -83,6 +84,18 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
     public boolean DeleteClassQuery(JdbcTemplate sql,String id ) throws Exception{
         String Querry1 = "Select * FROM lista WHERE clase = ?";
         ModelLista lista = sql.queryForObject(Querry1, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+        List<ModelLista_has_usuario> verif = sql.query("select * from lista_has_usuario where lista_idlista = ?", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+        if(!verif.isEmpty()){
+            throw new Exception("No se puede eliminar la clase, hay estudiantes inscritos en ella.");   
+        }
+
+        List<ModelQuiz> Verif2 = sql.query("select * from quiz where clase_idclase = ?;", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        if(!Verif2.isEmpty()){
+            throw new Exception("No se puede eliminar la clase, hay examenes creados en ella.");
+        }
+
         sql.update("delete from publicacion where clase_idclase = ?", id);
         sql.update("DELETE FROM clase WHERE idclase = ?", id);
         sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
