@@ -63,7 +63,6 @@ export function ClassTeacherProvider({children}){
 
     async function DeleteClassT(){
         const {data} = await deleteClass();
-        toast("Clase eliminada");
         localStorage.removeItem("class");
         navigate("/home");
     }

@@ -258,12 +258,8 @@ export function ExamProvider({children}){
     }
 
     async function UpdateQuizs(id){
-        try{
-            const {data} = await UpdateQuiz(id, EQuizs);
-            navigate("/class/teacher/exam");
-        }catch (error){
-            console.log(error);
-        }
+        const {data} = await UpdateQuiz(id, EQuizs);
+        navigate("/class/teacher/exam");
     }
 
     return(

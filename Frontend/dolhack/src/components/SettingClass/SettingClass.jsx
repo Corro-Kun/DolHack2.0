@@ -76,8 +76,13 @@ function SettingClass(){
                     <button type="submit" >Actualizar</button>
                     <button type="button" onClick={()=> toast("¿Esta seguro de borrar tu clase?",{action:{
                         label:"Si",
-                        onClick:()=> DeleteClassT(),
-                    }}) } >Eliminar</button>
+                        onClick:()=>toast.promise(DeleteClassT(),{
+                            loading:"Eliminando...",
+                            success:"Clase eliminada",
+                            error: (e) => e.response.data.message+""
+                        }) //()=> DeleteClassT(),
+                    }, cancel:{label:"No"},
+                    }) } >Eliminar</button>
                 </div>
             </form>
         </div>

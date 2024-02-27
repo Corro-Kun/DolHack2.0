@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useExam } from "../../context/exam";
 import "./UpdateExam.css"
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 function UpdateExam(){
+    const navigate = useNavigate();
+
     const {id} = useParams();
     const {GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs} = useExam();
 
@@ -42,8 +44,9 @@ function UpdateExam(){
                         <button onClick={()=>toast.promise(UpdateQuizs(id),{
                             loading: "Actualizando...",
                             success: "Examen Actualizado",
-                            error: "Error al actualizar"
+                            error: (e) => e.response.data.message
                         })} >Actualizar</button>
+                        <button onClick={()=> navigate("/class/teacher/exam")} style={{backgroundColor: "red", color: "#fff", marginLeft: "100px"}} >Cancelar</button>
                     </div>
                 </div>
             </div>
