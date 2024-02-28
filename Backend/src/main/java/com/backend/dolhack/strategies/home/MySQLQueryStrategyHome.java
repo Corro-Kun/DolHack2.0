@@ -3,6 +3,7 @@ package com.backend.dolhack.strategies.home;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.home.ListPeople;
 import com.backend.dolhack.models.home.MainModel;
+import com.backend.dolhack.models.home.ModelNotificacion;
 import com.backend.dolhack.models.home.userListModel;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyHome;
@@ -38,5 +39,11 @@ public class MySQLQueryStrategyHome implements QueryStrategyHome {
         List<classListModel> clase = sql.query(querry2, BeanPropertyRowMapper.newInstance(classListModel.class));
 
         return new MainModel(profesor, clase);
+    }
+
+    @Override
+    public List<ModelNotificacion> NotificacionQuery(JdbcTemplate sql, String id){
+        String querry = "SELECT * FROM notificacion WHERE usuario_idusuario = ?";
+        return sql.query(querry, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelNotificacion.class));
     }
 }

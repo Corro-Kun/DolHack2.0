@@ -1,6 +1,6 @@
 import React,{useEffect, useState, createContext, useContext} from "react";
 import {useNavigate} from "react-router-dom";
-import { getListStudents, getListTeachers,homeMain } from "../api/home";
+import { getListStudents, getListTeachers,homeMain, getNotifications } from "../api/home";
 import CardUser from "../components/CardUser/CardUser";
 
 const HomeContext = createContext();
@@ -95,8 +95,15 @@ export const HomeProvider = ({children}) => {
         setMain(data);
     }
 
+    const [notifications, setNotifications] = useState([]);
+
+    async function getNotificationsData(){
+      const {data} = await getNotifications();
+      setNotifications(data);
+    }
+
     return(
-        <HomeContext.Provider value={{selectionUser, filterUsers, MainHomeData, main}}>
+        <HomeContext.Provider value={{selectionUser, filterUsers, MainHomeData, main, getNotificationsData, notifications}}>
             {children}
         </HomeContext.Provider>
     )

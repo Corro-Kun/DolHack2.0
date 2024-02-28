@@ -463,8 +463,13 @@ CREATE TABLE `notificacion`(
   `texto_notificacion` varchar(250) NOT NULL,
   `usuario_idusuario` varchar(30) NOT NULL,
   PRIMARY KEY (`idnotificacion`),
+  KEY `fk_notificacion_usuario1_idx` (`usuario_idusuario`),
   CONSTRAINT `fk_notificacion_usuario1` FOREIGN KEY (`usuario_idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
+)ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+LOCK TABLES `notificacion` WRITE;
+
+UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

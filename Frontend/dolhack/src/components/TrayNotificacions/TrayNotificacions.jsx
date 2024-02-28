@@ -1,10 +1,17 @@
 import "./TrayNotificacions.css";
 import {useNavigate} from "react-router-dom";
+import { useHome } from "../../context/home";
 import { FaArrowLeft, FaRegTrashCan } from "react-icons/fa6";
 import StyleNotification from "../StyleNotification/StyleNotification";
+import { useEffect } from "react";
 
 export default function TrayNotificacions() {
     const navigate = useNavigate();
+    const {getNotificationsData, notifications} = useHome();
+
+    useEffect(()=>{
+        getNotificationsData();
+    },[]);
 
     return(
         <div className="TrayNotificacions-Render" >
@@ -15,7 +22,11 @@ export default function TrayNotificacions() {
                     <h2 title="Limpiar" ><FaRegTrashCan /></h2>
                 </div>
                 <div className="TrayNotificacions-Tray" >
-                    <StyleNotification />
+                    {
+                        notifications.map((item)=>(
+                            <StyleNotification key={item.idnotificacion} title={item.titulo_notificacion} description={item.texto_notificacion} />
+                        ))
+                    }
                 </div>
             </div>
         </div>

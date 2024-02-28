@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.backend.dolhack.models.classs.classListModel;
 import com.backend.dolhack.models.home.ListPeople;
 import com.backend.dolhack.models.home.MainModel;
+import com.backend.dolhack.models.home.ModelNotificacion;
 import com.backend.dolhack.models.home.userListModel;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.service.cloudinaryService;
@@ -36,5 +37,9 @@ public class HomeRepositorio {
 
     public MainModel Main(){
         return queryStrategyHome.MainQuery(sql);
+    }
+
+    public List<ModelNotificacion> Notificacion(String id){
+        return queryStrategyHome.NotificacionQuery(sql,id);
     }
 }

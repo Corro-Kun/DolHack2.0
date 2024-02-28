@@ -1,10 +1,10 @@
 import "./StyleNotification.css";
 
-export default function StyleNotification() {
+export default function StyleNotification({title, description}) {
     return(
         <div className="StyleNotification-Div" >
-            <h3>StyleNotification</h3>
-            <p>Este componente es el encargado de darle estilo a las notificaciones que se muestran en la aplicación.</p>
+            <h3>{title}</h3>
+            <p>{description}</p>
         </div>
     );
 }

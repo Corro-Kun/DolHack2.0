@@ -130,6 +130,9 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
 
         if(valid.isEmpty()){
             sql.update("Insert into lista_has_usuario (lista_idlista, usuario_idusuario) values(?, ?)", lista.getIdlista(), idU);
+            ModelClase clase = sql.queryForObject("SELECT * FROM clase WHERE idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+            ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+            sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?)", "El usuario " + user.getNombre() + " " + user.getApellido() + " se ha inscrito a la clase " + clase.getTitulo(), clase.getUsuario_idusuario());
             return true;
         }
 

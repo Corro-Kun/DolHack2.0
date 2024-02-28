@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.dolhack.lib.Crypto;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.repositories.HomeRepositorio;
+import org.springframework.web.bind.annotation.RequestParam;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/home")
 @RestController
 public class home {
@@ -26,7 +29,6 @@ public class home {
 
     // lista de profesores
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/teacher")
     public ResponseEntity profesor() throws Exception {
         try {
@@ -38,7 +40,6 @@ public class home {
 
     // lista de estudiantes
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/student")
     public ResponseEntity estudiante(){
         try {
@@ -50,7 +51,6 @@ public class home {
 
     //
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/peopleList")
     public ResponseEntity yourList(@RequestHeader("token") String id){
         try {
@@ -63,7 +63,6 @@ public class home {
 
     //
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/main")
     public ResponseEntity Main(){
         try {
@@ -72,5 +71,16 @@ public class home {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    @GetMapping("/notification")
+    public ResponseEntity getMethodName(@RequestHeader("token") String id) {
+        try {
+            String idU = new Crypto().Decrypt(id);
+            return ResponseEntity.ok().body(repositorio.Notificacion(idU));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }        
+    }
+    
  
 }
