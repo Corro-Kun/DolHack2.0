@@ -95,5 +95,15 @@ public class home {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }        
     }
+
+    @GetMapping("/countNotifications")
+    public ResponseEntity countNotifications(@RequestHeader("token") String id) {
+        try {
+            String idU = new Crypto().Decrypt(id);
+            return ResponseEntity.ok().body(repositorio.countNotifications(idU));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }        
+    }
  
 }

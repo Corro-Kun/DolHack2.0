@@ -18,4 +18,6 @@ public interface QueryStrategyHome {
     public List<ModelNotificacion> NotificacionQuery(JdbcTemplate sql, String id);
 
     public boolean deleteNotifications(JdbcTemplate sql, String id);
+
+    public int countNotifications(JdbcTemplate sql, String id);
 }

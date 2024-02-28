@@ -42,4 +42,8 @@ public class HomeRepositorio {
     public boolean deleteNotifications(String id){
         return queryStrategyHome.deleteNotifications(sql,id);
     }
+
+    public int countNotifications(String id){
+        return queryStrategyHome.countNotifications(sql,id);
+    }
 }

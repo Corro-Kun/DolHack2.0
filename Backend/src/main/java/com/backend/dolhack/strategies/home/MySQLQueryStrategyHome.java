@@ -52,4 +52,10 @@ public class MySQLQueryStrategyHome implements QueryStrategyHome {
         String querry = "DELETE FROM notificacion WHERE usuario_idusuario = ?";
         return sql.update(querry, id) > 0;
     }
+
+    @Override
+    public int countNotifications(JdbcTemplate sql, String id){
+        String querry = "SELECT COUNT(*) FROM notificacion WHERE usuario_idusuario = ?";
+        return sql.queryForObject(querry, new Object[]{id}, Integer.class);
+    }
 }
