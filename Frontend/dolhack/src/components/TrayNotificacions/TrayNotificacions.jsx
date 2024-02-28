@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function TrayNotificacions() {
     const navigate = useNavigate();
-    const {getNotificationsData, notifications} = useHome();
+    const {getNotificationsData, notifications, deleteNotificationsData} = useHome();
 
     useEffect(()=>{
         getNotificationsData();
@@ -19,7 +19,7 @@ export default function TrayNotificacions() {
                 <div className="TrayNotificacions-Bar">
                     <h2 title="Volver" onClick={()=> navigate("/home")} ><FaArrowLeft /></h2>
                     <h3>Notificaciones</h3>
-                    <h2 title="Limpiar" ><FaRegTrashCan /></h2>
+                    <h2 title="Limpiar" onClick={()=> deleteNotificationsData()} ><FaRegTrashCan /></h2>
                 </div>
                 <div className="TrayNotificacions-Tray" >
                     {

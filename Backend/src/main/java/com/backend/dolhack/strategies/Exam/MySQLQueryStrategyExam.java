@@ -1,7 +1,11 @@
 package com.backend.dolhack.strategies.Exam;
 
 import com.backend.dolhack.lib.IDRandomFactory;
+import com.backend.dolhack.models.classs.ModelClase;
+import com.backend.dolhack.models.classs.ModelLista;
+import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.exam.*;
+import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyExam;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,6 +44,19 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
                 value = value + 1;
             }
+        }
+
+        // Notificaciones
+
+        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+        ModelQuiz quiz = sql.queryForObject("select * from quiz where idquiz = ?;", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        ModelLista lista = sql.queryForObject("select * from lista where clase = ?;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+        List<ModelLista_has_usuario> estudiantes = sql.query("select * from lista_has_usuario where lista_idlista = ?;", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+        for (ModelLista_has_usuario estudiante : estudiantes){
+            sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)", "Un profesor ha creado un examen", "El profesor " + user.getNombre() + " " + user.getApellido() + " ha creado el examen " + quiz.getTitulo(), estudiante.getUsuario_idusuario());
         }
 
         return true;
@@ -125,6 +142,16 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         String idCa = idRandomFactory.generateID();
         String querry2 = "insert into calificacion(idcalificacion, preguntas, respuestas, calificacion, quiz_idquiz, usuario_idusuario, clase_idclase) values(?, ?, ?, ?, ?, ?, ?);";
         sql.update(querry2, idCa, quizs, quialification, calificacion, idq, idu, idc);
+
+        // Notificaciones
+
+        ModelClase clase = sql.queryForObject("SELECT * FROM clase WHERE idclase = ?", new Object[]{idc}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idu}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+        ModelQuiz quiz = sql.queryForObject("select * from quiz where idquiz = ?;", new Object[]{idq}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)", "Un estudiante ha realizado un examen", "El estudiante " + user.getNombre() + " " + user.getApellido() + " ha realizado el examen " + quiz.getTitulo() + " con una calificacion de " + calificacion, clase.getUsuario_idusuario());
+        sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)", "Has realizado un examen", "Has realizado el examen " + quiz.getTitulo() + " con una calificacion de " + calificacion, idu);
+ 
         return true;
     }
 
