@@ -169,6 +169,21 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         }
         String query = "insert into publicacion(texto, clase_idclase, usuario_idusuario) values(?,?,?);";
         sql.update(query, Text, idC, idU);
+
+        // Notificación
+
+        ModelLista lista = sql.queryForObject("select * from lista where clase = ?;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+        List<ModelLista_has_usuario> estudiantes = sql.query("select * from lista_has_usuario where lista_idlista = ?;", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+                     
+        ModelUsuario user = sql.queryForObject("select * from usuario where idusuario = ?;", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+
+        for (ModelLista_has_usuario estudiante : estudiantes) {
+            if(!estudiante.getUsuario_idusuario().equals(idU)){
+                sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)","Nueva publicación en tu clase" ,"Tu profesor " + user.getNombre() + " " + user.getApellido() + " ha publicado un nuevo contenido en la clase", estudiante.getUsuario_idusuario());
+            }
+        }
+
         return true;
     }
 
