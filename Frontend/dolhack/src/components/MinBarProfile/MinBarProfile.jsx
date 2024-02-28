@@ -4,10 +4,16 @@ import { TbMessages } from "react-icons/tb";
 import { MdNotificationsNone, MdNotificationsActive } from "react-icons/md";
 import { FiSettings } from "react-icons/fi";
 import { BsDoorOpen } from "react-icons/bs";
+import { useEffect } from "react";
 
 function MinBarProfile(){
     const navegate = useNavigate();
-    const {Logout} = useProfile();
+    const {Logout, countNotificationsData, count} = useProfile();
+
+    useEffect(()=>{
+        countNotificationsData();
+    },[]);
+
     return(
       <div className="Settings-Home">
             <ul>
@@ -16,9 +22,16 @@ function MinBarProfile(){
                 </samp>
             </ul>
             <ul>
-                <samp title="Notificaciones" onClick={()=> navegate("/notification")} >
-                    <MdNotificationsNone />
-                </samp>
+                {
+                    count > 0 ?
+                    <samp title={"Tienes "+count+" Notificaciones"} onClick={()=> navegate("/notification")} >
+                        <MdNotificationsActive />    
+                    </samp>
+                    :
+                    <samp title="No tienes Notificaciones" onClick={()=> navegate("/notification")} >
+                        <MdNotificationsNone />    
+                    </samp>
+                }
             </ul>
             <ul>
                 <samp title="Configuraciones" onClick={()=> navegate("/update")} >

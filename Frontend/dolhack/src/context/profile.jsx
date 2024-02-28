@@ -3,6 +3,7 @@ import {profile, update, YourList} from "../api/auth";
 import { MyClasses, EnterClass} from "../api/class";
 import {useNavigate} from "react-router-dom";
 import { toast } from "sonner";
+import { countNotifications } from "../api/home";
 
 export const ProfileContext = createContext();
 
@@ -103,8 +104,15 @@ export function ProfileProvider({children}) {
         }
     }
 
+    const [count, setCount] = useState();
+
+    async function countNotificationsData(){
+        const {data} = await countNotifications();
+        setCount(data);
+    }
+
     return(
-        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass, GetYourList, list, dataValid}} >
+        <ProfileContext.Provider value={{DataProfile, Logout, DataUpdate, changeDataUpdate,Fotos, setFotos , handleUpdate, myClass, EnterYourClass, GetYourList, list, dataValid, countNotificationsData, count}} >
             {children}
         </ProfileContext.Provider>
     );

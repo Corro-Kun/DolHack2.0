@@ -17,3 +17,9 @@ export const deleteNotifications =()=> axios.delete("/home/notifications",{
         "token": localStorage.getItem("token")
     }
 });
+
+export const countNotifications =()=> axios.get("/home/countNotifications",{
+    headers:{
+        "token": localStorage.getItem("token")
+    }
+});
