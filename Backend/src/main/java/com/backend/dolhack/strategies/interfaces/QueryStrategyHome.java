@@ -16,4 +16,6 @@ public interface QueryStrategyHome {
     public MainModel MainQuery(JdbcTemplate sql);
 
     public List<ModelNotificacion> NotificacionQuery(JdbcTemplate sql, String id);
+
+    public boolean deleteNotifications(JdbcTemplate sql, String id);
 }

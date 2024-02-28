@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,5 +83,17 @@ public class home {
         }        
     }
     
+    @DeleteMapping("/notifications")
+    public ResponseEntity deleteNotificationss(@RequestHeader("token") String id) {
+        try {
+            String idU = new Crypto().Decrypt(id);
+            if (repositorio.deleteNotifications(idU)){
+                return ResponseEntity.ok().body(new message("Notificaciones eliminadas"));
+            }
+            return ResponseEntity.badRequest().body(new message("No se pudo eliminar las notificaciones"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }        
+    }
  
 }

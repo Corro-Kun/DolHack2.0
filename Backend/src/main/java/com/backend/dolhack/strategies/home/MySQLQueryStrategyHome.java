@@ -46,4 +46,10 @@ public class MySQLQueryStrategyHome implements QueryStrategyHome {
         String querry = "SELECT * FROM notificacion WHERE usuario_idusuario = ?";
         return sql.query(querry, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelNotificacion.class));
     }
+
+    @Override
+    public boolean deleteNotifications(JdbcTemplate sql, String id){
+        String querry = "DELETE FROM notificacion WHERE usuario_idusuario = ?";
+        return sql.update(querry, id) > 0;
+    }
 }
