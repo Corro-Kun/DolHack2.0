@@ -80,7 +80,7 @@
     justify-content: center;
     align-items: center;
 }
-.CreateExam-Handle button{
+.CreateExam-Handle-1 button{
     padding: 5px 10px;
     border: none;
     border-radius: 4px;
@@ -113,6 +113,32 @@
     margin-top: 5px;
     cursor: pointer;
     outline: none;
+}
+.Question-add-question-punctuation{
+    display: flex;
+    justify-content: space-between;
+}
+.Question-add-question-punctuation input{
+    text-align: center;
+    width: 50px;
+    background-color: var(--BG_Color);
+    color: var(--Main_Color);
+}
+.CreateExam-Handle-1{
+    display: flex;
+    width: 51%;
+    justify-content: space-between;
+}
+.CreateExam-Handle-2{
+    display: flex;
+    width: 49%;
+    justify-content: right;
+}
+.CreateExam-Handle-p-red{
+    color: red;
+}
+.CreateExam-Handle-p-blue{
+    color: var(--Main_Color);
 }
 @media screen and (max-width: 1559px) {
     .CreateExam-List-Quiz{    

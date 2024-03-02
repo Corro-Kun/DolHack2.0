@@ -54,4 +54,8 @@ public class ExamRepositorio {
     public boolean UpdateQuiz(getExamUpdate Quiz){
         return queryStrategyExam.UpdateQuizQuery(sql, Quiz);
     }
+
+    public StateModel getState(String idC, String idU){
+        return queryStrategyExam.StateQuery(sql, idC, idU);
+    }
 }

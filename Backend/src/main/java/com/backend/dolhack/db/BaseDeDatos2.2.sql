@@ -261,6 +261,7 @@ DROP TABLE IF EXISTS `pregunta`;
 CREATE TABLE `pregunta` (
   `idpregunta` varchar(30) NOT NULL,
   `pregunta` text NOT NULL,
+  `puntos` float NOT NULL,
   `quiz_idquiz` varchar(30) NOT NULL,
   PRIMARY KEY (`idpregunta`),
   KEY `fk_pregunta_quiz1_idx` (`quiz_idquiz`),

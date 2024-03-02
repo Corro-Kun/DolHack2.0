@@ -52,3 +52,10 @@ export const UpdateQuiz = async (id, data) => axios.put(`/exam/${id}`, data, {
         "class": localStorage.getItem("class")
     }
 });
+
+export const GetState = async () => axios.get("/exam/state", {
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});

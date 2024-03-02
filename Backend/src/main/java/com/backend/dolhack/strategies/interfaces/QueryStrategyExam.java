@@ -22,4 +22,6 @@ public interface QueryStrategyExam {
     public getExamUpdate getExamUpQuery(JdbcTemplate sql,String idQ);
 
     public boolean UpdateQuizQuery(JdbcTemplate sql,getExamUpdate Quiz);
+
+    public StateModel StateQuery(JdbcTemplate sql, String idC, String idU);
 }

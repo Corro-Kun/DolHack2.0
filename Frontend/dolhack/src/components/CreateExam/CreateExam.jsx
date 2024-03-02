@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {BiX} from "react-icons/bi";
 import {AiOutlineHome} from "react-icons/ai";
 import "./CreateExam.css";
@@ -7,8 +7,13 @@ import { useExam } from "../../context/exam";
 import { useNavigate } from "react-router-dom";
 
 function CreateExam(){
-    const {changerTitleQuiz, AddQuestion, setNumQuestion, NumQuestion, HandleSubmitQuiz, deleteQuestion} = useExam();
+    const {changerTitleQuiz, AddQuestion, setNumQuestion, NumQuestion, HandleSubmitQuiz, deleteQuestion, SaveP, TotalQualification} = useExam();
     const navegate = useNavigate();
+
+    useEffect(()=>{
+        SaveP();
+    },[NumQuestion]);
+
     return(
         <div className="CreateExam-Div-Render" >
             <div className="CreateExam-Main">
@@ -37,7 +42,13 @@ function CreateExam(){
                     </div>
                 </div>
                 <div className="CreateExam-Handle" >
-                    <button type="submit" >Crear</button>
+                    <div className="CreateExam-Handle-1">
+                        <p>{TotalQualification === 100 ? "¡Puedes Crear el examen!" : "Tus opciones no suman 100"}</p>
+                        <button type="submit" >Crear</button>
+                    </div>
+                    <div className="CreateExam-Handle-2">
+                        <p className={TotalQualification === 100 ? "CreateExam-Handle-p-blue": "CreateExam-Handle-p-red"} >{TotalQualification}%</p>
+                    </div>
                 </div>
                 </form>
             </div>

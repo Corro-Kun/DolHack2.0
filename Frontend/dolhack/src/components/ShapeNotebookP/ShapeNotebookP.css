@@ -1,0 +1,14 @@
+.ShapeNotebook-Static-bar{
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.ShapeNotebook-Static-bar-shape{
+    width: 80%;
+    background-color: var(--BG_Color);
+    border-radius: 7px;
+    overflow: hidden;
+}
+.ShapeNotebook-Static-bar-shape div{
+    height: 100%;
+}

@@ -59,7 +59,7 @@ function ShapeNotebook(){
                         <div>
                             <h2 onClick={()=> navigate("/class/student/home")} title="Exámenes" ><FaClipboardList /></h2>
                             <h2 style={{color: "var(--Main_Color)"}} title="Calificaciones" ><FaCheckDouble /></h2>
-                            <h2 title="Estado"> <FaRegAddressCard /></h2>
+                            <h2 onClick={()=> navigate("/class/student/state")} title="Estado"> <FaRegAddressCard /></h2>
                             <h2 title="¿Abandonar?" onClick={()=> navigate("/class/student/leave")} ><FaRegTrashCan /></h2>
                         </div>
                     </div>

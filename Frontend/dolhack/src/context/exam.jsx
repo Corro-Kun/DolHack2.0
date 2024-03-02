@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz, GetState} from "../api/exam";
 import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
@@ -13,13 +13,41 @@ export function ExamProvider({children}){
     // esto es para la creacion de examenes    
     const [NumQuestion, setNumQuestion] = useState(1);
     const [Saveopciones, setSaveopciones] = useState([0]);
+    const [SaveQualification, setSaveQualification] = useState([100]);
+    const [TotalQualification, setTotalQualification] = useState(100);
+
+    function SaveP(){
+        const newQualification = [];
+        const newPercentage = 100/ NumQuestion;
+        for (let i = 0; i < NumQuestion; i++) {
+            newQualification[i] = newPercentage;
+        }
+        setSaveQualification(newQualification);
+    }
+
+    function SumeSaveP(){
+        let sum = 0;
+        SaveQualification.map((item) => sum += Number(item));
+        setTotalQualification(sum);
+    }
 
     function AddQuestion(){
         let Question = [];
         for(let a = 0; a < NumQuestion; a++){
             Question.push(
                 <div key={a} className="Question-add-question-function" >
-                    <label>{a+1}. Escribe tu pregunta:</label>
+                    <div className="Question-add-question-punctuation" >
+                        <label>{a+1}. Escribe tu pregunta:</label>
+                        <input type="text" onChange={(e)=>{
+                            let newdata = [...SaveQualification];
+                            newdata[a] = Number(e.target.value);
+                            setSaveQualification(newdata);
+                        }} value={Math.round(SaveQualification[a])} 
+                        onBlur={()=>{
+                            SumeSaveP();
+                        }}
+                        />
+                    </div>
                     <input type="text" required name="question" onChange={(e) => changerQuestioQuiz(e,a)} />
                     <div className="Question-function-Options">
                         {AddAnswerQuestion(a)}
@@ -101,7 +129,7 @@ export function ExamProvider({children}){
                 options: [
                     {
                         option: '',
-                        qualification: 0
+                        qualification: 0,
                     }
                 ]
             }
@@ -118,6 +146,7 @@ export function ExamProvider({children}){
         if(!newdata.questions[i]){
             newdata.questions[i] =  {
                 question: '',
+                points: 0,
                 options: [
                     {
                         option: '',
@@ -159,8 +188,17 @@ export function ExamProvider({children}){
 
     async function HandleSubmitQuiz(e){
         e.preventDefault();
-        const {data} = await PostQuiz(Quizadd);
-        navigate("/class/teacher/exam");
+        if (TotalQualification === 100){
+
+            let newdata = {...Quizadd};
+            newdata.questions.map((item, index) => {
+                newdata.questions[index].points = SaveQualification[index];
+            });
+            setQuizadd(newdata);
+
+            const {data} = await PostQuiz(Quizadd);
+            navigate("/class/teacher/exam");
+        }
     }
 
     const [Quizs, setQuizs] = useState([]);
@@ -262,8 +300,15 @@ export function ExamProvider({children}){
         navigate("/class/teacher/exam");
     }
 
+    const [State, setState] = useState({});
+
+    async function StateTotalGet(){
+        const {data} = await GetState();
+        setState(data);
+    }
+
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion, SaveP, TotalQualification, State, StateTotalGet}}>
             {children}
         </ExamContext.Provider>
     );

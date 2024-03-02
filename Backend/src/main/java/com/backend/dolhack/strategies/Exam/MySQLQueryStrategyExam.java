@@ -22,9 +22,9 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         List<QuestionModel> questions = Quiz.getQuestions();
 
         for(QuestionModel question : questions ){
-            String query2 = "INSERT INTO pregunta(idpregunta,pregunta, quiz_idquiz) values(?,?,?);";
+            String query2 = "INSERT INTO pregunta(idpregunta,pregunta,puntos ,quiz_idquiz) values(?,?,?,?);";
             String idP = idRandomFactory.generateID();
-            sql.update(query2, idP ,question.getQuestion(), id);
+            sql.update(query2, idP ,question.getQuestion(), question.getPoints(),id);
 
             List<OptionModel> options = question.getOptions();
 
@@ -87,11 +87,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
         String query2 = "SELECT * FROM pregunta WHERE quiz_idquiz = ?;";
 
-        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, (rs, rowNum) -> new ModelPregunta(
-                rs.getString("idpregunta"),
-                rs.getString("pregunta"),
-                rs.getString("quiz_idquiz")
-        ));
+        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, BeanPropertyRowMapper.newInstance(ModelPregunta.class));
 
         List<PreguntaViewr> preguntasViewr = new java.util.ArrayList<PreguntaViewr>();
 
@@ -129,16 +125,23 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
             return false;
         }
         List<AnswerModel> answers = answer.getRespuestas();
+        float calificacion = 0;
         int quizs = 0;
         int quialification = 0;
         for(AnswerModel ans : answers){
             String id = idRandomFactory.generateID();
             String querry = "insert into respuesta(idrespuesta, opcion, respuesta, calificacion, quiz_idquiz, pregunta_idpregunta, usuario_idusuario, clase_idclase) values (?, ?, ?, ?, ?, ?, ?, ?);";
             sql.update(querry, id, ans.getOpcion(), ans.getRespuesta(), ans.getCalificacion(), idq, ans.getPregunta_idpregunta(), idu, idc);
+
+            ModelPregunta pregunta = sql.queryForObject("SELECT * FROM pregunta WHERE idpregunta = ?", new Object[]{ans.getPregunta_idpregunta()}, BeanPropertyRowMapper.newInstance(ModelPregunta.class));
+
+            if (ans.getCalificacion().equals("1")){
+                calificacion = calificacion + pregunta.getPuntos();
+            }
+
             quizs = quizs + 1;
             quialification = quialification + Integer.parseInt(ans.getCalificacion());
         }
-        float calificacion = ((float)quialification / (float)quizs) * 100;
         String idCa = idRandomFactory.generateID();
         String querry2 = "insert into calificacion(idcalificacion, preguntas, respuestas, calificacion, quiz_idquiz, usuario_idusuario, clase_idclase) values(?, ?, ?, ?, ?, ?, ?);";
         sql.update(querry2, idCa, quizs, quialification, calificacion, idq, idu, idc);
@@ -159,11 +162,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
     public boolean DeleteQuizQuery(JdbcTemplate sql,String idc, String idq){
         sql.update("DELETE FROM calificacion WHERE quiz_idquiz = ?;", idq);
         sql.update("DELETE FROM respuesta WHERE quiz_idquiz = ?;" , idq);
-        List<ModelPregunta> preguntas = sql.query("SELECT * FROM pregunta WHERE quiz_idquiz = ?;", new Object[]{idq}, (rs, rowNum) -> new ModelPregunta(
-                rs.getString("idpregunta"),
-                rs.getString("pregunta"),
-                rs.getString("quiz_idquiz")
-        ));
+        List<ModelPregunta> preguntas = sql.query("SELECT * FROM pregunta WHERE quiz_idquiz = ?;", new Object[]{idq}, BeanPropertyRowMapper.newInstance(ModelPregunta.class));
         for(ModelPregunta pregunta : preguntas){
             sql.update("DELETE FROM opcion WHERE pregunta_idpregunta = ?;", pregunta.getIdPregunta());
         }
@@ -185,11 +184,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
         String query2 = "SELECT * FROM pregunta WHERE quiz_idquiz = ?;";
 
-        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, (rs, rowNum) -> new ModelPregunta(
-                rs.getString("idpregunta"),
-                rs.getString("pregunta"),
-                rs.getString("quiz_idquiz")
-        ));
+        List<ModelPregunta> preguntas = sql.query(query2, new Object[]{idQ}, BeanPropertyRowMapper.newInstance(ModelPregunta.class));
 
         List<PreguntaViewr> preguntasViewr = new java.util.ArrayList<PreguntaViewr>();
 
@@ -252,5 +247,15 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         }
 
         return true;
+    }
+
+    @Override
+    public StateModel StateQuery(JdbcTemplate sql, String idC, String idU){
+        int totalExam = sql.queryForObject("select count(*) from quiz where clase_idclase = ?;", new Object[]{idC}, Integer.class);
+        int totalRespondidos = sql.queryForObject("select count(*) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Integer.class);
+
+        float calificacion = sql.queryForObject("select sum(calificacion) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Float.class);
+
+        return new StateModel(totalExam, totalRespondidos, calificacion/totalExam);
     }
 }
