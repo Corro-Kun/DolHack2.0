@@ -309,6 +309,7 @@ export function ExamProvider({children}){
 
     async function StateTotalGet(){
         const {data} = await GetState();
+        console.log(data);
         setState(data);
     }
 

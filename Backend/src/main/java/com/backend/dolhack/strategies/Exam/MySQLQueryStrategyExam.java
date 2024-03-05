@@ -277,8 +277,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
     @Override
     public StateModel StateQuery(JdbcTemplate sql, String idC, String idU){
-        int totalExam = sql.queryForObject("select count(*) from quiz where clase_idclase = ?;", new Object[]{idC}, Integer.class);
+        int totalExam = sql.queryForObject("select count(*) from quiz where clase_idclase = ? and publicado = 1;", new Object[]{idC}, Integer.class);
         int totalRespondidos = sql.queryForObject("select count(*) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Integer.class);
+
+        if  (totalRespondidos == 0){
+            return new StateModel(totalExam, totalRespondidos, 0f);
+        }
 
         float calificacion = sql.queryForObject("select sum(calificacion) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Float.class);
 
