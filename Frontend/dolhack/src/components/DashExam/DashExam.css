@@ -65,6 +65,22 @@
     display: flex;
 }
 .DashExam-Quizs-button button:nth-child(1){
+    margin-right: 10px;
+    padding: 6px 10px 2px 10px;
+    font-size: 1.3em;
+    border: none;
+    color: var(--Text_Color);
+    background-color: green;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+.DashExam-Quizs-button button:nth-child(1):hover{
+    background-color: #000;
+}
+ 
+
+.DashExam-Quizs-button button:nth-child(2){
     padding: 6px 10px 2px 10px;
     font-size: 1.3em;
     border: none;
@@ -74,11 +90,11 @@
     cursor: pointer;
     transition: .5s;
 }
-.DashExam-Quizs-button button:nth-child(1):hover{
+.DashExam-Quizs-button button:nth-child(2):hover{
     background-color: #000;
 }
  
-.DashExam-Quizs-button button:nth-child(2){
+.DashExam-Quizs-button button:nth-child(3){
     margin-left: 10px;
     padding: 5px 10px 3px 10px;
     font-size: 1.3em;
@@ -89,7 +105,7 @@
     cursor: pointer;
     transition: .5s;
 }
-.DashExam-Quizs-button button:nth-child(2):hover{
+.DashExam-Quizs-button button:nth-child(3):hover{
     background-color: #000;
 }
  

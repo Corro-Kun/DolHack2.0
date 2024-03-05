@@ -27,8 +27,8 @@ public class ExamRepositorio {
         return queryStrategyExam.newQuizQuery(idRandomFactory, sql, idU, idC, Quiz);
     }
 
-    public List<ModelQuiz> getQuizzes(String idC){
-        return queryStrategyExam.QuizzesQuery(sql, idC);
+    public List<ModelQuiz> getQuizzes(String idC, String idU){
+        return queryStrategyExam.QuizzesQuery(sql, idC, idU);
     }
 
     public QuizViewr getQuiz(String idQ){
@@ -53,6 +53,10 @@ public class ExamRepositorio {
 
     public boolean UpdateQuiz(getExamUpdate Quiz){
         return queryStrategyExam.UpdateQuizQuery(sql, Quiz);
+    }
+
+    public boolean publicQuiz(String idQ){
+        return queryStrategyExam.publicQuizQuery(sql, idQ);
     }
 
     public StateModel getState(String idC, String idU){

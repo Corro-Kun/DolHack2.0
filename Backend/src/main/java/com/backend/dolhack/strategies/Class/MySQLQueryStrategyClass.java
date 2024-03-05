@@ -41,6 +41,8 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
 
         sql.update(query, id ,clase.getTitulo(), clase.getDescripcion(), clase.getFecha_inicio(), clase.getFecha_finalizacion(), clase.getTipo(), clase.getNivel(), lis.getIdlista(), idUser, url);
 
+        sql.update("insert into estado_clase(clase_idclase) values(?);", id);
+
         return true;
     }
 
@@ -99,6 +101,7 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         sql.update("delete from publicacion where clase_idclase = ?", id);
         sql.update("DELETE FROM clase WHERE idclase = ?", id);
         sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
+        sql.update("DELETE FROM estado_clase WHERE clase_idclase = ?", id);
         sql.update("DELETE FROM lista WHERE clase = ?", id);
         return true;
     }

@@ -4,16 +4,18 @@ public class ModelQuiz {
     private String idquiz;
     private String titulo;
     private String descripcion;
+    private int publicado;
     private String clase_idclase;
     private String usuario_idusuario;
 
     public ModelQuiz() {
     }
 
-    public ModelQuiz(String idquiz, String titulo, String descripcion, String clase_idclase, String usuario_idusuario) {
+    public ModelQuiz(String idquiz, String titulo, String descripcion,int publicado ,String clase_idclase, String usuario_idusuario) {
         this.idquiz = idquiz;
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.publicado = publicado;
         this.clase_idclase = clase_idclase;
         this.usuario_idusuario = usuario_idusuario;
     }
@@ -56,5 +58,13 @@ public class ModelQuiz {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getPublicado() {
+        return publicado;
+    }
+
+    public void setPublicado(int publicado) {
+        this.publicado = publicado;
     }
 }

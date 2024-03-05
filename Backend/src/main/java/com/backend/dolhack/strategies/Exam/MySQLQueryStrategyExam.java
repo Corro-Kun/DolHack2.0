@@ -63,15 +63,32 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
     }
 
     @Override
-    public List<ModelQuiz> QuizzesQuery(JdbcTemplate sql, String idC){
-        String query = "SELECT * FROM quiz WHERE clase_idclase = ?;";
+    public List<ModelQuiz> QuizzesQuery(JdbcTemplate sql, String idC, String idU){
+        String query = "SELECT * FROM quiz WHERE clase_idclase = ?";
+
+        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+
+        if(user.getRol_idrol() == 2){
+            return sql.query(query+" AND publicado = 1", new Object[]{idC}, (rs, rowNum) -> new ModelQuiz(
+                    rs.getString("idquiz"),
+                    rs.getString("titulo"),
+                    rs.getString("descripcion"),
+                    rs.getInt("publicado"),
+                    rs.getString("clase_idclase"),
+                    rs.getString("usuario_idusuario")
+            ));
+
+        }
+
         return sql.query(query, new Object[]{idC}, (rs, rowNum) -> new ModelQuiz(
                 rs.getString("idquiz"),
                 rs.getString("titulo"),
                 rs.getString("descripcion"),
+                rs.getInt("publicado"),
                 rs.getString("clase_idclase"),
                 rs.getString("usuario_idusuario")
         ));
+
     }
 
     @Override
@@ -81,6 +98,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
                 rs.getString("idquiz"),
                 rs.getString("titulo"),
                 rs.getString("descripcion"),
+                rs.getInt("publicado"),
                 rs.getString("clase_idclase"),
                 rs.getString("usuario_idusuario")
         ));
@@ -178,6 +196,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
                 rs.getString("idquiz"),
                 rs.getString("titulo"),
                 rs.getString("descripcion"),
+                rs.getInt("publicado"),
                 rs.getString("clase_idclase"),
                 rs.getString("usuario_idusuario")
         ));
@@ -246,6 +265,13 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
             }
         }
 
+        return true;
+    }
+
+    @Override
+    public boolean publicQuizQuery(JdbcTemplate sql,String idQ){
+        String query = "UPDATE quiz SET publicado = 1 WHERE idquiz = ?;";
+        sql.update(query, idQ);
         return true;
     }
 

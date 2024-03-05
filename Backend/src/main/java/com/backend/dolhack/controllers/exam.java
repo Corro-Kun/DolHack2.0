@@ -18,6 +18,8 @@ import com.backend.dolhack.models.exam.NewQuizModel;
 import com.backend.dolhack.models.exam.getExamUpdate;
 import com.backend.dolhack.models.message;
 import com.backend.dolhack.repositories.ExamRepositorio;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -47,10 +49,11 @@ public class exam {
 
 
     @GetMapping("/exam")
-    public ResponseEntity getExam(@RequestHeader("class") String id) throws  Exception {
+    public ResponseEntity getExam(@RequestHeader("class") String id, @RequestHeader("token") String token) throws  Exception {
         try {
             String idC = new Crypto().Decrypt(id);
-            return ResponseEntity.ok().body(repositorio.getQuizzes(idC));
+            String idU = new Crypto().Decrypt(token);
+            return ResponseEntity.ok().body(repositorio.getQuizzes(idC, idU));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
@@ -132,6 +135,17 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    @PutMapping("/exam/public/{idQ}")
+    public ResponseEntity publicExam(@PathVariable String idQ) throws  Exception {
+        try {
+            repositorio.publicQuiz(idQ);
+            return ResponseEntity.ok().body(new message("success"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+    
 
     @GetMapping("/exam/state")
     public ResponseEntity getState(@RequestHeader("class") String idC, @RequestHeader("token") String idU) throws  Exception {

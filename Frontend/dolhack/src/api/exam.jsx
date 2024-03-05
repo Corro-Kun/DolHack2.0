@@ -11,7 +11,8 @@ export const PostQuiz = async (data) => axios.post("/exam", data, {
 // obtener examens
 export const GetQuiz = async () => axios.get("/exam", {
     headers:{
-        "class": localStorage.getItem("class")
+        "class": localStorage.getItem("class"),
+        "token": localStorage.getItem("token")
     }
 
 });
@@ -52,6 +53,8 @@ export const UpdateQuiz = async (id, data) => axios.put(`/exam/${id}`, data, {
         "class": localStorage.getItem("class")
     }
 });
+
+export const PublishQuiz = async (id) => axios.put(`/exam/public/${id}`)
 
 export const GetState = async () => axios.get("/exam/state", {
     headers:{

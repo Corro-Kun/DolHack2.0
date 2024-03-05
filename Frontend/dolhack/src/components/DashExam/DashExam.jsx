@@ -4,11 +4,12 @@ import "./DashExam.css";
 import { useNavigate } from "react-router-dom";
 import { useExam } from "../../context/exam";
 import {AiTwotoneDelete} from "react-icons/ai"
-import {BsPencilSquare} from "react-icons/bs"
+import {BsPencilSquare, BsSignpostFill} from "react-icons/bs"
 
 function DashExam() {
     const navigate = useNavigate();
-    const {GetQuizs, Quizs, DeleteQuizs} = useExam();
+    const {GetQuizs, Quizs, DeleteQuizs, PutExamPublic} = useExam();
+
 
     useEffect(()=>{
         GetQuizs();
@@ -30,19 +31,37 @@ function DashExam() {
                         <div className="DashExam-Quizs-description" >
                             <p>{data.descripcion}</p>
                         </div>
-                        <div className="DashExam-Quizs-button" >
-                            <button title="Actualizar" onClick={()=> navigate("/class/teacher/exam/update/"+data.idquiz)} ><BsPencilSquare /></button>
-                            <button title="Eliminar" onClick={()=> {
-                                toast("¿Seguro que quieres eliminar este examen?",{
+                        {
+                            data.publicado === 0 ? 
+                            <div className="DashExam-Quizs-button" >
+                                <button title="publicar" onClick={()=> toast("¿Quieres publicar tu examen?, esta acción no es reversible.",{
                                     action:{
                                         label: "Si",
-                                        onClick: () =>{
-                                            DeleteQuizs(data.idquiz);
+                                        onClick: () => {
+                                            toast.promise(PutExamPublic(data.idquiz),{
+                                                loading: "Publicando examen...",
+                                                success: "Examen publicado",
+                                                error: "Error al publicar el examen"
+                                            });
+                                        },
+                                    },
+                                    cancel:{label:"No"}
+                                })} ><BsSignpostFill /></button>
+                                <button title="Actualizar" onClick={()=> navigate("/class/teacher/exam/update/"+data.idquiz)} ><BsPencilSquare /></button>
+                                <button title="Eliminar" onClick={()=> {
+                                    toast("¿Seguro que quieres eliminar este examen?",{
+                                        action:{
+                                            label: "Si",
+                                            onClick: () =>{
+                                                DeleteQuizs(data.idquiz);
+                                            }
                                         }
-                                    }
-                                });    
-                            }} ><AiTwotoneDelete /></button>
-                        </div>
+                                    });    
+                                }} ><AiTwotoneDelete /></button>
+                            </div>
+                        :
+                            <p style={{color:"var(--Main_Color)"}} >Publicado</p>
+                        }
                     </div>
                 ))}
             </div>
