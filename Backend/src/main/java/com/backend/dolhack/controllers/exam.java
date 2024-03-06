@@ -157,5 +157,16 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    @GetMapping("/exam/missing")
+    public ResponseEntity getMissing(@RequestHeader("class") String idC, @RequestHeader("token") String idU) throws  Exception {
+        try {
+            String idc = new Crypto().Decrypt(idC);
+            String idu = new Crypto().Decrypt(idU);
+            return ResponseEntity.ok().body(repositorio.MissingQuiz(idc, idu));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
      
 }

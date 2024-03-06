@@ -12,3 +12,7 @@
 .ShapeNotebook-Static-bar-shape div{
     height: 100%;
 }
+.ShapeNotebook-List-NotAnswer p{
+    margin-top: 4px;
+    color: #bdbdbd;
+}

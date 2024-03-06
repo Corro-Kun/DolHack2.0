@@ -1,5 +1,5 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz, GetState, PublishQuiz} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz, GetState, PublishQuiz, GetQuizNotAnswer} from "../api/exam";
 import {useNavigate} from "react-router-dom"
 
 const ExamContext = createContext();
@@ -309,12 +309,18 @@ export function ExamProvider({children}){
 
     async function StateTotalGet(){
         const {data} = await GetState();
-        console.log(data);
         setState(data);
     }
 
+    const [NotQuiz, setNotQuiz] = useState([]);
+
+    async function getExamNotAnswer(){
+        const {data} = await GetQuizNotAnswer();
+        setNotQuiz(data);
+    }
+
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion, SaveP, TotalQualification, State, StateTotalGet, PutExamPublic}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion, SaveP, TotalQualification, State, StateTotalGet, PutExamPublic, getExamNotAnswer, NotQuiz}}>
             {children}
         </ExamContext.Provider>
     );

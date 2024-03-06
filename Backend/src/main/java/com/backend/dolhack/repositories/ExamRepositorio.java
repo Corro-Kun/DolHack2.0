@@ -62,4 +62,8 @@ public class ExamRepositorio {
     public StateModel getState(String idC, String idU){
         return queryStrategyExam.StateQuery(sql, idC, idU);
     }
+
+    public List<String> MissingQuiz(String idC, String idU){
+        return queryStrategyExam.MissingQuizQuery(sql, idC, idU);
+    }
 }

@@ -12,12 +12,13 @@ import "./ShapeNotebookP.css";
 function ShapeNotebookP(){
     const navigate = useNavigate();
     const {consultPost, Post, nameClasss, classs} = useClassStudent();
-    const {State, StateTotalGet} = useExam();
+    const {State, StateTotalGet, getExamNotAnswer, NotQuiz} = useExam();
     
     useEffect(()=>{
         consultPost();
         nameClasss();
         StateTotalGet();
+        getExamNotAnswer();
     },[]);
     return(
         <div className="ShapeNotebook-Div-Render" >
@@ -60,12 +61,25 @@ function ShapeNotebookP(){
                             <div style={{display: "flex", justifyContent: "space-between", paddingTop: "20px"}} >
                                 <div>
                                     <h2 style={{textAlign: "center"}} >{State.totalExam-State.totalRespondidos}</h2>
+
                                     <p>Exámenes que debes</p>
                                 </div>
                                 <div>
                                     <h2 style={{textAlign: "center"}} >{State.totalRespondidos}</h2>
                                     <p>Exámenes hechos</p>
                                 </div>
+                            </div>
+                            <div style={{marginTop: "10px",paddingTop: "10px",borderTop: "1px solid #4e4e4e"}} >
+                                <h3>Exámenes pendientes</h3>
+                            </div>
+                            <div className="ShapeNotebook-List-NotAnswer" >
+                                {
+                                    NotQuiz.length > 0 ?
+                                    NotQuiz.map((item, index)=>(
+                                        <p key={index} >{index+1}. {item}</p>
+                                    ))
+                                    : <p style={{color: "GrayText", textAlign: "center"}}>No hay exámenes pendientes</p>
+                                }
                             </div>
                         </div>
                     </BodyPageNote>

@@ -10,6 +10,7 @@ import com.backend.dolhack.strategies.interfaces.QueryStrategyExam;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLQueryStrategyExam implements QueryStrategyExam {
@@ -277,6 +278,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
     @Override
     public StateModel StateQuery(JdbcTemplate sql, String idC, String idU){
+        
         int totalExam = sql.queryForObject("select count(*) from quiz where clase_idclase = ? and publicado = 1;", new Object[]{idC}, Integer.class);
         int totalRespondidos = sql.queryForObject("select count(*) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Integer.class);
 
@@ -288,4 +290,25 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
         return new StateModel(totalExam, totalRespondidos, calificacion/totalExam);
     }
+
+    @Override 
+    public List<String> MissingQuizQuery(JdbcTemplate sql, String idC, String idU){
+        List<String> quizlate = new ArrayList<String>();
+
+        List<ModelQuiz> quizzes = sql.query("select * from quiz where clase_idclase = ? and publicado = 1 ;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        for (ModelQuiz quiz : quizzes){
+            List<ModelCalificacion> calificaciones = sql.query("select * from calificacion where usuario_idusuario = ? and quiz_idquiz = ?;", new Object[]{idU, quiz.getIdquiz()}, BeanPropertyRowMapper.newInstance(ModelCalificacion.class));
+            
+            if (calificaciones.isEmpty()){
+                quizlate.add(quiz.getTitulo());
+                System.out.println(quiz.getTitulo());
+            }
+        }
+
+        return quizlate;
+
+    }
+
 }
+

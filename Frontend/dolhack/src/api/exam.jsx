@@ -62,3 +62,10 @@ export const GetState = async () => axios.get("/exam/state", {
         "class": localStorage.getItem("class")
     }
 });
+
+export const GetQuizNotAnswer = async () => axios.get("/exam/missing",{
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});

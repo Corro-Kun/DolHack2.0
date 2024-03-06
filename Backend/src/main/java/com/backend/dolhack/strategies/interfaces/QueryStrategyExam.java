@@ -26,4 +26,6 @@ public interface QueryStrategyExam {
     public boolean publicQuizQuery(JdbcTemplate sql,String idQ);
 
     public StateModel StateQuery(JdbcTemplate sql, String idC, String idU);
+
+     public List<String> MissingQuizQuery(JdbcTemplate sql, String idC, String idU);
 }
