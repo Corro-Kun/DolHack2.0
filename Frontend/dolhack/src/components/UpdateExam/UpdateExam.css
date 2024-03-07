@@ -27,6 +27,9 @@
     border-radius: 5px;
     border: none;
     outline: none;
+    background-color: var(--BG_Color);
+    border: 1px solid var(--Text_Color);
+    color: var(--Text_Color);
 }
 .UpdateExam-title textarea{
     margin-top: 15px;
@@ -37,6 +40,9 @@
     border: none;
     border-radius: 5px;
     outline: none;
+    background-color: var(--BG_Color);
+    color: var(--Text_Color);
+    border: 1px solid var(--Text_Color);
 }
 .UpdateExam-Inputs{
     border-bottom: 1px solid #4e4e4e;
@@ -61,14 +67,59 @@
 }
 .UpdateExam-Question input{
     margin-left: 4px;
-    padding: 2px;
-    border-radius: 2px;
+    width: 90%;
+    padding: 5px 4px;
+    border-radius: 5px;
+    background-color: var(--BG_Color);
+    color: var(--Text_Color);
+    font-size: 16px;
     border: none;
+    border-bottom: 1px solid var(--Text_Color);
     outline: none;
 }
-.UpdateExam-Question div{
-    margin-top: 5px;
+
+.UpdateExam-Question-Render{
+    display: flex;
+    justify-content: space-between;
+}
+.UpdateExam-Question-Render div{
+    width: 90%;
+}
+
+.UpdateExam-Option{
+    display: flex;
+    margin-top: 12px;
     margin-left: 10px;
+    align-items: center;
+}
+
+.UpdateExam-Option button{
+    margin-left: 10px;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.UpdateExam-Option input{
+    padding: 5px 8px;
+    width: 40%;
+    background-color: var(--BG_Color);
+    color: var(--Text_Color);
+    border-bottom: 1px solid var(--Main_Color);
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.UpdateExam-Question-Button{
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 5px 6px 5px 6px;
+    border: none;
+    background-color: var(--Main_Color);
+    color: var(--Text_Color);
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 1559px) {

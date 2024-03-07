@@ -120,7 +120,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
                     rs.getString("pregunta_idpregunta")
             ));
 
-            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), opciones);
+            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), pregunta.getPuntos() ,opciones);
 
             preguntasViewr.add(preguntaViewr);
         }
@@ -218,7 +218,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
                     rs.getString("pregunta_idpregunta")
             ));
 
-            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), opciones);
+            PreguntaViewr preguntaViewr = new PreguntaViewr(pregunta.getIdPregunta(), pregunta.getPregunta(), pregunta.getPuntos(),opciones);
 
             preguntasViewr.add(preguntaViewr);
         }
@@ -232,14 +232,24 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         sql.update(query, Quiz.getTitulo(), Quiz.getDescripcion(), Quiz.getIdquiz());
         List<PreguntaViewr> questions = Quiz.getPreguntas();
 
+        float total = 0;
+
+        for(PreguntaViewr a: questions){
+            total = total + a.getPuntos();
+        }
+
+        if(total != 100){
+            throw new RuntimeException("La suma de los puntos de las preguntas debe ser 100");
+        }
+
         for(PreguntaViewr question : questions ){
-            String query2 = "UPDATE pregunta SET pregunta = ? WHERE idpregunta = ?;";
+            String query2 = "UPDATE pregunta SET pregunta = ? puntos = ? WHERE idpregunta = ?;";
 
             if(question.getPregunta().length() <= 0){
                 throw new RuntimeException("La pregunta no puede estar vacia");
             }
 
-            sql.update(query2, question.getPregunta(), question.getIdpregunta());
+            sql.update(query2, question.getPregunta(), question.getPuntos() ,question.getIdpregunta());
 
             List<ModelOpcion> options = question.getOpciones();
 
@@ -308,6 +318,62 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
         return quizlate;
 
+    }
+
+    @Override
+    public boolean deleteOptionQuery(JdbcTemplate sql, String idO, String idP){
+        sql.update("DELETE FROM opcion WHERE idopcion = ?;", idO);
+
+        List<ModelOpcion> opciones = sql.query("SELECT * FROM opcion WHERE pregunta_idpregunta = ?;", new Object[]{idP}, BeanPropertyRowMapper.newInstance(ModelOpcion.class));
+
+        int value = 1;
+
+        for(ModelOpcion opcion : opciones) {
+            String query5 = "UPDATE opcion SET opcion = ? WHERE idopcion = ?;";
+
+            if(value == 1){
+                sql.update(query5, "A", opcion.getIdopcion());
+            }else if(value == 2){
+                sql.update(query5, "B", opcion.getIdopcion());
+            }else if(value == 3){
+                sql.update(query5, "C", opcion.getIdopcion());
+            }else if(value == 4){
+                sql.update(query5, "D", opcion.getIdopcion());
+            }
+
+            value = value + 1;
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean addOptionQuery(JdbcTemplate sql, String idP){
+        String query = "INSERT INTO opcion(opcion, respuesta, calificacion, pregunta_idpregunta) values(?,?,?,?);";
+        String respuesta = "Texto de ejemplo";
+        List<ModelOpcion> opciones = sql.query("SELECT * FROM opcion WHERE pregunta_idpregunta = ?;", new Object[]{idP}, BeanPropertyRowMapper.newInstance(ModelOpcion.class));
+        if(opciones.size() == 4){
+            return false;
+        }
+        if(opciones.size() == 0){
+            sql.update(query, "A", respuesta, 0, idP);
+            return true;
+        }
+        else if (opciones.size() == 1){
+            sql.update(query, "B", respuesta, 0, idP);
+            return true;
+        }
+        else if (opciones.size() == 2){
+            sql.update(query, "C", respuesta, 0, idP);
+            return true;
+        }
+        else if (opciones.size() == 3){
+            sql.update(query, "D", respuesta, 0, idP);
+            return true;
+        }
+
+        return true;
     }
 
 }

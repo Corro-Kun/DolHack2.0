@@ -168,5 +168,25 @@ public class exam {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    @DeleteMapping("/exam/option/{idO}/{idP}")
+    public ResponseEntity deleteOption(@PathVariable String idO, @PathVariable String idP) throws  Exception {
+        try {
+            repositorio.deleteOption(idO, idP);
+            return ResponseEntity.ok().body(new message("success"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/exam/option/{idP}")
+    public ResponseEntity addOption(@PathVariable String idP) throws  Exception {
+        try {
+            repositorio.addOption(idP);
+            return ResponseEntity.ok().body(new message("success"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
      
 }

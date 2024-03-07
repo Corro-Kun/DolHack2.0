@@ -66,4 +66,12 @@ public class ExamRepositorio {
     public List<String> MissingQuiz(String idC, String idU){
         return queryStrategyExam.MissingQuizQuery(sql, idC, idU);
     }
+
+    public boolean deleteOption(String idO, String idP){
+        return queryStrategyExam.deleteOptionQuery(sql, idO, idP);
+    }
+
+    public boolean addOption(String idP){
+        return queryStrategyExam.addOptionQuery(sql, idP);
+    }
 }

@@ -1,6 +1,7 @@
 import React,{useContext, createContext, useState} from "react";
-import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz, GetState, PublishQuiz, GetQuizNotAnswer} from "../api/exam";
+import {PostQuiz, GetQuiz, GetQuizById, AnswerForm, DeleteQuiz, GetQuizByIdD, UpdateQuiz, GetState, PublishQuiz, GetQuizNotAnswer, PostOption, DeleteOption} from "../api/exam";
 import {useNavigate} from "react-router-dom"
+import { toast } from "sonner";
 
 const ExamContext = createContext();
 
@@ -276,6 +277,7 @@ export function ExamProvider({children}){
 
     async function GetEQuizs(id){
         const {data} = await GetQuizByIdD(id);
+        console.log(data)
         setEQuizs(data);
     }
 
@@ -295,9 +297,24 @@ export function ExamProvider({children}){
         }
     }
 
+    function changerUpdatePoints({target:{value}}, i){
+        let data = {...EQuizs};
+        data.preguntas[i].puntos = value;
+        setEQuizs(data);
+    }
+
     async function UpdateQuizs(id){
-        const {data} = await UpdateQuiz(id, EQuizs);
-        navigate("/class/teacher/exam");
+        //let puntos = 0;
+
+        //EQuizs.preguntas.map((item) => puntos += Number(item.puntos));
+
+        //if(puntos === 100){
+            const {data} = await UpdateQuiz(id, EQuizs);
+            navigate("/class/teacher/exam");
+        //}else{
+            //toast.error("La suma de los puntos de las preguntas debe ser igual a 100");
+            //throw new Error("La suma de los puntos de las preguntas debe ser igual a 100");
+        //}
     }
 
     async function PutExamPublic(id){
@@ -319,8 +336,25 @@ export function ExamProvider({children}){
         setNotQuiz(data);
     }
 
+    async function addOption(idP, i){
+        await PostOption(idP);
+        const {data} = await GetQuizByIdD(EQuizs.idquiz);
+        let cache = {...EQuizs};
+        cache.preguntas[i].opciones.push(data.preguntas[i].opciones[data.preguntas[i].opciones.length - 1]);
+        setEQuizs(cache);
+    }
+
+    async function deleteOption(idO, idP, i){
+        await DeleteOption(idO, idP);
+        const {data} = await GetQuizByIdD(EQuizs.idquiz);
+        let cache = {...EQuizs};
+        cache.preguntas[i].opciones = data.preguntas[i].opciones;
+        setEQuizs(cache);
+        //await GetEQuizs(EQuizs.idquiz);
+    }
+
     return(
-        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion, SaveP, TotalQualification, State, StateTotalGet, PutExamPublic, getExamNotAnswer, NotQuiz}}>
+        <ExamContext.Provider value={{AddQuestion, changerTitleQuiz, NumQuestion, setNumQuestion, HandleSubmitQuiz, GetQuizs, Quizs, GetQuizId, QuizId, changerAnswer, handleSubmitAnswer, DeleteQuizs, GetEQuizs, EQuizs, changerUpdateQuizs, UpdateQuizs, deleteQuestion, SaveP, TotalQualification, State, StateTotalGet, PutExamPublic, getExamNotAnswer, NotQuiz, addOption, deleteOption, changerUpdatePoints}}>
             {children}
         </ExamContext.Provider>
     );

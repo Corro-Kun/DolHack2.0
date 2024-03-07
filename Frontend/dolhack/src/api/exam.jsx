@@ -69,3 +69,17 @@ export const GetQuizNotAnswer = async () => axios.get("/exam/missing",{
         "class": localStorage.getItem("class")
     }
 });
+
+export const PostOption = async (id) => axios.post(`/exam/option/${id}`, {}, {
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});
+
+export const DeleteOption = async (idO, idP) => axios.delete(`/exam/option/${idO}/${idP}`, {
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});
