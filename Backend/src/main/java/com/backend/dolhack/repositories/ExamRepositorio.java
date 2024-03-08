@@ -74,4 +74,8 @@ public class ExamRepositorio {
     public boolean addOption(String idP){
         return queryStrategyExam.addOptionQuery(sql, idP);
     }
+
+    public boolean ChangerStateNotes(String idC){
+        return queryStrategyExam.ChangerStateNotes(sql, idC);
+    }
 }

@@ -125,3 +125,10 @@ export const changerStateClass = (state) => axios.put("/stateclass/"+state,{},{
         "token": localStorage.getItem("token")
     }
 });
+
+export const changerStateNotes = () => axios.put("/notes/state/",{},{
+    headers:{
+        "class": localStorage.getItem("class"),
+        "token": localStorage.getItem("token")
+    }
+});

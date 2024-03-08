@@ -2,6 +2,7 @@ package com.backend.dolhack.strategies.Exam;
 
 import com.backend.dolhack.lib.IDRandomFactory;
 import com.backend.dolhack.models.classs.ModelClase;
+import com.backend.dolhack.models.classs.ModelEstado_clase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.exam.*;
@@ -16,6 +17,12 @@ import java.util.List;
 public class MySQLQueryStrategyExam implements QueryStrategyExam {
     @Override
     public boolean newQuizQuery(IDRandomFactory idRandomFactory, JdbcTemplate sql, String idU, String idC, NewQuizModel Quiz){
+        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(estado.getEstado_calificacion() == 0){
+            throw new RuntimeException("La clase cerro las calificaciones, no se puede realizar el examen");
+        }
+
         String id = idRandomFactory.generateID();
         String query = "INSERT INTO quiz(idquiz, titulo, descripcion, clase_idclase, usuario_idusuario) values(?,?,?,?,?);";
         sql.update(query, id, Quiz.getTitle(), Quiz.getDescription(), idC, idU);
@@ -130,6 +137,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
     @Override
     public boolean VerificExamQuery(JdbcTemplate sql,String idu, String idq){
+        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idq}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(estado.getEstado_calificacion() == 0){
+            throw new RuntimeException("La clase cerro las calificaciones, no se puede realizar el examen");
+        }
+
         List<ModelRespuesta> verifc = sql.query("select * from respuesta where quiz_idquiz = ? AND usuario_idusuario = ?;", new Object[]{idq, idu}, BeanPropertyRowMapper.newInstance(ModelRespuesta.class));
         if(verifc.isEmpty()){
             return true;
@@ -139,6 +152,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
 
     @Override
     public boolean PostAnswerQuery(IDRandomFactory idRandomFactory,JdbcTemplate sql, ListAnswersModel answer, String idc, String idu, String idq){
+        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idc}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(estado.getEstado_calificacion() == 0){
+            throw new RuntimeException("La clase cerro las calificaciones, no se puede realizar el examen");
+        }
+
         List<ModelRespuesta> verifc = sql.query("select * from respuesta where quiz_idquiz = ? AND usuario_idusuario = ?;", new Object[]{idq, idu}, BeanPropertyRowMapper.newInstance(ModelRespuesta.class));
         if(!verifc.isEmpty()){
             return false;
@@ -376,5 +395,50 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         return true;
     }
 
+    @Override
+    public boolean ChangerStateNotes(JdbcTemplate sql, String idC){
+        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if (estado.getEstado_clase() == 0){
+            throw new RuntimeException("La clase ya cerro la clase, no se puede cambiar el estado de las calificaciones");
+        }
+
+        if(estado.getEstado_calificacion() == 0){
+            sql.update("UPDATE estado_clase SET estado_calificacion = 1 WHERE clase_idclase = ?;", idC);
+
+            ModelClase clase = sql.queryForObject("SELECT * FROM clase WHERE idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+
+            ModelLista lista = sql.queryForObject("select * from lista where clase = ?;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+            List<ModelLista_has_usuario> estudiantes = sql.query("select * from lista_has_usuario where lista_idlista = ?;", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+            ModelUsuario user = sql.queryForObject("select * from usuario where idusuario = ?;", new Object[]{clase.getUsuario_idusuario()}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+
+            for (ModelLista_has_usuario estudiante : estudiantes) {
+                if(!estudiante.getUsuario_idusuario().equals(clase.getUsuario_idusuario())){
+                    sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)","Se acaba de abrir las calificaciones de tu curso" ,"Tu profesor " + user.getNombre() + " " + user.getApellido() + " ha abierto las calificaciones de la clase "+clase.getTitulo()+".", estudiante.getUsuario_idusuario());
+                }
+            }
+
+        }else{
+            sql.update("UPDATE estado_clase SET estado_calificacion = 0 WHERE clase_idclase = ?;", idC);
+
+            ModelClase clase = sql.queryForObject("SELECT * FROM clase WHERE idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+
+            ModelLista lista = sql.queryForObject("select * from lista where clase = ?;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+            List<ModelLista_has_usuario> estudiantes = sql.query("select * from lista_has_usuario where lista_idlista = ?;", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+            ModelUsuario user = sql.queryForObject("select * from usuario where idusuario = ?;", new Object[]{clase.getUsuario_idusuario()}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+
+            for (ModelLista_has_usuario estudiante : estudiantes) {
+                if(!estudiante.getUsuario_idusuario().equals(clase.getUsuario_idusuario())){
+                    sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)","Se acaba de cerrar las calificaciones de tu curso" ,"Tu profesor " + user.getNombre() + " " + user.getApellido() + " ha cerrado las calificaciones de la clase "+clase.getTitulo()+".", estudiante.getUsuario_idusuario());
+                }
+            }
+        }
+
+        return true;
+    }
 }
 

@@ -1,5 +1,5 @@
 import {React, createContext, useContext,  useState} from "react"
-import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost, getQualification, getStateClass, changerStateClass } from "../api/class";
+import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost, getQualification, getStateClass, changerStateClass, changerStateNotes } from "../api/class";
 import {useNavigate} from "react-router-dom";
 import { toast } from "sonner";
 import { downloadExcen} from "../lib/downloadExcen";
@@ -154,8 +154,13 @@ export function ClassTeacherProvider({children}){
         }
     }
 
+    async function ChangerStateNotes(){
+        await changerStateNotes();
+        GetStateClass();
+    }
+
     return(
-        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification, FilterStudent, downloadQualification, state, GetStateClass, ChangerStateClass}}>
+        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification, FilterStudent, downloadQualification, state, GetStateClass, ChangerStateClass, ChangerStateNotes}}>
            {children} 
         </ClassTeacherContext.Provider>
     );

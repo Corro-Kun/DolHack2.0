@@ -189,4 +189,15 @@ public class exam {
         }
     }
      
+    @PutMapping("/notes/state/")
+    public ResponseEntity ChangerStateNotes(@RequestHeader("class") String idC) throws  Exception {
+        try {
+            String idc = new Crypto().Decrypt(idC);
+            repositorio.ChangerStateNotes(idc);
+            return ResponseEntity.ok().body(new message("success"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
 }

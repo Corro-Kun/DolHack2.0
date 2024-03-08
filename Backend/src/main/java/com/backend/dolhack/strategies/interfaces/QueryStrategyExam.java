@@ -33,4 +33,6 @@ public interface QueryStrategyExam {
 
     public boolean addOptionQuery(JdbcTemplate sql, String idP);
 
+    public boolean ChangerStateNotes(JdbcTemplate sql, String idC);
+
 }
