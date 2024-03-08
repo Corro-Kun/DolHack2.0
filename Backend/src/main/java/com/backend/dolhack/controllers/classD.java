@@ -280,5 +280,30 @@ public class classD {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }
     }
+
+    // estado de la clase
+
+    @GetMapping("/stateclass")
+    public ResponseEntity StateClass(@RequestHeader("class") String key) throws Exception {
+        try {
+            String id = new Crypto().Decrypt(key);
+            return ResponseEntity.status(200).body(repositorio.VerficStateClase(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
+    // cambiar el estado de la clase
+
+    @PutMapping("/stateclass/{state}")
+    public ResponseEntity ChangeStateClass(@RequestHeader("class") String key, @PathVariable int state ) throws Exception {
+        try {
+            String id = new Crypto().Decrypt(key);
+            repositorio.ChagerStateClass(id, state);
+            return ResponseEntity.status(200).body(new message("Estado de la clase cambiado con exito"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
      
 }

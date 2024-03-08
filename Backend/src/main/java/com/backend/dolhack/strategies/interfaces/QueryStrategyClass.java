@@ -40,4 +40,8 @@ public interface QueryStrategyClass {
     public List<QualificationStudent> studentQualificationQuery(JdbcTemplate sql,String idU, String idC);
 
     public ModelClase getClassQuery(JdbcTemplate sql,String id);
+
+    public ModelEstado_clase VerficStateClaseQuery(JdbcTemplate sql,String id);
+
+    public boolean ChagerStateClassQuery(JdbcTemplate sql,String id, int state);
 }

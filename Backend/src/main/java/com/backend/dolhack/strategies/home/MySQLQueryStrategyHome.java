@@ -35,7 +35,7 @@ public class MySQLQueryStrategyHome implements QueryStrategyHome {
     public MainModel MainQuery(JdbcTemplate sql){
         String querry = "SELECT usuario.idusuario,usuario.nombre, usuario.apellido, usuario.biografia, usuario.foto, usuario.banner, correo.correo, rol.rol FROM usuario JOIN correo ON correo.usuario_idusuario = usuario.idusuario JOIN rol ON rol.idrol = usuario.rol_idrol WHERE usuario.rol_idrol = 1 LIMIT 3;";
         List<userListModel> profesor = sql.query(querry, (rs, rowNum) -> new userListModel(rs.getString("nombre"), rs.getString("apellido"), rs.getString("biografia"), rs.getString("foto"), rs.getString("banner"), rs.getString("rol"), rs.getString("correo"), rs.getString("idusuario")));
-        String querry2 = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario LIMIT 2";
+        String querry2 = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario JOIN estado_clase ON estado_clase.clase_idclase = clase.idclase where estado_clase.estado_clase = 1 LIMIT 2;";
         List<classListModel> clase = sql.query(querry2, BeanPropertyRowMapper.newInstance(classListModel.class));
 
         return new MainModel(profesor, clase);

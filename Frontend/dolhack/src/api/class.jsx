@@ -112,3 +112,16 @@ export const quiteClass = () => axios.delete("/class/unregister", {
         "token": localStorage.getItem("token")
     }
 });
+
+export const getStateClass = () => axios.get("/stateclass",{
+    headers:{
+        "class": localStorage.getItem("class")
+    }
+})
+
+export const changerStateClass = (state) => axios.put("/stateclass/"+state,{},{
+    headers:{
+        "class": localStorage.getItem("class"),
+        "token": localStorage.getItem("token")
+    }
+});

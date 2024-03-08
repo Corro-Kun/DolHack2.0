@@ -2,12 +2,14 @@ import {useEffect} from "react";
 import { toast } from "sonner";
 import "./SettingClass.css"
 import {useClassTeacher} from "../../context/ClassTeacher";
+import { FaHeart, FaHeartBroken } from "react-icons/fa";
 
 function SettingClass(){
-    const {getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT} = useClassTeacher();
+    const {getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, state, GetStateClass, ChangerStateClass} = useClassTeacher();
 
     useEffect(()=>{
         getData();
+        GetStateClass();
     },[]);
 
     return(
@@ -18,7 +20,7 @@ function SettingClass(){
                 error:"Error al actualizar"
             }) }>
                 <div className="SettingClass-title" >
-                    <h2>Actualiza Tus Datos</h2>
+                    <h2>Actualiza Tus Datos</h2><h2 title={state.estado_clase === 1? "La Clase esta disponible": "La clase cerro"} className="SettingClass-h2" style={{color: state.estado_clase === 1? "var(--Main_Color)": "red"}} >{state.estado_clase ===1 ? <FaHeart />: <FaHeartBroken />}</h2>
                 </div>
                 <div className="BoxCreateClass-input-Div-1" >
                     <label>Titulo</label>
@@ -74,6 +76,16 @@ function SettingClass(){
                 </div>
                 <div className="SettingClass-Buttons" >
                     <button type="submit" >Actualizar</button>
+                    <button type="button" onClick={()=> toast("¿Quieres Cambiar de estado tu clase?",{
+                        action:{
+                            label:"Si",
+                            onClick:()=> toast.promise(ChangerStateClass(),{
+                                loading: "Cambiando...",
+                                success: "Cambiado",
+                                error: (e) => e.response.data.message+""
+                            })
+                        }, cancel:{label:"No"},
+                    })} >Cambiar estado</button>
                     <button type="button" onClick={()=> toast("¿Esta seguro de borrar tu clase?",{action:{
                         label:"Si",
                         onClick:()=>toast.promise(DeleteClassT(),{

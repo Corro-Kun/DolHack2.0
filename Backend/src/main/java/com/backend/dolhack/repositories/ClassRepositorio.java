@@ -15,6 +15,7 @@ import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ListPostClass;
 import com.backend.dolhack.models.classs.ListStudentClass;
 import com.backend.dolhack.models.classs.ModelClase;
+import com.backend.dolhack.models.classs.ModelEstado_clase;
 import com.backend.dolhack.models.classs.QualificationStudent;
 import com.backend.dolhack.models.classs.UpdateClass;
 import com.backend.dolhack.models.classs.classListModel;
@@ -99,5 +100,13 @@ public class ClassRepositorio {
 
     public ModelClase getClass(String id){
         return queryStrategyClass.getClassQuery(sql, id);
+    }
+
+    public ModelEstado_clase VerficStateClase(String id){
+        return queryStrategyClass.VerficStateClaseQuery(sql, id);
+    }
+
+    public boolean ChagerStateClass(String id, int state){
+        return queryStrategyClass.ChagerStateClassQuery(sql, id, state);
     }
 }

@@ -14,6 +14,7 @@ import com.backend.dolhack.models.classs.ListClassUser;
 import com.backend.dolhack.models.classs.ListPostClass;
 import com.backend.dolhack.models.classs.ListStudentClass;
 import com.backend.dolhack.models.classs.ModelClase;
+import com.backend.dolhack.models.classs.ModelEstado_clase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.classs.QualificationStudent;
@@ -48,7 +49,8 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
 
     @Override
     public List<classListModel> listClassQuery(JdbcTemplate sql){
-        String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario";
+        String query = "SELECT clase.idclase, clase.titulo, clase.descripcion, clase.fecha_inicio, clase.fecha_finalizacion, tipo.nombretipo, nivel.nombrenivel, clase.imagen, usuario.foto FROM clase JOIN tipo ON tipo.idtipo = clase.tipo_idtipo JOIN nivel ON nivel.idnivel = clase.nivel_idnivel JOIN usuario ON usuario.idusuario = clase.usuario_idusuario JOIN estado_clase ON estado_clase.clase_idclase = clase.idclase where estado_clase.estado_clase = 1 ;";
+                        
         return sql.query(query, BeanPropertyRowMapper.newInstance(classListModel.class));
     }
 
@@ -75,6 +77,16 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
     public boolean UpdateClassPQuery(JdbcTemplate sql,String key, UpdateClass clase) throws Exception{
         String id = new Crypto().Decrypt(key);
 
+        /* 
+
+        ModelEstado_clase state = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{clase.getIdclase()}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(state.getEstado_clase() == 1){
+            throw new Exception("No se puede editar la clase, ya ha sido publicada.");
+        }
+
+        */
+
         String query = "UPDATE clase SET titulo = ?, descripcion = ?, fecha_inicio = ?, fecha_finalizacion = ?, tipo_idtipo = ?, nivel_idnivel = ? WHERE idclase = ? ";
 
         sql.update(query, clase.getTitulo(), clase.getDescripcion(), clase.getFecha_inicio(), clase.getFecha_finalizacion(), clase.getTipo_idtipo(), clase.getNivel_idnivel(), id);
@@ -87,6 +99,14 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         String Querry1 = "Select * FROM lista WHERE clase = ?";
         ModelLista lista = sql.queryForObject(Querry1, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
         List<ModelLista_has_usuario> verif = sql.query("select * from lista_has_usuario where lista_idlista = ?", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+        /* 
+        ModelEstado_clase state = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(state.getEstado_clase() == 1){
+            throw new Exception("No se puede eliminar la clase, ya ha sido publicada.");
+        }
+
+        */
 
         if(!verif.isEmpty()){
             throw new Exception("No se puede eliminar la clase, hay estudiantes inscritos en ella.");   
@@ -99,9 +119,9 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         }
 
         sql.update("delete from publicacion where clase_idclase = ?", id);
+        sql.update("DELETE FROM estado_clase WHERE clase_idclase = ?", id);
         sql.update("DELETE FROM clase WHERE idclase = ?", id);
         sql.update("DELETE FROM lista_has_usuario WHERE lista_idlista = ?", lista.getIdlista());
-        sql.update("DELETE FROM estado_clase WHERE clase_idclase = ?", id);
         sql.update("DELETE FROM lista WHERE clase = ?", id);
         return true;
     }
@@ -127,6 +147,13 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
 
     @Override
     public boolean RegisterStudentQuery(JdbcTemplate sql,String idU, String idC){
+
+        ModelEstado_clase state = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(state.getEstado_clase() == 0){
+            throw new RuntimeException("No se puede inscribir a la clase, ya termino");
+        }
+
         ModelLista lista = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelLista.class));
 
         List<ModelLista_has_usuario> valid =  sql.query("SELECT * FROM lista_has_usuario WHERE lista_idlista = ? AND usuario_idusuario = ?", new Object[]{lista.getIdlista(), idU}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
@@ -164,6 +191,13 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
 
     @Override
     public boolean PostQuery(cloudinaryService cloudinary,JdbcTemplate sql,String idC, String idU, MultipartFile file, String Text) throws Exception{
+
+        ModelEstado_clase state = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+
+        if(state.getEstado_clase() == 0){
+            throw new RuntimeException("No se puede publicar en la clase, ya termino");
+        }
+
         if(file != null){
             String url = cloudinary.uploadImage(file, "publicaciones");
             String query = "insert into publicacion(texto, imagen, clase_idclase, usuario_idusuario) values(?,?,?,?);";
@@ -226,4 +260,38 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         String query = "SELECT * FROM clase WHERE idclase = ?";
         return sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
     }
+
+    @Override
+    public ModelEstado_clase VerficStateClaseQuery(JdbcTemplate sql,String id){
+        String query = "SELECT * FROM estado_clase WHERE clase_idclase = ?";
+        return sql.queryForObject(query, new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+    }
+
+    @Override
+    public boolean ChagerStateClassQuery(JdbcTemplate sql,String id, int state){
+        String query = "UPDATE estado_clase SET estado_clase = ? WHERE clase_idclase = ?";
+        String query2 = "UPDATE estado_clase SET estado_calificacion = ? WHERE clase_idclase = ?";
+        sql.update(query, state,id);
+        sql.update(query2, state,id);
+
+        if (state == 0){
+            ModelClase clase = sql.queryForObject("SELECT * FROM clase WHERE idclase = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+
+            ModelLista lista = sql.queryForObject("select * from lista where clase = ?;", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
+
+            List<ModelLista_has_usuario> estudiantes = sql.query("select * from lista_has_usuario where lista_idlista = ?;", new Object[]{lista.getIdlista()}, BeanPropertyRowMapper.newInstance(ModelLista_has_usuario.class));
+
+            ModelUsuario user = sql.queryForObject("select * from usuario where idusuario = ?;", new Object[]{clase.getUsuario_idusuario()}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+
+            for (ModelLista_has_usuario estudiante : estudiantes) {
+                if(!estudiante.getUsuario_idusuario().equals(clase.getUsuario_idusuario())){
+                    sql.update("INSERT INTO notificacion(titulo_notificacion, texto_notificacion, usuario_idusuario) values(?, ?, ?)","Tu clase cerro" ,"Tu profesor " + user.getNombre() + " " + user.getApellido() + " ha dado por finalizado la clase "+clase.getTitulo()+".", estudiante.getUsuario_idusuario());
+                }
+            }
+
+        }
+
+        return true;
+    }
+
 }

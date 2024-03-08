@@ -1,5 +1,5 @@
 import {React, createContext, useContext,  useState} from "react"
-import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost, getQualification } from "../api/class";
+import { UpdateClass, getDataClass, deleteClass, ListStudent, Postpublic, getPost, getQualification, getStateClass, changerStateClass } from "../api/class";
 import {useNavigate} from "react-router-dom";
 import { toast } from "sonner";
 import { downloadExcen} from "../lib/downloadExcen";
@@ -137,9 +137,25 @@ export function ClassTeacherProvider({children}){
         toast.success("Lista de estudiantes descargada");
     }
 
+    const [state, setState] = useState({});
+
+    async function GetStateClass(){
+        const {data} = await getStateClass();
+        setState(data);
+    }
+
+    async function ChangerStateClass(){
+        if(state.estado_clase === 1){
+            await changerStateClass(0);
+            GetStateClass();
+        }else{
+            await changerStateClass(1);
+            GetStateClass();
+        }
+    }
 
     return(
-        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification, FilterStudent, downloadQualification}}>
+        <ClassTeacherContext.Provider value={{getData, dataClass, changerDataClass, handleSubmitDataClass, DeleteClassT, ListS, list, downloadList, changerPost, HandlePost, consultPost, post, ListQualification, Listqualification, FilterStudent, downloadQualification, state, GetStateClass, ChangerStateClass}}>
            {children} 
         </ClassTeacherContext.Provider>
     );
