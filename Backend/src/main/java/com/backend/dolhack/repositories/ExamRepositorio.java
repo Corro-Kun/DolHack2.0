@@ -35,8 +35,8 @@ public class ExamRepositorio {
         return queryStrategyExam.QuizQuery(sql, idQ);
     }
 
-    public boolean VerificExam(String idu, String idq){
-        return queryStrategyExam.VerificExamQuery(sql, idu, idq);
+    public boolean VerificExam(String idu, String idq, String idc){
+        return queryStrategyExam.VerificExamQuery(sql, idu, idq, idc);
     }
 
     public boolean PostAnswer(ListAnswersModel answer, String idc, String idu, String idq){

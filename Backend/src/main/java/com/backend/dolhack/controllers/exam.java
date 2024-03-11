@@ -73,10 +73,11 @@ public class exam {
     // verifica si ya iso el examen
 
     @GetMapping("/exam/verify/{idQ}")
-    public ResponseEntity getExamVerify(@PathVariable String idQ, @RequestHeader("token") String idU) throws Exception {
+    public ResponseEntity getExamVerify(@PathVariable String idQ, @RequestHeader("token") String idU, @RequestHeader("class") String idC) throws Exception {
         try {
             String idu = new Crypto().Decrypt(idU);
-            return ResponseEntity.ok().body(repositorio.VerificExam(idu, idQ));
+            String idc = new Crypto().Decrypt(idC);
+            return ResponseEntity.ok().body(repositorio.VerificExam(idu, idQ, idc));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new message(e.getMessage()));
         }

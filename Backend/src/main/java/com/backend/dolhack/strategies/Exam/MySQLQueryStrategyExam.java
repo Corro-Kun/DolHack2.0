@@ -136,8 +136,8 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
     }
 
     @Override
-    public boolean VerificExamQuery(JdbcTemplate sql,String idu, String idq){
-        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idq}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
+    public boolean VerificExamQuery(JdbcTemplate sql,String idu, String idq, String idc){
+        ModelEstado_clase estado = sql.queryForObject("SELECT * FROM estado_clase WHERE clase_idclase = ?", new Object[]{idc}, BeanPropertyRowMapper.newInstance(ModelEstado_clase.class));
 
         if(estado.getEstado_calificacion() == 0){
             throw new RuntimeException("La clase cerro las calificaciones, no se puede realizar el examen");

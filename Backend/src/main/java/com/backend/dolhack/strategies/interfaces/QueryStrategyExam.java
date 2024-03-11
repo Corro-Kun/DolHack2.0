@@ -13,7 +13,7 @@ public interface QueryStrategyExam {
 
     public QuizViewr QuizQuery(JdbcTemplate sql,String idQ);
 
-    public boolean VerificExamQuery(JdbcTemplate sql,String idu, String idq);
+    public boolean VerificExamQuery(JdbcTemplate sql,String idu, String idq, String idc);
 
     public boolean PostAnswerQuery(IDRandomFactory idRandomFactory,JdbcTemplate sql,ListAnswersModel answer, String idc, String idu, String idq);
 
