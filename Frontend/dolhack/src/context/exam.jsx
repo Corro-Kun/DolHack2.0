@@ -89,7 +89,7 @@ export function ExamProvider({children}){
                     <div key={a} >
                         <label>A. </label>
                         <input type="text" required onChange={(e) => chagerOptionsQuiz(e,i,a)} />
-                        <input type="radio" required name={i} onChange={() => changerQualificationQuiz(i,a)} />
+                        <input className="Question-radio" type="radio" required name={i} onChange={() => changerQualificationQuiz(i,a)} />
                     </div>
                 );
             }else if(a === 1){
@@ -97,7 +97,7 @@ export function ExamProvider({children}){
                     <div key={a} >
                         <label>B. </label>
                         <input type="text" required onChange={(e) => chagerOptionsQuiz(e,i,a)} />
-                        <input type="radio" required name={i} onChange={() => changerQualificationQuiz(i, a)} />
+                        <input className="Question-radio" type="radio" required name={i} onChange={() => changerQualificationQuiz(i, a)} /> 
                     </div>
                 );
             }else if(a === 2){
@@ -105,7 +105,7 @@ export function ExamProvider({children}){
                     <div key={a} >
                         <label>C. </label>
                         <input type="text" required onChange={(e)=> chagerOptionsQuiz(e,i,a)}/>
-                        <input type="radio" required name={i} onChange={() => changerQualificationQuiz(i, a)} />
+                        <input className="Question-radio" type="radio" required name={i} onChange={() => changerQualificationQuiz(i, a)} />
                     </div>
                 );                
             }else if(a === 3){
@@ -113,7 +113,7 @@ export function ExamProvider({children}){
                     <div key={a} >
                         <label>D. </label>
                         <input type="text" required onChange={(e)=> chagerOptionsQuiz(e, i, a)} />
-                        <input type="radio" required name={i} onChange={() => changerQualificationQuiz(i,a)} />
+                        <input className="Question-radio" type="radio" required name={i} onChange={() => changerQualificationQuiz(i,a)} />
                     </div>
                 );
             }

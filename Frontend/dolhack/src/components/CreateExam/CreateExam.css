@@ -40,6 +40,9 @@
     border: none;
     border-radius: 4px;
     margin-bottom: 10px;
+    border-bottom: 1px solid var(--Main_Color);
+    background-color: var(--BG_Color);
+    color: var(--Text-Color);
 }
 .CreateExam-Data-Main textarea{
     height: 50px;
@@ -50,6 +53,9 @@
     border: none;
     border-radius: 4px;
     margin-bottom: 10px;
+    background-color: var(--BG_Color);
+    color: var(--Text-Color);
+    border-bottom: 1px solid var(--Main_Color);
 }
 .CreateExam-List-Quiz{
     display: flex;
@@ -105,6 +111,9 @@
     outline: none;
     margin-top: 4px;
     margin-bottom: 4px;
+    background-color: var(--BG_Color);
+    color: var(--Text-Color);
+    border-bottom: 1px solid var(--Main_Color);
 }
 .Question-add-question-function button{
     padding: 6px 10px;
@@ -140,6 +149,23 @@
 .CreateExam-Handle-p-blue{
     color: var(--Main_Color);
 }
+.Question-radio[type="radio"]{
+    appearance: none;
+    width: 5px;
+    height: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    accent-color: var(--Main_Color);
+    margin: 0 10px;
+    transition: .3s;
+    transform: translateY(3px) scale(.8);
+}
+.Question-radio[type="radio"]:checked{
+    background-color: var(--Main_Color);
+}
+
 @media screen and (max-width: 1559px) {
     .CreateExam-List-Quiz{    
         height: 67vh;
