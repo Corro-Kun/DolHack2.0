@@ -35,11 +35,15 @@ export function ClassStudentProvider({children}){
     }
 
     async function verify(id){
-        const {data} = await verifyQuiz(id);
-        if(data){
-            navigate("/class/student/exam/"+ id)            
-        }else{
-            toast.error("Ya has realizado este examen");
+        try {
+            const {data} = await verifyQuiz(id);
+            if(data){
+                navigate("/class/student/exam/"+ id)            
+            }else{
+                toast.error("Ya has realizado este examen");
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
         }
 
     }

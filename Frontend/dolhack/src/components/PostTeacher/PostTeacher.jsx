@@ -31,7 +31,7 @@ function PostTeacher(){
                         <button style={{backgroundColor: "var(--Main_Color)", color: "var(--Text_Color)"}} onClick={()=> {toast.promise(HandlePost(),{
                             loading: "Publicando...",
                             success: "Publicado",
-                            error: "Error al publicar"
+                            error: (e) => e.response.data.message+""
                         })
                         text.current.value = "";
                         inputFile.current.value = "";

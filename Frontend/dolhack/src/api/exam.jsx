@@ -23,7 +23,8 @@ export const GetQuizById = async (id) => axios.get(`/quiz/${id}`);
 // verificar si el estudiante ya realizo el examen
 export const verifyQuiz = async (id) => axios.get(`/exam/verify/${id}`,{
     headers:{
-        "token": localStorage.getItem("token")
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
     }
 });
 
