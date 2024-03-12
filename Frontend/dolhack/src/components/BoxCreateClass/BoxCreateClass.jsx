@@ -77,9 +77,9 @@ function BoxCreateClass(){
                             <h2>Vista previa</h2>
                         </div>
                         <div className="BoxCreateClass-Previa" >
-                            <h3>{classData.title? classData.title : "Titulo"}</h3>
+                            <h3>{classData.title? classData.title.substring(0, 30) : "Titulo"}</h3>
                             <div>
-                                <p>{classData.description? classData.description : "Descripción"}</p>
+                                <p>{classData.description? classData.description.substring(0, 100) : "Descripción"}</p>
                             </div>
                             <div>
                                 <img src={file} alt="" />
