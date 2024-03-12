@@ -13,8 +13,8 @@ function Service(){
                 <p style={{marginBottom: "10px", textAlign: "center"}}>El sistema Dolhack es un sistema donde todas personas puede comenzar con su aprendizaje en el mundo de la programación donde ofrecemos múltiples curso para que pueda comenzar y adquirir nueva, habilidades</p>
             </div>
             <Session title="¿Para Quien va nuestro servicio?">
-                    <SessionBoxMain icon="📚" title="¿Quieres Aprender?" descripcion="Dolhack ofrece múltiples cursos para todo aquel que quiera aprender y adquirir nuevas habilidades" button="Ingresar" />
-                    <SessionBoxMain icon="👩‍🏫" title="¿Quieres Enseñar?" descripcion="Quieres trasmitir tus conocimientos con los demás, el sistema dolhack te ofrece el poder acompañarte a trasmitir conocimientos con creación de clase y la distribución de material de calidad" button="Ingresar" />
+                    <SessionBoxMain icon="📚" title="¿Quieres Aprender?" descripcion="Dolhack ofrece múltiples cursos para todo aquel que quiera aprender y adquirir nuevas habilidades" button="Ingresar" path={"/login"} />
+                    <SessionBoxMain icon="👩‍🏫" title="¿Quieres Enseñar?" descripcion="Quieres trasmitir tus conocimientos con los demás, el sistema dolhack te ofrece el poder acompañarte a trasmitir conocimientos con creación de clase y la distribución de material de calidad" button="Ingresar" path={"/login"} />
             </Session>
         </Body>
     );
