@@ -34,7 +34,7 @@ function UpdateUser() {
                         <div>
                             <input type="text"
                             required
-                            value={DataUpdate?.apellido=== undefined ? "" : DataUpdate?.apellido}
+                            value={DataUpdate?.apellido=== undefined || DataUpdate?.apellido === null ? "" : DataUpdate?.apellido}
                             name="apellido"
                             onChange={changeDataUpdate}
                             />
@@ -84,7 +84,7 @@ function UpdateUser() {
                         toast.promise(handleUpdate(),{
                             loading: "Actualizando...",
                             success: "Actualizado",
-                            error: (err) => err,
+                            error: (err) => err.response? err.response.data.message+"" : err+"",
                         })
                     }} >Actualizar</button>
                 </div>

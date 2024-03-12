@@ -58,20 +58,19 @@ export function ProfileProvider({children}) {
     }
 
     async function handleUpdate(){
-        try {
-            const {nombre, apellido, telefono, biografia, foto, banner} = DataUpdate;
-            const form = new FormData();
-            form.append("nombre", nombre);
-            form.append("apellido", apellido);
-            form.append("telefono", telefono);
-            form.append("biografia", biografia);
-            form.append("foto", foto);
-            form.append("banner", banner);
-            const {data} = await update(form);  
-            navigate("/home");
-        } catch (error) {
-            toast.error("Error al actualizar");
-        } 
+        const {nombre, apellido, telefono, biografia, foto, banner} = DataUpdate;
+        if (apellido === null || apellido === "" || apellido === undefined || telefono === null || telefono === "" || telefono === undefined || biografia === null || biografia === "" || biografia === undefined || foto === null || foto === "" || foto === undefined || banner === null || banner === "" || banner === undefined) {
+            throw new Error("Completa tu perfil");
+        }
+        const form = new FormData();
+        form.append("nombre", nombre);
+        form.append("apellido", apellido);
+        form.append("telefono", telefono);
+        form.append("biografia", biografia);
+        form.append("foto", foto);
+        form.append("banner", banner);
+        const {data} = await update(form);  
+        navigate("/home");
     }
 
     async function EnterYourClass(id, teacher){
