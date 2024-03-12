@@ -331,7 +331,6 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
             
             if (calificaciones.isEmpty()){
                 quizlate.add(quiz.getTitulo());
-                System.out.println(quiz.getTitulo());
             }
         }
 
