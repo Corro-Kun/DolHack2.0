@@ -16,11 +16,13 @@ function MinBarProfile(){
 
     return(
       <div className="Settings-Home">
+            {/*
             <ul>
                 <samp title="Mensajes" >
                     <TbMessages />
                 </samp>
             </ul>
+            */}
             <ul>
                 {
                     count > 0 ?
