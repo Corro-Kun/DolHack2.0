@@ -85,7 +85,7 @@ export function ClassProvider({children}){
         toast.promise(complet(),{
             loading: "Creando clase...",
             success: "Clase creada con exito",
-            error: "Error al crear clase"
+            error: (e) => e.response.data.message + ""
         });
     }
 

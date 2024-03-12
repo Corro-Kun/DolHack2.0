@@ -32,6 +32,14 @@ public class MySQLQueryStrategyClass implements QueryStrategyClass {
         String idUser = new Crypto().Decrypt(key);
         String id = IDRandom.generateID();
 
+        List<ModelClase> verif = sql.query("SELECT * FROM clase WHERE usuario_idusuario = ?", new Object[]{idUser}, BeanPropertyRowMapper.newInstance(ModelClase.class));
+
+        for (ModelClase modelClase : verif) {
+            if(modelClase.getTitulo().equals(clase.getTitulo())){
+                throw new Exception("Ya tienes una clase con el mismo nombre");
+            }
+        }
+
         sql.update("INSERT INTO lista(clase) values(?)", id );
 
         ModelLista lis = sql.queryForObject("SELECT * FROM lista WHERE clase = ?", new Object[]{id}, BeanPropertyRowMapper.newInstance(ModelLista.class));
