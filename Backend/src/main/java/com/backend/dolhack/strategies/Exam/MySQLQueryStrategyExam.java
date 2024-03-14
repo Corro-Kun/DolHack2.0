@@ -6,6 +6,7 @@ import com.backend.dolhack.models.classs.ModelEstado_clase;
 import com.backend.dolhack.models.classs.ModelLista;
 import com.backend.dolhack.models.classs.ModelLista_has_usuario;
 import com.backend.dolhack.models.exam.*;
+import com.backend.dolhack.models.user.ModelCorreo;
 import com.backend.dolhack.models.user.ModelUsuario;
 import com.backend.dolhack.strategies.interfaces.QueryStrategyExam;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -438,6 +439,35 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         }
 
         return true;
+    }
+
+    public StateView StateViewStudentQuery(JdbcTemplate sql, String idC, String idU){
+        ModelUsuario user = sql.queryForObject("SELECT * FROM usuario WHERE idusuario = ?", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelUsuario.class));
+        ModelCorreo correo = sql.queryForObject("SELECT * FROM correo WHERE usuario_idusuario = ?", new Object[]{idU}, BeanPropertyRowMapper.newInstance(ModelCorreo.class));  
+
+        int totalExam = sql.queryForObject("select count(*) from quiz where clase_idclase = ? and publicado = 1;", new Object[]{idC}, Integer.class);
+        int totalRespondidos = sql.queryForObject("select count(*) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Integer.class);
+
+
+        List<String> quizlate = new ArrayList<String>();
+
+        List<ModelQuiz> quizzes = sql.query("select * from quiz where clase_idclase = ? and publicado = 1 ;", new Object[]{idC}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        for (ModelQuiz quiz : quizzes){
+            List<ModelCalificacion> calificaciones = sql.query("select * from calificacion where usuario_idusuario = ? and quiz_idquiz = ?;", new Object[]{idU, quiz.getIdquiz()}, BeanPropertyRowMapper.newInstance(ModelCalificacion.class));
+            
+            if (calificaciones.isEmpty()){
+                quizlate.add(quiz.getTitulo());
+            }
+        }
+
+        if(totalRespondidos == 0){
+            return new StateView(user.getFoto(),user.getNombre(), user.getApellido(), correo.getCorreo(), totalExam, totalRespondidos, 0f, quizlate);
+        }
+
+        float calificacion = sql.queryForObject("select sum(calificacion) from calificacion where usuario_idusuario = ?;", new Object[]{idU}, Float.class);
+
+        return new StateView(user.getFoto(),user.getNombre(), user.getApellido(), correo.getCorreo(), totalExam, totalRespondidos, calificacion/totalExam, quizlate);
     }
 }
 

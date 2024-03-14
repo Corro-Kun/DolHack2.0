@@ -78,4 +78,8 @@ public class ExamRepositorio {
     public boolean ChangerStateNotes(String idC){
         return queryStrategyExam.ChangerStateNotes(sql, idC);
     }
+
+    public StateView StateViewStudent(String idC, String idU){
+        return queryStrategyExam.StateViewStudentQuery(sql, idC, idU);
+    }
 }

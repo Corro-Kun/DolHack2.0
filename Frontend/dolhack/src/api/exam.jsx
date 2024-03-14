@@ -84,3 +84,10 @@ export const DeleteOption = async (idO, idP) => axios.delete(`/exam/option/${idO
         "class": localStorage.getItem("class")
     }
 });
+
+export const getStateStudent = async (idU) => axios.get(`/exam/state/student/${idU}`,{
+    headers:{
+        "token": localStorage.getItem("token"),
+        "class": localStorage.getItem("class")
+    }
+});

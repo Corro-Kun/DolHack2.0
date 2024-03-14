@@ -35,4 +35,6 @@ public interface QueryStrategyExam {
 
     public boolean ChangerStateNotes(JdbcTemplate sql, String idC);
 
+    public StateView StateViewStudentQuery(JdbcTemplate sql, String idC, String idU);
+
 }

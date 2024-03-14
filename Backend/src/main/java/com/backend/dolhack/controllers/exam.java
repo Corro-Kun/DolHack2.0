@@ -201,4 +201,14 @@ public class exam {
         }
     }
 
+    @GetMapping("/exam/state/student/{idu}")
+    public ResponseEntity StateViewStudent(@RequestHeader("class") String idC, @PathVariable String idu) throws  Exception {
+        try {
+            String idc = new Crypto().Decrypt(idC);
+            return ResponseEntity.ok().body(repositorio.StateViewStudent(idc, idu));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new message(e.getMessage()));
+        }
+    }
+
 }

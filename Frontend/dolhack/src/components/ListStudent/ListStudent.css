@@ -48,6 +48,14 @@
     align-items: center;
     justify-content: center;
 }
+.ListStudent-Data-H3{
+    cursor: pointer;
+    transition: .3s;
+}
+.ListStudent-Data-H3:hover{
+    color: var(--Main_Color);
+}
+
 .ListStudent-Data div{
     display: flex;
     height: 50px;

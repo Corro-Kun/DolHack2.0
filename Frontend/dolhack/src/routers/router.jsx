@@ -32,6 +32,7 @@ import ProtecAddClass from "../security/ProtecAddClass";
 import ClassLeave from "../page/Class/ClassLeave";
 import Notificacions from "../page/home/Notifications";
 import ClassStatusStudent from "../page/Class/ClassStatusStudent";
+import StateStudent from "../page/Class/StateStudent";
 
 function Router(){
     return(
@@ -67,6 +68,7 @@ function Router(){
                         <Route path="/class/teacher/new/quiz" element={<ExamNew />} />
                         <Route path="/class/teacher/qualification" element={<ClassQuialification />} />
                         <Route path="/class/teacher/exam/update/:id" element={<ExamUpdate />} />
+                        <Route path='/class/teacher/state/:id' element={<StateStudent />} />
                     </Route>
                     <Route element={<ProtectClass />} >
                         <Route path="/class/student/home/" element={<ClassStudent />} />

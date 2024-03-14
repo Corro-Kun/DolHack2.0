@@ -1,8 +1,10 @@
 import React,{useEffect} from "react";
 import "./ListStudent.css";
 import { useClassTeacher } from "../../context/ClassTeacher";
+import { useNavigate } from "react-router-dom";
 
 function ListStudent(){
+    const navigate = useNavigate();
     const {ListS, list, downloadList, FilterStudent} = useClassTeacher();
     useEffect(()=>{
         ListS();
@@ -25,7 +27,7 @@ function ListStudent(){
                                     <div>
                                         <img src={l.foto} alt="" />
                                     </div>
-                                    <h3>{l.nombre} {l.apellido}</h3>
+                                    <h3 onClick={()=> navigate("/class/teacher/state/"+l.idusuario)} className="ListStudent-Data-H3" >{l.nombre} {l.apellido}</h3>
                                 </div>
                                 <h3>{i+1}</h3>
                             </div>
