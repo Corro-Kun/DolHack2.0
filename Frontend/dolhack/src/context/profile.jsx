@@ -59,7 +59,7 @@ export function ProfileProvider({children}) {
 
     async function handleUpdate(){
         const {nombre, apellido, telefono, biografia, foto, banner} = DataUpdate;
-        if (apellido === null || apellido === "" || apellido === undefined || telefono === null || telefono === "" || telefono === undefined || biografia === null || biografia === "" || biografia === undefined || foto === null || foto === "" || foto === undefined || banner === null || banner === "" || banner === undefined) {
+        if (apellido === null || apellido === "" || apellido === undefined || telefono === null || telefono === "" || telefono === undefined || biografia === null || biografia === "" || biografia === undefined) {
             throw new Error("Completa tu perfil");
         }
         const form = new FormData();
