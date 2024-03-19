@@ -99,7 +99,6 @@ export function ClassTeacherProvider({children}){
 
     async function HandlePost(){
         if (PostS.post === "" || PostS.post === undefined){
-            toast.error("Escribe algo para publicar");
             throw new Error("Escribe algo para publicar");
         }else{
             const {file, post} = PostS;
