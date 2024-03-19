@@ -98,7 +98,7 @@
 .UpdateUser-Img div{
     display: flex;
     height: 320px;
-    width: 80%;
+    width: 74%;
     border-radius: 20px;
     border: 2px solid var(--Text_Color);
     background-color: #101002;    
@@ -107,12 +107,14 @@
     transition: .5s;
     justify-content: center;
     align-items: center;
+    object-fit: cover;
 }
 .UpdateUser-Img div:hover{
     box-shadow: 0 0 10px var(--Text_Color);
 }
 .UpdateUser-Img img{
-    height: 320px;
+    height: 330px;
+    object-fit: cover;
 }
 
 .UpdateUser-Banner-Div{
@@ -131,14 +133,16 @@
     border: 1px solid var(--Text_Color);
     border-radius: 15px;
     height: 90%;
-    width: 70%;
+    width: 67%;
     overflow: hidden;
     cursor: pointer;
     align-items: center;
     justify-content: center;
+    object-fit: cover;
 }
 .UpdateUser-Banner-Div img{
-    height: 340px;
+    height: 350px;
+    object-fit: cover;
 }
 .UpdateUser-Main-Div button{
     padding: 10px 12px 10px 12px;
