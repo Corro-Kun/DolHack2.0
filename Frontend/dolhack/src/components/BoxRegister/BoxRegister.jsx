@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 function BoxRegister(){
     const {changerComplet, complet} = useAuth();
-    const [img,setImg] = useState("https://cdn.discordapp.com/attachments/466035511451189268/1155337418208182383/cartoon-character-with-hoodie-that-says-i-m-boy_784625-10887.png");
+    const [img,setImg] = useState("https://cdn.discordapp.com/attachments/1005592732166795287/1219786917151772762/Alan_Turing_in_watercolour.png?ex=660c9217&is=65fa1d17&hm=24207c3d819a4d803c09552b16790814ae3f37b3a8624229e48c8dedff4ac1c0&");
     const imgFile = useRef(null);
     useEffect(()=>{
         document.title = "Completar perfil";

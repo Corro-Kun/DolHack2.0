@@ -68,7 +68,7 @@ function BoxCreateClass(){
                                         fileInput.current.value = "";
                                     }
                                 }}/>
-                                <img src={"https://cdn.discordapp.com/attachments/466035511451189268/1155316556738338866/editar_foto.png"}/>
+                                <img src={"https://cdn.dribbble.com/users/2994381/screenshots/9145642/image.gif"}/>
                             </div>
                         </div>
                     </div>
