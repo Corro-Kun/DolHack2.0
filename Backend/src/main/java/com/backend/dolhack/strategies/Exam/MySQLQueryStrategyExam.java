@@ -24,6 +24,12 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
             throw new RuntimeException("La clase cerro las calificaciones, no se puede realizar el examen");
         }
 
+        List<ModelQuiz> verifc = sql.query("select * from quiz where titulo = ? AND clase_idclase = ?;", new Object[]{Quiz.getTitle(), idC}, BeanPropertyRowMapper.newInstance(ModelQuiz.class));
+
+        if(!verifc.isEmpty()){
+            throw new RuntimeException("Ya existe un examen con ese nombre");
+        }
+
         String id = idRandomFactory.generateID();
         String query = "INSERT INTO quiz(idquiz, titulo, descripcion, clase_idclase, usuario_idusuario) values(?,?,?,?,?);";
         sql.update(query, id, Quiz.getTitle(), Quiz.getDescription(), idC, idU);
