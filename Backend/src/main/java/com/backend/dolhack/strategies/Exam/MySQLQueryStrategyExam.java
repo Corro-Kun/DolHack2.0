@@ -263,7 +263,7 @@ public class MySQLQueryStrategyExam implements QueryStrategyExam {
         }
 
         for(PreguntaViewr question : questions ){
-            String query2 = "UPDATE pregunta SET pregunta = ? puntos = ? WHERE idpregunta = ?;";
+            String query2 = "UPDATE pregunta SET pregunta = ?, puntos = ? WHERE idpregunta = ?;";
 
             if(question.getPregunta().length() <= 0){
                 throw new RuntimeException("La pregunta no puede estar vacia");
