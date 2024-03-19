@@ -62,7 +62,7 @@ function LoginRegister(){
                         </div>
                         <div className="Forget-Password">
                             <label><input type="checkbox"/> ¿Recordarme?</label>
-                            <a href="#">¿olvidaste la contraseña?</a>
+                            { /*<a href="#">¿olvidaste la contraseña?</a> */}
                         </div>
                         <button type="submit" className="BTN-Login">Ingresar</button>
                         <div className="Login-Register">
