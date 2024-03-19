@@ -28,7 +28,7 @@ function UpdateExam(){
                             <div key={i} className="UpdateExam-Question" >
                                 <div className="UpdateExam-Question-Render" >
                                     <div>
-                                        <label>1.</label>
+                                        <label>{i+1}.</label>
                                         <input type="text" name="pregunta" defaultValue={pregunta.pregunta}  onChange={(e)=> changerUpdateQuizs(e,i,0,"p")} />
                                     </div>
                                    <input style={{width: "5%", border: "1px solid var(--Main_Color)", textAlign: "center", color: "var(--Main_Color)"}} type="text" value={pregunta.puntos} onChange={(e)=> changerUpdatePoints(e,i)} />
