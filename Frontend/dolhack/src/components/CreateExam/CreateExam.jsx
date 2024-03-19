@@ -38,7 +38,12 @@ function CreateExam(){
                     }
                     <div className="CreateExam-More-Quiz" >
                         <button type="button" onClick={()=> setNumQuestion(NumQuestion + 1)} >Añadir Pregunta</button>
-                        <button type="button" style={{marginLeft: "10px", backgroundColor: "red"}} onClick={()=> deleteQuestion()} >Eliminar Pregunta</button>
+                        <button type="button" style={{marginLeft: "10px", backgroundColor: "red"}} onClick={()=> {
+                            if(NumQuestion === 1){
+                                return;
+                            }
+                            deleteQuestion();
+                        }} >Eliminar Pregunta</button>
                     </div>
                 </div>
                 <div className="CreateExam-Handle" >

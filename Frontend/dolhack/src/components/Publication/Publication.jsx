@@ -10,7 +10,7 @@ function Publication({contenet, name, img, last, image}){
                     </div>
                     <h4>{name} {last}</h4>
                 </div>
-                <p>1:00pm</p>
+                <p>Profesor</p>
             </div>
             <p style={{marginBottom: "2px"}} >
                 {contenet}
