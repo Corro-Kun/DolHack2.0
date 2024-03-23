@@ -11,7 +11,7 @@ function CardListMain({data}){
                     <div>
                         <h4>X</h4>
                         <h2>{data.titulo}</h2>
-                        <h4><FiMessageSquare /></h4>
+                        <h4>X</h4>
                     </div>
                     <div className="BodyList-Card-Photo" >
                         <img src={data.foto} alt="" />
