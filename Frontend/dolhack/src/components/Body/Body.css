@@ -1,7 +1,0 @@
-.Body{
-    height: 100vh;
-    width: 100%;
-    overflow: auto;
-    background-color: var(--BG_Color);
-    color: var(--Text_Color);
-}
