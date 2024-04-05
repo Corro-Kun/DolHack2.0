@@ -4,16 +4,21 @@ import "./WindowInfoClass.css";
 import {ImUndo2} from "react-icons/im";
 import {toast} from "sonner";
 import { getInfoClass, getRegisterClass } from "../../api/class";
+import {valid} from "../../api/auth";
 
 function Window(){
     const navigate = useNavigate();
     const [data, setData] = useState({});
+    const [Button, setButton] = useState(true);
     const {id}  = useParams();
     useEffect(()=>{
         async function Get(){
             const {data} = await getInfoClass(id);
-            console.log(data);
             setData(data);
+            const b = await valid();
+            if(b.data.message === 1){
+                setButton(false);
+            }
         }
         Get();
     },[]);
@@ -48,7 +53,7 @@ function Window(){
                             <p>{data.fecha_inicio}</p>
                             <p>{data.fecha_finalizacion}</p>
                         </div>
-                        <div>
+                        <div style={Button? {display: "none"}: {}} >
                             <button onClick={()=>{
                                 toast.promise(Register(),{
                                     loading: "Inscribiéndose",
