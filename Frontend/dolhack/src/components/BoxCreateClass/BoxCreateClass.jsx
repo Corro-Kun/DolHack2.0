@@ -33,11 +33,11 @@ function BoxCreateClass(){
                         </div>
                         <div className="BoxCreateClass-render-div" >
                             <label>Fecha de inicio</label>
-                            <input type="date" name="start_date" required onChange={(e)=> changerClassData(e)} />
+                            <input type="date" name="start_date" required onChange={(e)=> changerClassData(e)} min={new Date().toISOString().split('T')[0]} />
                         </div>
                         <div className="BoxCreateClass-render-div">
                             <label>Fecha de finalización</label>
-                            <input type="date" name="end_date" required onChange={(e)=> changerClassData(e)} />
+                            <input type="date" name="end_date" required onChange={(e)=> changerClassData(e)} min={new Date().toISOString().split('T')[0]} />
                         </div>
                         <div className="BoxCreateClass-Select-div" >
                             <label>Tipo de clase</label>
