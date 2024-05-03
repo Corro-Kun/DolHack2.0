@@ -4,7 +4,7 @@ import "./WindowInfoClass.css";
 import {ImUndo2} from "react-icons/im";
 import {toast} from "sonner";
 import { getInfoClass, getRegisterClass } from "../../api/class";
-import {valid} from "../../api/auth";
+import {profile} from "../../api/auth";
 
 function Window(){
     const navigate = useNavigate();
@@ -15,8 +15,8 @@ function Window(){
         async function Get(){
             const {data} = await getInfoClass(id);
             setData(data);
-            const b = await valid();
-            if(b.data.message === 1){
+            const b = await profile();
+            if(b.data.rol === "estudiante"){
                 setButton(false);
             }
         }
